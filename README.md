@@ -8,6 +8,9 @@ Seamlessly track attendance, assess performance, and provide feedback. <br>
 Access records, view marks, and communicate effortlessly.
 </h3>
 
+
+<br>
+
 # About
 
 The School Management System is a web-based application built using the MERN (MongoDB, Express.js, React.js, Node.js) stack. It aims to streamline school management, class organization, and facilitate communication between students, teachers, and administrators.
@@ -36,9 +39,8 @@ The School Management System is a web-based application built using the MERN (Mo
 
 # Installation
 
-```sh
 git clone https://github.com/TroyMoses/schoolManagementSystem.git
-```
+
 Open 2 terminals in separate windows/tabs.
 
 Terminal 1: Setting Up Backend 
@@ -65,5 +67,4 @@ npm start
 Now, navigate to `localhost:3000` in your browser. 
 The Backend API will be running at `localhost:5000`.
 <br>
-
 
