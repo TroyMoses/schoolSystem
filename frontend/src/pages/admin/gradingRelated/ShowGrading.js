@@ -13,7 +13,7 @@ import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
 
-const ShowSubjects = () => {
+const ShowGrading = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { subjectsList, loading, error, response } = useSelector((state) => state.sclass);
@@ -28,7 +28,8 @@ const ShowSubjects = () => {
     }
 
     const [showPopup, setShowPopup] = useState(false);
-    const [message, setMessage] = useState("");
+    const [message] = useState("");
+    // const [message, setMessage] = useState("");
 
     const deleteHandler = (deleteID, address) => {
         // console.log(deleteID);
@@ -93,7 +94,7 @@ const ShowSubjects = () => {
                         <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
                             <GreenButton variant="contained"
                                 onClick={() => navigate("/Admin/subjects/chooseclass")}>
-                                Add Subjects
+                                Add Grades
                             </GreenButton>
                         </Box>
                         :
@@ -112,4 +113,4 @@ const ShowSubjects = () => {
     );
 };
 
-export default ShowSubjects;
+export default ShowGrading;

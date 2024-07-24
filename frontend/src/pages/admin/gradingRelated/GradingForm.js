@@ -6,7 +6,7 @@ import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import Popup from '../../../components/Popup';
 
-const SubjectForm = () => {
+const GradeForm = () => {
     const [subjects, setSubjects] = useState([{ subName: "", subCode: "", sessions: "" }]);
 
     const dispatch = useDispatch()
@@ -70,7 +70,7 @@ const SubjectForm = () => {
 
     useEffect(() => {
         if (status === 'added') {
-            navigate("/Admin/subjects");
+            navigate("/Admin/grading");
             dispatch(underControl())
             setLoader(false)
         }
@@ -137,7 +137,7 @@ const SubjectForm = () => {
                                         color="primary"
                                         onClick={handleAddSubject}
                                     >
-                                        Add Subject
+                                        Add Grade
                                     </Button>
                                 ) : (
                                     <Button
@@ -169,7 +169,7 @@ const SubjectForm = () => {
     );
 }
 
-export default SubjectForm
+export default GradeForm
 
 const styles = {
     inputField: {
