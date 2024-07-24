@@ -6,7 +6,7 @@ import {
     getError
 } from './noticeSlice';
 
-const REACT_APP_BASE_URL = "http://localhost:5000";
+const REACT_APP_BASE_URL = "https://schoolsystem-ice2.onrender.com";
 
 export const getAllNotices = (id, address) => async (dispatch) => {
     dispatch(getRequest());
