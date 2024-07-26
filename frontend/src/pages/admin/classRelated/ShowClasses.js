@@ -73,6 +73,7 @@ const ShowClasses = () => {
           View
         </BlueButton>
         <ActionMenu actions={actions} />
+        <ActionMarks actions={actions} />
       </ButtonContainer>
     );
   };
@@ -101,6 +102,61 @@ const ShowClasses = () => {
               aria-expanded={open ? 'true' : undefined}
             >
               <h5>Add</h5>
+              <SpeedDialIcon />
+            </IconButton>
+          </Tooltip>
+        </Box>
+        <Menu
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: styles.styledPaper,
+          }}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        >
+          {actions.map((action) => (
+            <MenuItem onClick={action.action}>
+              <ListItemIcon fontSize="small">
+                {action.icon}
+              </ListItemIcon>
+              {action.name}
+            </MenuItem>
+          ))}
+        </Menu>
+      </>
+    );
+  }
+
+  // marks entry
+  const ActionMarks = ({ actions }) => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+    return (
+      <>
+        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+          <Tooltip title="Add BOT, MID & END">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? 'account-menu' : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? 'true' : undefined}
+            >
+              <h5>Marks</h5>
               <SpeedDialIcon />
             </IconButton>
           </Tooltip>
