@@ -40,7 +40,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                         <StyledPaper
                             style={{
-                                backgroundColor: '#007BFF', // Blue color for background
+                                backgroundColor: '#fcd34d', // Blue color for background
                                 
                             }}
                             >
@@ -56,7 +56,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                             <StyledPaper
                             style={{
-                                backgroundColor: '#007BFF', // Blue color for background
+                                backgroundColor: '#f59e0b', // Blue color for background
                                 
                             }}
                             >
@@ -72,7 +72,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                             <StyledPaper
                             style={{
-                                backgroundColor: '#007BFF', // Blue color for background
+                                backgroundColor: '#fcd34d', // Blue color for background
                                 
                             }}
                             >
@@ -88,7 +88,7 @@ const AdminHomePage = () => {
                         <StyledPaper>
                             <StyledPaper
                             style={{
-                                backgroundColor: '#007BFF', // Blue color for background
+                                backgroundColor: '#f59e0b', // Blue color for background
                                 
                             }}
                             >
