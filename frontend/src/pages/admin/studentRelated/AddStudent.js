@@ -87,36 +87,37 @@ const AddStudent = ({ situation }) => {
     return (
         <>
             <div className="register">
-    <form className="registerForm" onSubmit={submitHandler}>
-        <span className="registerTitle">Add Student</span>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-                <label>Name</label>
-                <input 
-                    className="registerInput" 
-                    type="text" 
-                    placeholder="Enter Pupil's name..."
-                    value={name}
-                    onChange={(event) => setName(event.target.value)}
-                    autoComplete="name" 
-                    required 
-                />
-            </div>
-            
-            <div>
-                <label>Gender</label>
-                <select
-                    className="registerInput"
-                    value={className}
-                    required
-                >
-                    <option value='Select Gender'>Select Gender</option>
-                    <option value='Male'>Male</option>
-                    <option value='Female'>Female</option>
-                </select>
-            </div>
-            
-            {situation === "Student" && (
+            <form className="registerForm p-6 bg-white shadow-lg rounded-lg" onSubmit={submitHandler}>
+    <span className="registerTitle text-2xl font-bold mb-4 block text-center">Add Student</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="flex items-center space-x-6">
+            <label className="min-w-[150px] text-gray-700">Name</label>
+            <input 
+                className="registerInput flex-1 border rounded px-3 py-2 text-gray-700" 
+                type="text" 
+                placeholder="Enter Pupil's name..."
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                autoComplete="name" 
+                required 
+            />
+        </div>
+
+        <div className="flex items-center space-x-6">
+            <label className="min-w-[150px] text-gray-700">Gender</label>
+            <select
+                className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
+                // value={gender}
+                // onChange={(event) => setGender(event.target.value)}
+                required
+            >
+                <option value='Select Gender'>Select Gender</option>
+                <option value='Male'>Male</option>
+                <option value='Female'>Female</option>
+            </select>
+        </div>
+
+        {situation === "Student" && (
                 <div>
                     <label>Class</label>
                     <select
@@ -134,73 +135,82 @@ const AddStudent = ({ situation }) => {
                     </select>
                 </div>
             )}
-            
-            <div>
-                <label>LIN Number</label>
-                <input 
-                    className="registerInput" 
-                    type="number" 
-                    placeholder="Enter Pupil's Roll Number..."
-                    value={rollNum}
-                    onChange={(event) => setRollNum(event.target.value)}
-                    required 
-                />
-            </div>
 
-            <div>
-                <label>Year</label>
-                <select
-                    className="registerInput"
-                    value={className}
-                    required
-                >
-                    <option value='Select Year'>Select Year</option>
-                    <option value='2024'>2024</option>
-                </select>
-            </div>
-            
-            <div>
-                <label>Term</label>
-                <select
-                    className="registerInput"
-                    value={className}
-                    required
-                >
-                    <option value='Select Term'>Select Term</option>
-                    <option value='I'>1</option>
-                    <option value='II'>2</option>
-                    <option value='III'>3</option>
-                </select>
-            </div>
-
-            <div className="md:col-span-2">
-                <label>Upload Photo</label>
-            </div>
-            
-            <div className="md:col-span-2">
-                <label>Password</label>
-                <input 
-                    className="registerInput" 
-                    type="password" 
-                    placeholder="Enter Pupil's password..."
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                    autoComplete="new-password" 
-                    required 
-                />
-            </div>
-
-            <div className="md:col-span-2">
-                <button className="registerButton" type="submit" disabled={loader}>
-                    {loader ? (
-                        <CircularProgress size={24} color="inherit" />
-                    ) : (
-                        'Add'
-                    )}
-                </button>
-            </div>
+        <div className="flex items-center space-x-6">
+            <label className="min-w-[150px] text-gray-700">LIN Number</label>
+            <input 
+                className="registerInput flex-1 border rounded px-3 py-2 text-gray-700" 
+                type="number" 
+                placeholder="Enter Pupil's Roll Number..."
+                value={rollNum}
+                onChange={(event) => setRollNum(event.target.value)}
+                required 
+            />
         </div>
-    </form>
+
+        <div className="flex items-center space-x-6">
+            <label className="min-w-[150px] text-gray-700">Year</label>
+            <select
+                className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
+                // value={year}
+                // onChange={(event) => setYear(event.target.value)}
+                required
+            >
+                <option value='Select Year'>Select Year</option>
+                <option value='2024'>2024</option>
+            </select>
+        </div>
+
+        <div className="flex items-center space-x-6">
+            <label className="min-w-[150px] text-gray-700">Term</label>
+            <select
+                className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
+                // value={term}
+                // onChange={(event) => setTerm(event.target.value)}
+                required
+            >
+                <option value='Select Term'>Select Term</option>
+                <option value='I'>1</option>
+                <option value='II'>2</option>
+                <option value='III'>3</option>
+            </select>
+        </div>
+
+        <div className="md:col-span-2">
+            <label className="block text-gray-700 mb-1">Upload Photo</label>
+            <input 
+                className="registerInput border rounded px-3 py-2 w-full text-gray-700" 
+                type="file" 
+                // onChange={(event) => setPhoto(event.target.files[0])}
+                required 
+            />
+        </div>
+
+        <div className="md:col-span-2">
+            <label className="block text-gray-700 mb-1">Password</label>
+            <input 
+                className="registerInput border rounded px-3 py-2 w-full text-gray-700" 
+                type="password" 
+                placeholder="Enter Pupil's password..."
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                autoComplete="new-password" 
+                required 
+            />
+        </div>
+
+        <div className="md:col-span-2">
+            <button className="registerButton w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition duration-200" type="submit" disabled={loader}>
+                {loader ? (
+                    <CircularProgress size={24} color="inherit" />
+                ) : (
+                    'Add'
+                )}
+            </button>
+        </div>
+    </div>
+</form>
+
 </div>
 
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
