@@ -211,7 +211,7 @@ const AddStudent = ({ situation }) => {
     </div>
 </form>
 
-</div>
+            </div>
 
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </>

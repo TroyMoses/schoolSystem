@@ -29,20 +29,25 @@ a {
   justify-content: center;
   /* color: #ffffff; */
   /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images.unsplash.com/photo-1510936111840-65e151ad71bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=890&q=80"); */
-  /* background-color: var(--color-bg);
+  background-color: var(--color-bg);
   background-size: cover;
-  background-blend-mode: darken; */
+  background-blend-mode: darken;
+  width: 100%; /* Increase width to 100% */
+  padding: 20px; /* Add padding for better spacing */
   font-family: "Josefin Sans", sans-serif;
 }
 
 .registerTitle {
-  font-size: 50px;
+  margin-top: 50px;
+  font-size: 40px;
+  color: red;
 }
 
 .registerForm {
-  margin-top: -50px;
+  margin-top: -30px;
   display: flex;
   flex-direction: column;
+  width: 50%;
 }
 
 .registerForm>label {
@@ -51,7 +56,14 @@ a {
 }
 
 .registerInput {
-  padding: 10px;
+  width: 100%; /* Make input fields full width */
+  max-width: 400px; /* Add max-width for better appearance */
+  padding: 10px 15px; /* Increase padding for better design */
+  margin: 10px 0; /* Add margin for spacing between inputs */
+  border: 2px solid #ccc; /* Light border */
+  font-size: 1.1rem; /* Increase font size */
+  color: #333; /* Text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add slight shadow for depth */
   background-color: white;
   border: none;
   border-radius: 10px;
