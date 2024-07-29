@@ -41,6 +41,8 @@ import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
+import ShowYears from './yearRelated/ShowYears';
+import YearDetails from './yearRelated/YearDetails';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -115,9 +117,9 @@ const AdminDashboard = () => {
 
                         {/* Year */}
                         <Route path="/Admin/addyear" element={<AddClass />} />
-                        <Route path="/Admin/years" element={<ShowClasses />} />
-                        <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
-                        <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} />
+                        <Route path="/Admin/years" element={<ShowYears />} />
+                        <Route path="/Admin/years/class/:id" element={<YearDetails />} />
+                        <Route path="/Admin/year/addstudents/:id" element={<AddStudent situation="Year" />} />
 
                         {/* Class */}
                         <Route path="/Admin/addclass" element={<AddClass />} />
