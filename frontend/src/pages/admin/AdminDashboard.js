@@ -41,9 +41,9 @@ import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
-import ShowYears from './yearRelated/ShowYears';
-import YearDetails from './yearRelated/YearDetails';
-import AddYear from './yearRelated/AddYear';
+// import ShowYears from './yearRelated/ShowYears';
+// import YearDetails from './yearRelated/YearDetails';
+// import AddYear from './yearRelated/AddYear';
 import AddTerm from './termRelated/AddTerm';
 import ShowTerms from './termRelated/ShowTerms';
 import TermDetails from './termRelated/TermDetails';
@@ -129,10 +129,10 @@ const AdminDashboard = () => {
                         <Route path="/Admin/subject/student/marks/:studentID/:subjectID" element={<StudentExamMarks situation="Subject" />} />
 
                         {/* Year */}
-                        <Route path="/Admin/addyear" element={<AddYear />} />
+                        {/* <Route path="/Admin/addyear" element={<AddYear />} />
                         <Route path="/Admin/years" element={<ShowYears />} />
                         <Route path="/Admin/years/class/:id" element={<YearDetails />} />
-                        <Route path="/Admin/year/addstudents/:id" element={<AddStudent situation="Year" />} />
+                        <Route path="/Admin/year/addstudents/:id" element={<AddStudent situation="Year" />} /> */}
 
                         {/* Term */}
                         <Route path="/Admin/addterm" element={<AddTerm />} />

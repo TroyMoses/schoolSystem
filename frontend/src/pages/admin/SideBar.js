@@ -40,7 +40,7 @@ const SideBar = () => {
                     <ListItemText primary="Home" />
                 </ListItemButton>
                 {/* year */}
-                <ListItemButton 
+                {/* <ListItemButton 
                     component={Link} 
                     to="/Admin/years" 
                     sx={{
@@ -54,7 +54,7 @@ const SideBar = () => {
                         <CalendarTodayIcon color={location.pathname.startsWith('/Admin/years') ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Years" />
-                </ListItemButton>
+                </ListItemButton> */}
                 {/* year */}
 
                 {/* term */}
@@ -71,7 +71,7 @@ const SideBar = () => {
                     <ListItemIcon>
                         <SchoolIcon color={location.pathname.startsWith('/Admin/terms') ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Terms" />
+                    <ListItemText primary="Terms/year" />
                 </ListItemButton>
                 {/* term */}
 
