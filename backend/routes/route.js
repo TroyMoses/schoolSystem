@@ -30,7 +30,7 @@ const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeac
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
 
-router.get("/Admin/:id", getAdminDetail)
+router.get("/Admin/:id", getAdminDetail);
 // router.delete("/Admin/:id", deleteAdmin)
 
 // router.put("/Admin/:id", updateAdmin)
@@ -45,12 +45,12 @@ router.get('/YearList/:id', yearList);
 router.post('/SclassCreate', sclassCreate);
 
 router.get('/SclassList/:id', sclassList);
-router.get("/Sclass/:id", getSclassDetail)
+router.get("/Sclass/:id", getSclassDetail);
 
-router.get("/Sclass/Students/:id", getSclassStudents)
+router.get("/Sclass/Students/:id", getSclassStudents);
 
-router.delete("/Sclasses/:id", deleteSclasses)
-router.delete("/Sclass/:id", deleteSclass)
+router.delete("/Sclasses/:id", deleteSclasses);
+router.delete("/Sclass/:id", deleteSclass);
 
 // Subject
 

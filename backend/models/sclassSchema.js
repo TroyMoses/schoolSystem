@@ -9,7 +9,7 @@ const sclassSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'admin'
     },
-    school: {
+    term: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'term'
     },
