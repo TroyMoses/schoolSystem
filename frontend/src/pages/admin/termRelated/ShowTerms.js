@@ -10,7 +10,6 @@ import TableTemplate from '../../../components/TableTemplate';
 
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import GradeIcon from '@mui/icons-material/Grade';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import AddCardIcon from '@mui/icons-material/AddCard';
 import styled from 'styled-components';
@@ -35,7 +34,8 @@ const ShowTerms = () => {
   }
 
   const [showPopup, setShowPopup] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
+  const [message ] = useState("");
 
   const deleteHandler = (deleteID, address) => {
     // console.log(deleteID);

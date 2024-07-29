@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
+import { Select, MenuItem} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userRelated/userHandle';
@@ -10,7 +11,8 @@ import year from "../../../assets/schoo.jpeg";
 import styled from "styled-components";
 
 const AddTerm = () => {
-    const [sclassName, setSclassName] = useState("");
+    // const [sclassName, setSclassName] = useState("");
+    const [sclassName ] = useState("");
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -63,35 +65,64 @@ const AddTerm = () => {
                     }}>
                         <img
                             src={year}
-                            alt="year"
+                            alt="term"
                             style={{ width: '80%' }}
                         />
                     </Stack>
                     <form onSubmit={submitHandler}>
-                        <Stack spacing={3}>
-                            <TextField
-                                label="Create a Term"
-                                variant="outlined"
-                                value={sclassName}
-                                onChange={(event) => {
-                                    setSclassName(event.target.value);
-                                }}
-                                required
-                            />
-                            <BlueButton
-                                fullWidth
-                                size="large"
-                                sx={{ mt: 3 }}
-                                variant="contained"
-                                type="submit"
-                                disabled={loader}
-                            >
-                                {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
-                            </BlueButton>
-                            <Button variant="outlined" onClick={() => navigate(-1)}>
-                                Back
-                            </Button>
-                        </Stack>
+                    <Stack spacing={3}>
+                        <Select
+                        label="Select Year"
+                        value={year}
+                        // onChange={(event) => setYear(event.target.value)}
+                        required
+                        fullWidth
+                        variant="outlined"
+                        >
+                        <MenuItem value="2023">2023</MenuItem>
+                        <MenuItem value="2024">2024</MenuItem>
+                        <MenuItem value="2025">2025</MenuItem>
+                        {/* Add more years as needed */}
+                        </Select>
+
+                        <TextField
+                        label="Enter Term"
+                        variant="outlined"
+                        // value={term}
+                        // onChange={(event) => setTerm(event.target.value)}
+                        required
+                        fullWidth
+                        />
+
+                        <Select
+                        label="Select Status"
+                        value={status}
+                        // onChange={(event) => setStatus(event.target.value)}
+                        required
+                        fullWidth
+                        variant="outlined"
+                        >
+                        <MenuItem value="active">Active</MenuItem>
+                        <MenuItem value="inactive">Inactive</MenuItem>
+                        <MenuItem value="completed">Completed</MenuItem>
+                        {/* Add more statuses as needed */}
+                        </Select>
+
+                        <BlueButton
+                        fullWidth
+                        size="large"
+                        sx={{ mt: 3 }}
+                        variant="contained"
+                        type="submit"
+                        disabled={loader}
+                        >
+                        {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
+                        </BlueButton>
+
+                        <Button variant="outlined" onClick={() => navigate(-1)}>
+                        Back
+                        </Button>
+                    </Stack>
                     </form>
                 </StyledBox>
             </StyledContainer>
