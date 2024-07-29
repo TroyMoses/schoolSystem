@@ -7,5 +7,5 @@ const yearSchema = new mongoose.Schema({
     },
 }, { timestamps: true });
 
-module.exports = mongoose.model("sclass", yearSchema);
+module.exports = mongoose.model("year", yearSchema);
 
