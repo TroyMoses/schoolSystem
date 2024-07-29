@@ -52,19 +52,21 @@ const ShowYears = () => {
     { id: 'name', label: 'Year', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
+  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass, index) => {
     return {
       name: sclass.sclassName,
       id: sclass._id,
+      isEven: index % 2 === 0, // Determine if the row is even or odd
     };
-  })
+  });
 
   const SclassButtonHaver = ({ row }) => {
+    const navigate = useNavigate();
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
     ];
-    
+
     return (
       <ButtonContainer>
         <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
