@@ -140,11 +140,11 @@ const ShowCt = () => {
   
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Grading',
-      action: () => navigate("/Admin/addgrade")
+      icon: <AddCardIcon color="primary" />, name: 'Add New Comment',
+      action: () => navigate("/Admin/addct")
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Gradings',
+      icon: <DeleteIcon color="error" />, name: 'Delete All Comments',
       action: () => deleteHandler(adminID, "Sclasses")
     },
   ];
