@@ -5,11 +5,18 @@ const termSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    year: {
+    status: {
+        type: String,
+        enum: ['Active', 'Inactive'],
+        default: 'Active',
+        required: true,
+    },
+    school: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'year'
+        ref: 'admin',
+        required: true,
     },
 }, { timestamps: true });
 
-module.exports = mongoose.model("term", sclassSchema);
+module.exports = mongoose.model("term", termSchema);
 
