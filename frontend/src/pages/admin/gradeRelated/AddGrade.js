@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
-import { Select, MenuItem} from '@mui/material';
+import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
-import year from "../../../assets/schoo.jpeg";
 import styled from "styled-components";
 
-const AddTerm = () => {
+const AddGrade = () => {
     // const [sclassName, setSclassName] = useState("");
     const [sclassName ] = useState("");
 
@@ -40,7 +38,7 @@ const AddTerm = () => {
 
     useEffect(() => {
         if (status === 'added' && tempDetails) {
-            navigate("/Admin/terms/term/" + tempDetails._id)
+            navigate("/Admin/grades/grade/" + tempDetails._id)
             dispatch(underControl())
             setLoader(false)
         }
@@ -63,30 +61,14 @@ const AddTerm = () => {
                         alignItems: 'center',
                         mb: 3
                     }}>
-                        <img
-                            src={year}
-                            alt="term"
-                            style={{ width: '80%' }}
-                        />
+                        <Typography variant="h4" color="primary" sx={{ mb: 3 }}>
+                            Enter Grading Scale Range
+                        </Typography>
                     </Stack>
                     <form onSubmit={submitHandler}>
                     <Stack spacing={3}>
-                        <Select
-                        label="Select Year"
-                        value={year}
-                        // onChange={(event) => setYear(event.target.value)}
-                        required
-                        fullWidth
-                        variant="outlined"
-                        >
-                        <MenuItem value="2023">2023</MenuItem>
-                        <MenuItem value="2024">2024</MenuItem>
-                        <MenuItem value="2025">2025</MenuItem>
-                        {/* Add more years as needed */}
-                        </Select>
-
-                        <TextField
-                        label="Enter Term"
+                    <TextField
+                        label="From"
                         variant="outlined"
                         // value={term}
                         // onChange={(event) => setTerm(event.target.value)}
@@ -94,19 +76,32 @@ const AddTerm = () => {
                         fullWidth
                         />
 
-                        <Select
-                        label="Select Status"
-                        value={status}
-                        // onChange={(event) => setStatus(event.target.value)}
+                        <TextField
+                        label="To"
+                        variant="outlined"
+                        // value={term}
+                        // onChange={(event) => setTerm(event.target.value)}
                         required
                         fullWidth
+                        />
+
+                        <TextField
+                        label="Grade"
                         variant="outlined"
-                        >
-                        <MenuItem value="active">Active</MenuItem>
-                        <MenuItem value="inactive">Inactive</MenuItem>
-                        <MenuItem value="completed">Completed</MenuItem>
-                        {/* Add more statuses as needed */}
-                        </Select>
+                        // value={term}
+                        // onChange={(event) => setTerm(event.target.value)}
+                        required
+                        fullWidth
+                        />
+
+                        <TextField
+                        label="Comment"
+                        variant="outlined"
+                        // value={term}
+                        // onChange={(event) => setTerm(event.target.value)}
+                        required
+                        fullWidth
+                        />
 
                         <BlueButton
                         fullWidth
@@ -131,7 +126,7 @@ const AddTerm = () => {
     )
 }
 
-export default AddTerm
+export default AddGrade
 
 const StyledContainer = styled(Box)`
   flex: 1 1 auto;

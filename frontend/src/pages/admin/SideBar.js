@@ -136,16 +136,16 @@ const SideBar = () => {
                 </ListItemButton>
                 <ListItemButton 
                     component={Link} 
-                    to="/Admin/grading" 
+                    to="/Admin/grades" 
                     sx={{
-                        backgroundColor: location.pathname.startsWith("/Admin/grading") ? activeBgColor : 'inherit',
+                        backgroundColor: location.pathname.startsWith("/Admin/grades") ? activeBgColor : 'inherit',
                         '&:hover': {
                             backgroundColor: hoverBgColor,
                         },
                     }}
                 >
                     <ListItemIcon>
-                        <GradeIcon color={location.pathname.startsWith("/Admin/grading") ? 'primary' : 'inherit'} />
+                        <GradeIcon color={location.pathname.startsWith("/Admin/grades") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Grading" />
                 </ListItemButton>

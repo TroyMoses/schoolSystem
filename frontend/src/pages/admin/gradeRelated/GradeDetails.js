@@ -19,7 +19,7 @@ import Popup from "../../../components/Popup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 
-const TermDetails = () => {
+const GradeDetails = () => {
     const params = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch();
@@ -289,4 +289,4 @@ const TermDetails = () => {
     );
 };
 
-export default TermDetails;
+export default GradeDetails;

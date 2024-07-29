@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
 
-const ShowYears = () => {
+const ShowGrades = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -34,7 +34,8 @@ const ShowYears = () => {
   }
 
   const [showPopup, setShowPopup] = useState(false);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
+  const [message ] = useState("");
 
   const deleteHandler = (deleteID, address) => {
     // console.log(deleteID);
@@ -48,7 +49,10 @@ const ShowYears = () => {
   }
 
   const sclassColumns = [
-    { id: 'name', label: 'Year', minWidth: 170 },
+    { id: 'name', label: 'From', minWidth: 170 },
+    { id: 'name', label: 'To', minWidth: 170 },
+    { id: 'name', label: 'Grade', minWidth: 170 },
+    { id: 'name', label: 'Comment', minWidth: 170 },
   ]
 
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
@@ -62,7 +66,7 @@ const ShowYears = () => {
     const navigate = useNavigate();
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
-      { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/year/addstudents/" + row.id) },
+      { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
     ];
 
     return (
@@ -71,7 +75,7 @@ const ShowYears = () => {
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/years/year/" + row.id)}>
+          onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
         </BlueButton>
         <ActionMenu actions={actions} />
@@ -92,7 +96,7 @@ const ShowYears = () => {
     };
     return (
       <>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title="Add Students & Subjects">
             <IconButton
               onClick={handleClick}
@@ -106,7 +110,7 @@ const ShowYears = () => {
               <SpeedDialIcon />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
@@ -136,11 +140,11 @@ const ShowYears = () => {
   
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Year',
-      action: () => navigate("/Admin/addyear")
+      icon: <AddCardIcon color="primary" />, name: 'Add New Grading',
+      action: () => navigate("/Admin/addgrade")
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Years',
+      icon: <DeleteIcon color="error" />, name: 'Delete All Gradings',
       action: () => deleteHandler(adminID, "Sclasses")
     },
   ];
@@ -153,8 +157,8 @@ const ShowYears = () => {
         <>
           {getresponse ?
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-              <GreenButton variant="contained" onClick={() => navigate("/Admin/addyear")}>
-                Add Year
+              <GreenButton variant="contained" onClick={() => navigate("/Admin/addterm")}>
+                Add Term
               </GreenButton>
             </Box>
             :
@@ -172,7 +176,7 @@ const ShowYears = () => {
   );
 };
 
-export default ShowYears;
+export default ShowGrades;
 
 const styles = {
   styledPaper: {
