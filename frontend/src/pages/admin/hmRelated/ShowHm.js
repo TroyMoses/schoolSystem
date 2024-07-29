@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
 
-const ShowGrades = () => {
+const ShowHm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -176,7 +176,7 @@ const ShowGrades = () => {
   );
 };
 
-export default ShowGrades;
+export default ShowHm;
 
 const styles = {
   styledPaper: {
