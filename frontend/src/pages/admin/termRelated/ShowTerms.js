@@ -49,14 +49,13 @@ const ShowTerms = () => {
   }
 
   const sclassColumns = [
-    { id: 'name', label: 'Year', minWidth: 170 },
+    { id: 'name', label: 'Term', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass, index) => {
+  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
     return {
       name: sclass.sclassName,
       id: sclass._id,
-      isEven: index % 2 === 0, // Determine if the row is even or odd
     };
   });
 
@@ -138,11 +137,11 @@ const ShowTerms = () => {
   
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Year',
-      action: () => navigate("/Admin/addyear")
+      icon: <AddCardIcon color="primary" />, name: 'Add New Term',
+      action: () => navigate("/Admin/addterm")
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Years',
+      icon: <DeleteIcon color="error" />, name: 'Delete All Terms',
       action: () => deleteHandler(adminID, "Sclasses")
     },
   ];
@@ -155,8 +154,8 @@ const ShowTerms = () => {
         <>
           {getresponse ?
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-              <GreenButton variant="contained" onClick={() => navigate("/Admin/addyear")}>
-                Add Year
+              <GreenButton variant="contained" onClick={() => navigate("/Admin/addterm")}>
+                Add Term
               </GreenButton>
             </Box>
             :

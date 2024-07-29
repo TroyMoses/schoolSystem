@@ -38,7 +38,7 @@ const AddTerm = () => {
 
     useEffect(() => {
         if (status === 'added' && tempDetails) {
-            navigate("/Admin/years/year/" + tempDetails._id)
+            navigate("/Admin/terms/term/" + tempDetails._id)
             dispatch(underControl())
             setLoader(false)
         }
@@ -70,7 +70,7 @@ const AddTerm = () => {
                     <form onSubmit={submitHandler}>
                         <Stack spacing={3}>
                             <TextField
-                                label="Create a Year"
+                                label="Create a Term"
                                 variant="outlined"
                                 value={sclassName}
                                 onChange={(event) => {
