@@ -49,7 +49,8 @@ const ShowTerms = () => {
   }
 
   const sclassColumns = [
-    { id: 'name', label: 'Term', minWidth: 170 },
+    { id: 'name', label: 'Year/Term', minWidth: 170 },
+    { id: 'name', label: 'Status', minWidth: 170 },
   ]
 
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {

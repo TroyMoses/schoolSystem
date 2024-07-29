@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
+import { Box, Button, CircularProgress, Stack, InputLabel, Typography} from "@mui/material";
 import { Select, MenuItem} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,10 +7,13 @@ import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
-import year from "../../../assets/schoo.jpeg";
 import styled from "styled-components";
+import dayjs from 'dayjs';
 
 const AddTerm = () => {
+    const currentYear = dayjs().year(); // Get the current year
+    const [year] = useState(currentYear); 
+
     // const [sclassName, setSclassName] = useState("");
     const [sclassName ] = useState("");
 
@@ -63,37 +66,43 @@ const AddTerm = () => {
                         alignItems: 'center',
                         mb: 3
                     }}>
-                        <img
-                            src={year}
-                            alt="term"
-                            style={{ width: '80%' }}
-                        />
+                        <Typography variant="h4" color="primary" sx={{ mb: 3 }}>
+                          Register New Term For The Current Year
+                       </Typography>
                     </Stack>
                     <form onSubmit={submitHandler}>
                     <Stack spacing={3}>
+                    {/* <InputLabel htmlFor="year-select">Year</InputLabel> */}
                         <Select
-                        label="Select Year"
-                        value={year}
-                        // onChange={(event) => setYear(event.target.value)}
-                        required
-                        fullWidth
-                        variant="outlined"
+                            id="year-select"
+                            value={year}
+                            // onChange={(event) => setYear(event.target.value)} // No need for onChange since entry is fixed
+                            required
+                            fullWidth
+                            variant="outlined"
+                            disabled // Make the select field non-editable
                         >
-                        <MenuItem value="2023">2023</MenuItem>
-                        <MenuItem value="2024">2024</MenuItem>
-                        <MenuItem value="2025">2025</MenuItem>
-                        {/* Add more years as needed */}
+                            <MenuItem value={currentYear}>{currentYear}</MenuItem>
                         </Select>
 
-                        <TextField
-                        label="Enter Term"
-                        variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
-                        required
-                        fullWidth
-                        />
-
+                        <InputLabel id="term-select-label">Select Term</InputLabel>
+                        <Select
+                            labelId="status-select-label"
+                            id="status-select"
+                            value={status}
+                            // onChange={(event) => setStatus(event.target.value)}
+                            displayEmpty
+                            label="Select Term"
+                        >
+                            <MenuItem value="">
+                                <em>Select Term</em>
+                            </MenuItem>
+                            <MenuItem value="I">Term One</MenuItem>
+                            <MenuItem value="II">Term Two</MenuItem>
+                            <MenuItem value="III">Term Three</MenuItem>
+                        </Select>
+                        
+                        <InputLabel id="status-select-label">Select Term Status</InputLabel>
                         <Select
                         label="Select Status"
                         value={status}
@@ -104,7 +113,6 @@ const AddTerm = () => {
                         >
                         <MenuItem value="active">Active</MenuItem>
                         <MenuItem value="inactive">Inactive</MenuItem>
-                        {/* Add more statuses as needed */}
                         </Select>
 
                         <BlueButton
