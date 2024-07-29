@@ -104,7 +104,6 @@ const AddTerm = () => {
                         >
                         <MenuItem value="active">Active</MenuItem>
                         <MenuItem value="inactive">Inactive</MenuItem>
-                        <MenuItem value="completed">Completed</MenuItem>
                         {/* Add more statuses as needed */}
                         </Select>
 

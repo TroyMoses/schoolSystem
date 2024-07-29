@@ -76,7 +76,7 @@ const ShowGrades = () => {
         </IconButton>
         <BlueButton variant="contained"
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
-          View
+          Edit
         </BlueButton>
         <ActionMenu actions={actions} />
       </ButtonContainer>
