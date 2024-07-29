@@ -44,6 +44,9 @@ import AccountMenu from '../../components/AccountMenu';
 import ShowYears from './yearRelated/ShowYears';
 import YearDetails from './yearRelated/YearDetails';
 import AddYear from './yearRelated/AddYear';
+import AddTerm from './termRelated/AddTerm';
+import ShowTerms from './termRelated/ShowTerms';
+import TermDetails from './termRelated/TermDetails';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -121,6 +124,12 @@ const AdminDashboard = () => {
                         <Route path="/Admin/years" element={<ShowYears />} />
                         <Route path="/Admin/years/class/:id" element={<YearDetails />} />
                         <Route path="/Admin/year/addstudents/:id" element={<AddStudent situation="Year" />} />
+
+                        {/* Term */}
+                        <Route path="/Admin/addterm" element={<AddTerm />} />
+                        <Route path="/Admin/terms" element={<ShowTerms />} />
+                        <Route path="/Admin/terms/class/:id" element={<TermDetails />} />
+                        <Route path="/Admin/term/addstudents/:id" element={<AddStudent situation="Term" />} />
 
                         {/* Class */}
                         <Route path="/Admin/addclass" element={<AddClass />} />
