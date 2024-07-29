@@ -54,6 +54,25 @@ const SideBar = () => {
                     <ListItemText primary="Years" />
                 </ListItemButton>
                 {/* year */}
+
+                {/* term */}
+                <ListItemButton 
+                    component={Link} 
+                    to="/Admin/terms" 
+                    sx={{
+                        backgroundColor: location.pathname.startsWith('/Admin/terms') ? activeBgColor : 'inherit',
+                        '&:hover': {
+                            backgroundColor: hoverBgColor,
+                        },
+                    }}
+                >
+                    <ListItemIcon>
+                        <CalendarTodayIcon color={location.pathname.startsWith('/Admin/terms') ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Terms" />
+                </ListItemButton>
+                {/* term */}
+
                 <ListItemButton 
                     component={Link} 
                     to="/Admin/classes" 
