@@ -148,25 +148,25 @@ const AddStudent = ({ situation }) => {
             />
         </div>
 
-        <div className="flex items-center space-x-6">
+        {/* <div className="flex items-center space-x-6">
             <label className="min-w-[150px] text-gray-700">Year</label>
             <select
                 className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
-                // value={year}
-                // onChange={(event) => setYear(event.target.value)}
+                value={year}
+                onChange={(event) => setYear(event.target.value)}
                 required
             >
                 <option value='Select Year'>Select Year</option>
                 <option value='2024'>2024</option>
             </select>
-        </div>
+        </div> */}
 
-        <div className="flex items-center space-x-6">
+        {/* <div className="flex items-center space-x-6">
             <label className="min-w-[150px] text-gray-700">Term</label>
             <select
                 className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
-                // value={term}
-                // onChange={(event) => setTerm(event.target.value)}
+                value={term}
+                onChange={(event) => setTerm(event.target.value)}
                 required
             >
                 <option value='Select Term'>Select Term</option>
@@ -174,7 +174,7 @@ const AddStudent = ({ situation }) => {
                 <option value='II'>2</option>
                 <option value='III'>3</option>
             </select>
-        </div>
+        </div> */}
 
         <div className="md:col-span-2">
             <label className="block text-gray-700 mb-1">Upload Photo</label>
