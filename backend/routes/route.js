@@ -4,7 +4,8 @@ const router = require('express').Router();
 
 const { adminRegister, adminLogIn, getAdminDetail} = require('../controllers/admin-controller.js');
 
-const { yearCreate, yearList } = require('../controllers/year-controller.js');
+const { yearCreate, yearList, getYearDetail } = require('../controllers/year-controller.js');
+const { termCreate, termList, getTermDetail } = require('../controllers/term-controller.js');
 const { sclassCreate, sclassList, deleteSclass, deleteSclasses, getSclassDetail, getSclassStudents } = require('../controllers/class-controller.js');
 const { complainCreate, complainList } = require('../controllers/complain-controller.js');
 const { noticeCreate, noticeList, deleteNotices, deleteNotice, updateNotice } = require('../controllers/notice-controller.js');
@@ -39,6 +40,14 @@ router.get("/Admin/:id", getAdminDetail);
 
 router.post('/YearCreate', yearCreate);
 router.get('/YearList/:id', yearList);
+router.get("/Year/:id", getYearDetail);
+
+// Term
+
+router.post('/TermCreate', termCreate);
+router.get('/TermList/:id', termList);
+router.get("/Term/:id", getTermDetail);
+
 
 // Sclass
 
