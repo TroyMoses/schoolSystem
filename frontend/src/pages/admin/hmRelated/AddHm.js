@@ -62,7 +62,7 @@ const AddHm = () => {
                         mb: 3
                     }}>
                         <Typography variant="h4" color="primary" sx={{ mb: 3 }}>
-                            Enter Grading Scale Range
+                            Set Comment for Pupil's Performance
                         </Typography>
                     </Stack>
                     <form onSubmit={submitHandler}>
@@ -78,15 +78,6 @@ const AddHm = () => {
 
                         <TextField
                         label="To"
-                        variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
-                        required
-                        fullWidth
-                        />
-
-                        <TextField
-                        label="Grade"
                         variant="outlined"
                         // value={term}
                         // onChange={(event) => setTerm(event.target.value)}

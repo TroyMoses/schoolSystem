@@ -51,7 +51,6 @@ const ShowHm = () => {
   const sclassColumns = [
     { id: 'name', label: 'From', minWidth: 170 },
     { id: 'name', label: 'To', minWidth: 170 },
-    { id: 'name', label: 'Grade', minWidth: 170 },
     { id: 'name', label: 'Comment', minWidth: 170 },
   ]
 
@@ -140,11 +139,11 @@ const ShowHm = () => {
   
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Grading',
-      action: () => navigate("/Admin/addgrade")
+      icon: <AddCardIcon color="primary" />, name: 'Add New Comments',
+      action: () => navigate("/Admin/addhm")
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Gradings',
+      icon: <DeleteIcon color="error" />, name: 'Delete All Comments',
       action: () => deleteHandler(adminID, "Sclasses")
     },
   ];
