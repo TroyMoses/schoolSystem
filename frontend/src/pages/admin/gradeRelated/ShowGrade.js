@@ -49,7 +49,10 @@ const ShowGrades = () => {
   }
 
   const sclassColumns = [
-    { id: 'name', label: 'Term', minWidth: 170 },
+    { id: 'name', label: 'From', minWidth: 170 },
+    { id: 'name', label: 'To', minWidth: 170 },
+    { id: 'name', label: 'Grade', minWidth: 170 },
+    { id: 'name', label: 'Comment', minWidth: 170 },
   ]
 
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
@@ -137,11 +140,11 @@ const ShowGrades = () => {
   
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Term',
-      action: () => navigate("/Admin/addterm")
+      icon: <AddCardIcon color="primary" />, name: 'Add New Grading',
+      action: () => navigate("/Admin/addgrade")
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Terms',
+      icon: <DeleteIcon color="error" />, name: 'Delete All Gradings',
       action: () => deleteHandler(adminID, "Sclasses")
     },
   ];

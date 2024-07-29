@@ -47,6 +47,9 @@ import AddYear from './yearRelated/AddYear';
 import AddTerm from './termRelated/AddTerm';
 import ShowTerms from './termRelated/ShowTerms';
 import TermDetails from './termRelated/TermDetails';
+import AddGrade from './gradeRelated/AddGrade';
+import ShowGrades from './gradeRelated/ShowGrade';
+import GradeDetails from './gradeRelated/GradeDetails';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -143,6 +146,12 @@ const AdminDashboard = () => {
                         <Route path="/Admin/students/student/:id" element={<ViewStudent />} />
                         <Route path="/Admin/students/student/attendance/:id" element={<StudentAttendance situation="Student" />} />
                         <Route path="/Admin/students/student/marks/:id" element={<StudentExamMarks situation="Student" />} />
+
+                        {/* Grade */}
+                        <Route path="/Admin/addgrade" element={<AddGrade />} />
+                        <Route path="/Admin/grades" element={<ShowGrades />} />
+                        <Route path="/Admin/grades/class/:id" element={<GradeDetails />} />
+                        <Route path="/Admin/grade/addstudents/:id" element={<AddStudent situation="Grade" />} />
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
