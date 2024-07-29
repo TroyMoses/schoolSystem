@@ -50,6 +50,12 @@ import TermDetails from './termRelated/TermDetails';
 import AddGrade from './gradeRelated/AddGrade';
 import ShowGrades from './gradeRelated/ShowGrade';
 import GradeDetails from './gradeRelated/GradeDetails';
+import AddCt from './ctRelated/AddCt';
+import ShowCt from './ctRelated/ShowCt';
+import CtDetails from './ctRelated/CtDetails';
+import AddHm from './hmRelated/AddHm';
+import ShowHm from './hmRelated/ShowHm';
+import HmDetails from './hmRelated/HmDetails';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -152,6 +158,18 @@ const AdminDashboard = () => {
                         <Route path="/Admin/grades" element={<ShowGrades />} />
                         <Route path="/Admin/grades/class/:id" element={<GradeDetails />} />
                         <Route path="/Admin/grade/addstudents/:id" element={<AddStudent situation="Grade" />} />
+
+                        {/* HeadTeacher */}
+                        <Route path="/Admin/addhm" element={<AddHm />} />
+                        <Route path="/Admin/hms" element={<ShowHm />} />
+                        <Route path="/Admin/hms/class/:id" element={<HmDetails />} />
+                        <Route path="/Admin/hm/addstudents/:id" element={<AddStudent situation="Hm" />} />
+
+                        {/* ClassTeacher */}
+                        <Route path="/Admin/addct" element={<AddCt />} />
+                        <Route path="/Admin/cts" element={<ShowCt />} />
+                        <Route path="/Admin/cts/class/:id" element={<CtDetails />} />
+                        <Route path="/Admin/ct/addstudents/:id" element={<AddStudent situation="Ct" />} />
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
