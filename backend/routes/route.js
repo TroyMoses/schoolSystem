@@ -25,6 +25,7 @@ const {
     removeStudentAttendance } = require('../controllers/student_controller.js');
 const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+const { gradingCreate, gradingList, updateGrading, deleteGrading } = require('../controllers/grading-controller.js');
 
 // Admin
 router.post('/AdminReg', adminRegister);
@@ -118,6 +119,14 @@ router.delete("/Notices/:id", deleteNotices);
 router.delete("/Notice/:id", deleteNotice);
 
 router.put("/Notice/:id", updateNotice);
+
+// Grading
+
+router.post('/GradingCreate', gradingCreate);
+router.get('/GradingList/:id', gradingList);
+router.put("/Grading/:id", updateGrading);
+router.delete("/Grading/:id", deleteGrading);
+
 
 // Complain
 
