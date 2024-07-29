@@ -6,7 +6,7 @@ import { addStuff } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
-import Classroom from "../../../assets/classroom.png";
+import year from "../../../assets/schoo.jpeg";
 import styled from "styled-components";
 
 const AddYear = () => {
@@ -62,8 +62,8 @@ const AddYear = () => {
                         mb: 3
                     }}>
                         <img
-                            src={Classroom}
-                            alt="classroom"
+                            src={year}
+                            alt="year"
                             style={{ width: '80%' }}
                         />
                     </Stack>
@@ -89,7 +89,7 @@ const AddYear = () => {
                                 {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
                             </BlueButton>
                             <Button variant="outlined" onClick={() => navigate(-1)}>
-                                Go Back
+                                Back
                             </Button>
                         </Stack>
                     </form>
