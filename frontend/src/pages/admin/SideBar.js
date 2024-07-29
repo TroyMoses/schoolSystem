@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Divider, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import { Link, useLocation } from 'react-router-dom';
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -36,6 +37,23 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItemButton>
+                {/* year */}
+                <ListItemButton 
+                    component={Link} 
+                    to="/Admin/years" 
+                    sx={{
+                        backgroundColor: location.pathname.startsWith('/Admin/years') ? activeBgColor : 'inherit',
+                        '&:hover': {
+                            backgroundColor: hoverBgColor,
+                        },
+                    }}
+                >
+                    <ListItemIcon>
+                        <CalendarTodayIcon color={location.pathname.startsWith('/Admin/years') ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Years" />
+                </ListItemButton>
+                {/* year */}
                 <ListItemButton 
                     component={Link} 
                     to="/Admin/classes" 
