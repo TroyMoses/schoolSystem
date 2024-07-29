@@ -49,7 +49,7 @@ const ShowYears = () => {
   }
 
   const sclassColumns = [
-    { id: 'name', label: 'Class Name', minWidth: 170 },
+    { id: 'name', label: 'Year', minWidth: 170 },
   ]
 
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
@@ -63,15 +63,8 @@ const ShowYears = () => {
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-      { icon: <GradeIcon />, name: 'Add BOT', action: () => navigate("/Admin/addsubject/" + row.id) },
-      { icon: <GradeIcon />, name: 'Add MID', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-      { icon: <GradeIcon />, name: 'Add END', action: () => navigate("/Admin/class/addstudents/" + row.id) },
     ];
-    // const actions = [
-    //   { icon: <PostAddIcon />, name: 'Add BOT', action: () => navigate("/Admin/addsubject/" + row.id) },
-    //   { icon: <PersonAddAlt1Icon />, name: 'Add MID', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-    //   { icon: <PersonAddAlt1Icon />, name: 'Add END', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-    // ];
+    
     return (
       <ButtonContainer>
         <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
@@ -143,11 +136,11 @@ const ShowYears = () => {
   
   const actions = [
     {
-      icon: <AddCardIcon color="primary" />, name: 'Add New Class',
-      action: () => navigate("/Admin/addclass")
+      icon: <AddCardIcon color="primary" />, name: 'Add New Year',
+      action: () => navigate("/Admin/addyear")
     },
     {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Classes',
+      icon: <DeleteIcon color="error" />, name: 'Delete All Years',
       action: () => deleteHandler(adminID, "Sclasses")
     },
   ];
@@ -160,8 +153,8 @@ const ShowYears = () => {
         <>
           {getresponse ?
             <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
-              <GreenButton variant="contained" onClick={() => navigate("/Admin/addclass")}>
-                Add Class
+              <GreenButton variant="contained" onClick={() => navigate("/Admin/addyear")}>
+                Add Year
               </GreenButton>
             </Box>
             :
