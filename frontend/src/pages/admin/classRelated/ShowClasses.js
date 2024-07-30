@@ -25,6 +25,7 @@ const ShowClasses = () => {
   const { currentUser } = useSelector(state => state.user)
 
   const adminID = currentUser._id
+  console.log(adminID);
 
   useEffect(() => {
     dispatch(getAllSclasses(adminID, "Sclass"));
@@ -53,6 +54,7 @@ const ShowClasses = () => {
   ]
 
   const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
+    
     return {
       name: sclass.sclassName,
       id: sclass._id,
@@ -60,6 +62,7 @@ const ShowClasses = () => {
   })
 
   const SclassButtonHaver = ({ row }) => {
+    
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
