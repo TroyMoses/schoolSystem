@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Divider, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
+import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import SchoolIcon from '@mui/icons-material/School';
 import { Link, useLocation } from 'react-router-dom';
 
 import HomeIcon from "@mui/icons-material/Home";
@@ -7,6 +9,7 @@ import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import AnnouncementOutlinedIcon from '@mui/icons-material/AnnouncementOutlined';
+import CommentIcon from '@mui/icons-material/Comment';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 import SupervisorAccountOutlinedIcon from '@mui/icons-material/SupervisorAccountOutlined';
 import ReportIcon from '@mui/icons-material/Report';
@@ -36,6 +39,42 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Home" />
                 </ListItemButton>
+                {/* year */}
+                {/* <ListItemButton 
+                    component={Link} 
+                    to="/Admin/years" 
+                    sx={{
+                        backgroundColor: location.pathname.startsWith('/Admin/years') ? activeBgColor : 'inherit',
+                        '&:hover': {
+                            backgroundColor: hoverBgColor,
+                        },
+                    }}
+                >
+                    <ListItemIcon>
+                        <CalendarTodayIcon color={location.pathname.startsWith('/Admin/years') ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Years" />
+                </ListItemButton> */}
+                {/* year */}
+
+                {/* term */}
+                <ListItemButton 
+                    component={Link} 
+                    to="/Admin/terms" 
+                    sx={{
+                        backgroundColor: location.pathname.startsWith('/Admin/terms') ? activeBgColor : 'inherit',
+                        '&:hover': {
+                            backgroundColor: hoverBgColor,
+                        },
+                    }}
+                >
+                    <ListItemIcon>
+                        <SchoolIcon color={location.pathname.startsWith('/Admin/terms') ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Terms/year" />
+                </ListItemButton>
+                {/* term */}
+
                 <ListItemButton 
                     component={Link} 
                     to="/Admin/classes" 
@@ -98,19 +137,58 @@ const SideBar = () => {
                 </ListItemButton>
                 <ListItemButton 
                     component={Link} 
-                    to="/Admin/grading" 
+                    to="/Admin/grades" 
                     sx={{
-                        backgroundColor: location.pathname.startsWith("/Admin/grading") ? activeBgColor : 'inherit',
+                        backgroundColor: location.pathname.startsWith("/Admin/grades") ? activeBgColor : 'inherit',
                         '&:hover': {
                             backgroundColor: hoverBgColor,
                         },
                     }}
                 >
                     <ListItemIcon>
-                        <GradeIcon color={location.pathname.startsWith("/Admin/grading") ? 'primary' : 'inherit'} />
+                        <GradeIcon color={location.pathname.startsWith("/Admin/grades") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
                     <ListItemText primary="Grading" />
                 </ListItemButton>
+
+                {/* Hm comments */}
+                <ListItemButton 
+                    component={Link} 
+                    to="/Admin/hms" 
+                    sx={{
+                        backgroundColor: location.pathname.startsWith("/Admin/hms") ? activeBgColor : 'inherit',
+                        '&:hover': {
+                            backgroundColor: hoverBgColor,
+                        },
+                    }}
+                >
+                    <ListItemIcon>
+                        <CommentIcon color={location.pathname.startsWith("/Admin/hms") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="HeadTeacher's Comment" />
+                </ListItemButton>
+
+                {/* Hm comments */}
+
+                {/* class teacher comment */}
+                <ListItemButton 
+                    component={Link} 
+                    to="/Admin/cts" 
+                    sx={{
+                        backgroundColor: location.pathname.startsWith("/Admin/cts") ? activeBgColor : 'inherit',
+                        '&:hover': {
+                            backgroundColor: hoverBgColor,
+                        },
+                    }}
+                >
+                    <ListItemIcon>
+                        <CommentIcon color={location.pathname.startsWith("/Admin/cts") ? 'primary' : 'inherit'} />
+                    </ListItemIcon>
+                    <ListItemText primary="Class Teacher's Comment" />
+                </ListItemButton>
+                  {/* end classteacher comments */}
+
+
                 <ListItemButton 
                     component={Link} 
                     to="/Admin/notices" 
@@ -126,6 +204,8 @@ const SideBar = () => {
                     </ListItemIcon>
                     <ListItemText primary="Notices" />
                 </ListItemButton>
+
+
                 <ListItemButton 
                     component={Link} 
                     to="/Admin/complains" 

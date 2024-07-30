@@ -41,6 +41,21 @@ import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
+// import ShowYears from './yearRelated/ShowYears';
+// import YearDetails from './yearRelated/YearDetails';
+// import AddYear from './yearRelated/AddYear';
+import AddTerm from './termRelated/AddTerm';
+import ShowTerms from './termRelated/ShowTerms';
+import TermDetails from './termRelated/TermDetails';
+import AddGrade from './gradeRelated/AddGrade';
+import ShowGrades from './gradeRelated/ShowGrade';
+import GradeDetails from './gradeRelated/GradeDetails';
+import AddCt from './ctRelated/AddCt';
+import ShowCt from './ctRelated/ShowCt';
+import CtDetails from './ctRelated/CtDetails';
+import AddHm from './hmRelated/AddHm';
+import ShowHm from './hmRelated/ShowHm';
+import HmDetails from './hmRelated/HmDetails';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -113,6 +128,18 @@ const AdminDashboard = () => {
                         <Route path="/Admin/subject/student/attendance/:studentID/:subjectID" element={<StudentAttendance situation="Subject" />} />
                         <Route path="/Admin/subject/student/marks/:studentID/:subjectID" element={<StudentExamMarks situation="Subject" />} />
 
+                        {/* Year */}
+                        {/* <Route path="/Admin/addyear" element={<AddYear />} />
+                        <Route path="/Admin/years" element={<ShowYears />} />
+                        <Route path="/Admin/years/class/:id" element={<YearDetails />} />
+                        <Route path="/Admin/year/addstudents/:id" element={<AddStudent situation="Year" />} /> */}
+
+                        {/* Term */}
+                        <Route path="/Admin/addterm" element={<AddTerm />} />
+                        <Route path="/Admin/terms" element={<ShowTerms />} />
+                        <Route path="/Admin/terms/class/:id" element={<TermDetails />} />
+                        <Route path="/Admin/term/addstudents/:id" element={<AddStudent situation="Term" />} />
+
                         {/* Class */}
                         <Route path="/Admin/addclass" element={<AddClass />} />
                         <Route path="/Admin/classes" element={<ShowClasses />} />
@@ -125,6 +152,24 @@ const AdminDashboard = () => {
                         <Route path="/Admin/students/student/:id" element={<ViewStudent />} />
                         <Route path="/Admin/students/student/attendance/:id" element={<StudentAttendance situation="Student" />} />
                         <Route path="/Admin/students/student/marks/:id" element={<StudentExamMarks situation="Student" />} />
+
+                        {/* Grade */}
+                        <Route path="/Admin/addgrade" element={<AddGrade />} />
+                        <Route path="/Admin/grades" element={<ShowGrades />} />
+                        <Route path="/Admin/grades/class/:id" element={<GradeDetails />} />
+                        <Route path="/Admin/grade/addstudents/:id" element={<AddStudent situation="Grade" />} />
+
+                        {/* HeadTeacher */}
+                        <Route path="/Admin/addhm" element={<AddHm />} />
+                        <Route path="/Admin/hms" element={<ShowHm />} />
+                        <Route path="/Admin/hms/class/:id" element={<HmDetails />} />
+                        <Route path="/Admin/hm/addstudents/:id" element={<AddStudent situation="Hm" />} />
+
+                        {/* ClassTeacher */}
+                        <Route path="/Admin/addct" element={<AddCt />} />
+                        <Route path="/Admin/cts" element={<ShowCt />} />
+                        <Route path="/Admin/cts/class/:id" element={<CtDetails />} />
+                        <Route path="/Admin/ct/addstudents/:id" element={<AddStudent situation="Ct" />} />
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
