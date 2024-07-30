@@ -1,21 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    gradesList: [],
+    HeadTeacherCommentList: [],
     loading: false,
     error: null,
     response: null,
 };
 
-const gradingSlice = createSlice({
-    name: 'grading',
+const HeadTeacherCommentSlice = createSlice({
+    name: 'HeadTeacherComment',
     initialState,
     reducers: {
         getRequest: (state) => {
             state.loading = true;
         },
         getSuccess: (state, action) => {
-            state.gradesList = action.payload;
+            state.HeadTeacherCommentList = action.payload;
             state.loading = false;
             state.error = null;
             state.response = null;
@@ -37,6 +37,6 @@ export const {
     getSuccess,
     getFailed,
     getError
-} = gradingSlice.actions;
+} = HeadTeacherCommentSlice.actions;
 
-export const gradingReducer = gradingSlice.reducer;
+export const HeadTeacherCommentReducer = HeadTeacherCommentSlice.reducer;
