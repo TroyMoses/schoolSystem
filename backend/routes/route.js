@@ -25,6 +25,9 @@ const {
     removeStudentAttendance } = require('../controllers/student_controller.js');
 const { subjectCreate, classSubjects, deleteSubjectsByClass, getSubjectDetail, deleteSubject, freeSubjectList, allSubjects, deleteSubjects } = require('../controllers/subject-controller.js');
 const { teacherRegister, teacherLogIn, getTeachers, getTeacherDetail, deleteTeachers, deleteTeachersByClass, deleteTeacher, updateTeacherSubject, teacherAttendance } = require('../controllers/teacher-controller.js');
+const { gradingCreate, gradingList, updateGrading, deleteGrading } = require('../controllers/grading-controller.js');
+const { headTeacherCommentCreate, headTeacherCommentList, updateHeadTeacherComment, deleteHeadTeacherComment } = require('../controllers/headteachercomment-controller.js');
+const { classTeacherCommentCreate, classTeacherCommentList, updateClassTeacherComment, deleteClassTeacherComment } = require('../controllers/classteachercomment-controller.js');
 
 // Admin
 router.post('/AdminReg', adminRegister);
@@ -118,6 +121,31 @@ router.delete("/Notices/:id", deleteNotices);
 router.delete("/Notice/:id", deleteNotice);
 
 router.put("/Notice/:id", updateNotice);
+
+
+// Grading
+
+router.post('/GradingCreate', gradingCreate);
+router.get('/GradingList/:id', gradingList);
+router.put("/Grading/:id", updateGrading);
+router.delete("/Grading/:id", deleteGrading);
+
+
+// HeadTeacher Comment
+
+router.post('/HeadTeacherCommentCreate', headTeacherCommentCreate);
+router.get('/HeadTeacherCommentList/:id', headTeacherCommentList);
+router.put("/HeadTeacherComment/:id", updateHeadTeacherComment);
+router.delete("/HeadTeacherComment/:id", deleteHeadTeacherComment);
+
+
+// ClassTeacher Comment
+
+router.post('/ClassTeacherCommentCreate', classTeacherCommentCreate);
+router.get('/ClassTeacherCommentList/:id', classTeacherCommentList);
+router.put("/ClassTeacherComment/:id", updateClassTeacherComment);
+router.delete("/ClassTeacherComment/:id", deleteClassTeacherComment);
+
 
 // Complain
 
