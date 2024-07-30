@@ -1,4 +1,4 @@
-const headTeacherComment = require('../models/headTeacherComment.js');
+const headTeacherComment = require('../models/headTeacherCommentSchema.js');
 
 const headTeacherCommentCreate = async (req, res) => {
     try {
