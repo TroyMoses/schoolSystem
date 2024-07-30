@@ -7,8 +7,8 @@ const initialState = {
     response: null,
 };
 
-const gradeSlice = createSlice({
-    name: 'grade',
+const gradingSlice = createSlice({
+    name: 'grading',
     initialState,
     reducers: {
         getRequest: (state) => {
@@ -37,6 +37,6 @@ export const {
     getSuccess,
     getFailed,
     getError
-} = gradeSlice.actions;
+} = gradingSlice.actions;
 
-export const gradeReducer = gradeSlice.reducer;
+export const gradingReducer = gradingSlice.reducer;
