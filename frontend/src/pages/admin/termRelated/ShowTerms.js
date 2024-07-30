@@ -4,7 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
-import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
+import { getAllTerms } from '../../../redux/termRelated/termHandle';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 
@@ -20,13 +20,13 @@ const ShowTerms = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
-  const { sclassesList, loading, error, getresponse } = useSelector((state) => state.sclass);
+  const { termsList, loading, error, getresponse } = useSelector((state) => state.term);
   const { currentUser } = useSelector(state => state.user)
 
   const adminID = currentUser._id
 
   useEffect(() => {
-    dispatch(getAllSclasses(adminID, "Sclass"));
+    dispatch(getAllTerms(adminID, "Term"));
   }, [adminID, dispatch]);
 
   if (error) {
@@ -44,36 +44,38 @@ const ShowTerms = () => {
     // setShowPopup(true);
     dispatch(deleteUser(deleteID, address))
       .then(() => {
-        dispatch(getAllSclasses(adminID, "Sclass"));
+        dispatch(getAllTerms(adminID, "Term"));
       })
   }
 
-  const sclassColumns = [
-    { id: 'name', label: 'Year/Term', minWidth: 170 },
-    { id: 'name', label: 'Status', minWidth: 170 },
+  const termColumns = [
+    { id: 'termName', label: 'Year/T', minWidth: 170 },
+    { id: 'status', label: 'Statuses', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
+  const termRows = termsList && termsList.length > 0 && termsList.map((term) => {
+    console.log(term);
     return {
-      name: sclass.sclassName,
-      id: sclass._id,
+      termName: term.termName,
+      status: term.status,
+      id: term._id,
     };
   });
 
-  const SclassButtonHaver = ({ row }) => {
+  const TermButtonHaver = ({ row }) => {
     const navigate = useNavigate();
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
-      { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
+      { icon: <PersonAddAlt1Icon />, name2: 'Add Student', action: () => navigate("/Admin/term/addstudents/" + row.id) },
     ];
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
+        <IconButton onClick={() => deleteHandler(row.id, "Term")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/classes/class/" + row.id)}>
+          onClick={() => navigate("/Admin/terms/term/" + row.id)}>
           View
         </BlueButton>
         <ActionMenu actions={actions} />
@@ -141,10 +143,6 @@ const ShowTerms = () => {
       icon: <AddCardIcon color="primary" />, name: 'Add New Term',
       action: () => navigate("/Admin/addterm")
     },
-    {
-      icon: <DeleteIcon color="error" />, name: 'Delete All Terms',
-      action: () => deleteHandler(adminID, "Sclasses")
-    },
   ];
 
   return (
@@ -161,8 +159,8 @@ const ShowTerms = () => {
             </Box>
             :
             <>
-              {Array.isArray(sclassesList) && sclassesList.length > 0 &&
-                <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
+              {Array.isArray(termsList) && termsList.length > 0 &&
+                <TableTemplate buttonHaver={TermButtonHaver} columns={termColumns} rows={termRows} />
               }
               <SpeedDialTemplate actions={actions} />
             </>}
