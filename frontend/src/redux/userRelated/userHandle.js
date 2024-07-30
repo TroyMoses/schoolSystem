@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
     authRequest,
     stuffAdded,
+    gradeAdded,
     authSuccess,
     authFailed,
     authError,
@@ -120,6 +121,25 @@ export const addStuff = (fields, address) => async (dispatch) => {
             dispatch(authFailed(result.data.message));
         } else {
             dispatch(stuffAdded(result.data));
+        }
+    } catch (error) {
+        dispatch(authError(error));
+    }
+};
+
+// ADD GRADE
+export const addGrade = (fields, address) => async (dispatch) => {
+    dispatch(authRequest());
+
+    try {
+        const result = await axios.post(`${REACT_APP_BASE_URL}/${address}Create`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (result.data.message) {
+            dispatch(authFailed(result.data.message));
+        } else {
+            dispatch(gradeAdded(result.data));
         }
     } catch (error) {
         dispatch(authError(error));
