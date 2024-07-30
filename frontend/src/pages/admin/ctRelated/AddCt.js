@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addStuff } from '../../../redux/userRelated/userHandle';
+import { addClassTeacherComment } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
@@ -10,49 +10,48 @@ import styled from "styled-components";
 
 const AddCt = () => {
     // const [sclassName, setSclassName] = useState("");
-    const [sclassName ] = useState("");
+    // const [sclassName ] = useState("");
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const userState = useSelector(state => state.user);
-    const { status, currentUser, response, error, tempDetails } = userState;
+    const { status, currentUser, response, error } = userState;
 
+    const [from, setFromName] = useState("");
+    const [to, setToName] = useState("");
+    const [comment, setCommentName] = useState("");
     const adminID = currentUser._id
-    const address = "Sclass"
+    const address = "ClassTeacherComment"
 
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
     const fields = {
-        sclassName,
+        from,
+        to,
+        comment,
         adminID,
     };
 
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(addStuff(fields, address))
+        dispatch(addClassTeacherComment(fields, address))
     };
 
     useEffect(() => {
-        if (status === 'added' && tempDetails) {
-            navigate("/Admin/grades/grade/" + tempDetails._id)
-            dispatch(underControl())
-            setLoader(false)
+        if (status === 'added') {
+        navigate('/Admin/cts');
+        dispatch(underControl())
+        } else if (status === 'error') {
+        setMessage("Network Error")
+        setShowPopup(true)
+        setLoader(false)
         }
-        else if (status === 'failed') {
-            setMessage(response)
-            setShowPopup(true)
-            setLoader(false)
-        }
-        else if (status === 'error') {
-            setMessage("Network Error")
-            setShowPopup(true)
-            setLoader(false)
-        }
-    }, [status, navigate, error, response, dispatch, tempDetails]);
+    }, [status, navigate, error, response, dispatch]);
+
     return (
         <>
             <StyledContainer>
@@ -70,8 +69,8 @@ const AddCt = () => {
                     <TextField
                         label="From"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={from}
+                        onChange={(event) => setFromName(event.target.value)}
                         required
                         fullWidth
                         />
@@ -79,8 +78,8 @@ const AddCt = () => {
                         <TextField
                         label="To"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={to}
+                        onChange={(event) => setToName(event.target.value)}
                         required
                         fullWidth
                         />
@@ -88,8 +87,8 @@ const AddCt = () => {
                         <TextField
                         label="Comment"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={comment}
+                        onChange={(event) => setCommentName(event.target.value)}
                         required
                         fullWidth
                         />

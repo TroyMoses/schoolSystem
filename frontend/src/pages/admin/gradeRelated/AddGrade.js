@@ -15,7 +15,7 @@ const AddGrade = () => {
 
     // const userState = useSelector(state => state.user);
     // const { status, currentUser, response, error, tempDetails } = userState;
-    const { status, response, error , tempDetails} = useSelector(state => state.user);
+    const { status, response, error } = useSelector(state => state.user);
     const { currentUser } = useSelector(state => state.user);
 
     const [from, setFromName] = useState("");
@@ -25,7 +25,7 @@ const AddGrade = () => {
     const adminID = currentUser._id
   
     // const adminID = currentUser._id
-    const address = "Grade"
+    const address = "Grading"
 
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
@@ -46,22 +46,16 @@ const AddGrade = () => {
     };
 
     useEffect(() => {
-        if (status === 'added' && tempDetails) {
-            navigate("/Admin/grades/grade/" + tempDetails._id)
-            dispatch(underControl())
-            setLoader(false)
+        if (status === 'added') {
+        navigate('/Admin/grades');
+        dispatch(underControl())
+        } else if (status === 'error') {
+        setMessage("Network Error")
+        setShowPopup(true)
+        setLoader(false)
         }
-        else if (status === 'failed') {
-            setMessage(response)
-            setShowPopup(true)
-            setLoader(false)
-        }
-        else if (status === 'error') {
-            setMessage("Network Error")
-            setShowPopup(true)
-            setLoader(false)
-        }
-    }, [status, navigate, error, response, dispatch, tempDetails]);
+    }, [status, navigate, error, response, dispatch]);
+
     return (
         <>
             <StyledContainer>
@@ -77,6 +71,7 @@ const AddGrade = () => {
                     <form onSubmit={submitHandler}>
                     <Stack spacing={3}>
                     <TextField
+                        type="number"
                         label="From"
                         variant="outlined"
                         value={from}
@@ -87,6 +82,7 @@ const AddGrade = () => {
 
                         <TextField
                         label="To"
+                         type="number"
                         variant="outlined"
                         value={to}
                         onChange={(event) => setToName(event.target.value)}
