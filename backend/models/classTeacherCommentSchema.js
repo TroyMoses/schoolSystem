@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 
 const classTeacherSchema = new mongoose.Schema({
     from: {
-        type: Number,
+        type: String,
         required: true,
     },
     to: {
-        type: Number,
+        type: String,
         required: true,
     },
     comment: {
