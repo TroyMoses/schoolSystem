@@ -2,38 +2,47 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addStuff } from '../../../redux/userRelated/userHandle';
+import { addGrade } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import styled from "styled-components";
 
 const AddGrade = () => {
-    // const [sclassName, setSclassName] = useState("");
-    const [sclassName ] = useState("");
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const userState = useSelector(state => state.user);
-    const { status, currentUser, response, error, tempDetails } = userState;
+    // const userState = useSelector(state => state.user);
+    // const { status, currentUser, response, error, tempDetails } = userState;
+    const { status, response, error , tempDetails} = useSelector(state => state.user);
+    const { currentUser } = useSelector(state => state.user);
 
+    const [from, setFromName] = useState("");
+    const [to, setToName] = useState("");
+    const [grade, setGradeName] = useState("");
+    const [comment, setCommentName] = useState("");
     const adminID = currentUser._id
-    const address = "Sclass"
+  
+    // const adminID = currentUser._id
+    const address = "Grade"
 
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
     const fields = {
-        sclassName,
+        from,
+        to,
+        grade,
+        comment,
         adminID,
     };
 
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(addStuff(fields, address))
+        dispatch(addGrade(fields, address))
     };
 
     useEffect(() => {
@@ -70,8 +79,8 @@ const AddGrade = () => {
                     <TextField
                         label="From"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={from}
+                        onChange={(event) => setFromName(event.target.value)}
                         required
                         fullWidth
                         />
@@ -79,8 +88,8 @@ const AddGrade = () => {
                         <TextField
                         label="To"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={to}
+                        onChange={(event) => setToName(event.target.value)}
                         required
                         fullWidth
                         />
@@ -88,8 +97,8 @@ const AddGrade = () => {
                         <TextField
                         label="Grade"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={grade}
+                        onChange={(event) => setGradeName(event.target.value)}
                         required
                         fullWidth
                         />
@@ -97,8 +106,8 @@ const AddGrade = () => {
                         <TextField
                         label="Comment"
                         variant="outlined"
-                        // value={term}
-                        // onChange={(event) => setTerm(event.target.value)}
+                        value={comment}
+                        onChange={(event) => setCommentName(event.target.value)}
                         required
                         fullWidth
                         />
