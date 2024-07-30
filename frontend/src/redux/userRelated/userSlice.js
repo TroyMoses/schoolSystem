@@ -41,6 +41,12 @@ const userSlice = createSlice({
             state.error = null;
             state.tempDetails = action.payload;
         },
+        ClassTeacherCommentAdded: (state, action) => {
+            state.status = 'added';
+            state.response = null;
+            state.error = null;
+            state.tempDetails = action.payload;
+        },
         authSuccess: (state, action) => {
             state.status = 'success';
             state.currentUser = action.payload;
@@ -100,6 +106,7 @@ export const {
     underControl,
     stuffAdded,
     HeadTeacherCommentAdded,
+    ClassTeacherCommentAdded,
     gradeAdded,
     authSuccess,
     authFailed,

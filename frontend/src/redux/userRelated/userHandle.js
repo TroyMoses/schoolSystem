@@ -3,6 +3,7 @@ import {
     authRequest,
     stuffAdded,
     HeadTeacherCommentAdded,
+    ClassTeacherCommentAdded,
     gradeAdded,
     authSuccess,
     authFailed,
@@ -160,6 +161,25 @@ export const addHeadTeacherComment = (fields, address) => async (dispatch) => {
             dispatch(authFailed(result.data.message));
         } else {
             dispatch(HeadTeacherCommentAdded(result.data));
+        }
+    } catch (error) {
+        dispatch(authError(error));
+    }
+};
+
+// ADD ClassTeacherComment
+export const addClassTeacherComment = (fields, address) => async (dispatch) => {
+    dispatch(authRequest());
+
+    try {
+        const result = await axios.post(`${REACT_APP_BASE_URL}/${address}Create`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+
+        if (result.data.message) {
+            dispatch(authFailed(result.data.message));
+        } else {
+            dispatch(ClassTeacherCommentAdded(result.data));
         }
     } catch (error) {
         dispatch(authError(error));
