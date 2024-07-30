@@ -1,16 +1,12 @@
 const mongoose = require("mongoose");
 
 const classTeacherSchema = new mongoose.Schema({
-    name: {
+    from: {
         type: String,
         required: true,
     },
-    from: {
-        type: Number,
-        required: true,
-    },
     to: {
-        type: Number,
+        type: String,
         required: true,
     },
     comment: {
