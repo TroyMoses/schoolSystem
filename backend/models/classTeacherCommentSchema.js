@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const classTeacherSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-    },
     from: {
         type: Number,
         required: true,
