@@ -35,7 +35,7 @@ const updateNotice = async (req, res) => {
     } catch (error) {
         res.status(500).json(error);
     }
-}
+};
 
 const deleteNotice = async (req, res) => {
     try {
