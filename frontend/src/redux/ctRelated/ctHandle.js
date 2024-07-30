@@ -8,7 +8,7 @@ import {
 
 const REACT_APP_BASE_URL = "https://schoolsystem-ice2.onrender.com";
 
-export const getAllGrades = (id, address) => async (dispatch) => {
+export const getAllClassTeacherComment = (id, address) => async (dispatch) => {
     dispatch(getRequest());
 
     try {
