@@ -46,7 +46,12 @@ const StudentHomePage = () => {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper
+                        style={{
+                            backgroundColor: '#fcd34d', // Blue color for background
+                            
+                        }}
+                        >
                             <img src={Subject} alt="Subjects" />
                             <Title>
                                 Total Subjects
@@ -55,7 +60,12 @@ const StudentHomePage = () => {
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper 
+                        style={{
+                            backgroundColor: '#f59e0b', // Blue color for background
+                            
+                        }}
+                        >
                             <img src={Assignment} alt="Assignments" />
                             <Title>
                                 Total Assignments
@@ -64,7 +74,12 @@ const StudentHomePage = () => {
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={4} lg={3}>
-                        <ChartContainer>
+                        <ChartContainer 
+                        style={{
+                            backgroundColor: '#fcd34d', // Blue color for background
+                            
+                        }}
+                        >
                             {
                                 response ?
                                     <Typography variant="h6">No Attendance Found</Typography>
