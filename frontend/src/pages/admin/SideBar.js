@@ -4,6 +4,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SchoolIcon from '@mui/icons-material/School';
 import { Link, useLocation } from 'react-router-dom';
 // import Image from "next/image";
+import Classes from "../../assets/log.jpg";
 
 import HomeIcon from "@mui/icons-material/Home";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -24,7 +25,23 @@ const SideBar = () => {
 
     return (
         <>
-        
+         <div style={{ 
+            width: '250px', 
+            height: '90vh', 
+            backgroundColor: '#f59e0b', // Background color
+            overflowY: 'auto', // Enable vertical scrolling
+            padding: '10px', // Padding around the content
+        }}>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: window.innerWidth <= 480 ? "-30px" : window.innerWidth <= 768 ? "-20px" : window.innerWidth <= 1024 ? "-10px" : "-20px",
+            }}
+            >
+            <img src={Classes} alt="Classes" style={{ width: "140px", height: "150px", borderRadius: "50%", objectFit: "cover", }} />
+            </div>
             <React.Fragment>
                 <ListItemButton 
                     component={Link} 
@@ -167,7 +184,7 @@ const SideBar = () => {
                     <ListItemIcon>
                         <CommentIcon color={location.pathname.startsWith("/Admin/hms") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="HeadTeacher's Comment" />
+                    <ListItemText primary="HT's Comment" />
                 </ListItemButton>
 
                 {/* Hm comments */}
@@ -186,7 +203,7 @@ const SideBar = () => {
                     <ListItemIcon>
                         <CommentIcon color={location.pathname.startsWith("/Admin/cts") ? 'primary' : 'inherit'} />
                     </ListItemIcon>
-                    <ListItemText primary="Class Teacher's Comment" />
+                    <ListItemText primary="CT's Comment" />
                 </ListItemButton>
                   {/* end classteacher comments */}
 
@@ -260,6 +277,7 @@ const SideBar = () => {
                     <ListItemText primary="Logout" />
                 </ListItemButton>
             </React.Fragment>
+            </div>
         </>
     )
 }
