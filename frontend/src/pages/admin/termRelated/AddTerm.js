@@ -21,9 +21,9 @@ const AddTerm = () => {
     const navigate = useNavigate()
 
     const userState = useSelector(state => state.user);
-    const { status, currentUser, response, error, tempDetails } = userState;
+    const { status, currentUser, response, error } = userState;
 
-    const [term, setTermName] = useState("");
+    const [termName, setTermName] = useState("");
     const [statu, setStatusName] = useState("");
     const adminID = currentUser._id
     const address = "Term"
@@ -33,7 +33,7 @@ const AddTerm = () => {
     const [showPopup, setShowPopup] = useState(false);
 
     const fields = {
-        term,
+        termName,
         statu,
         adminID,
     };
@@ -86,7 +86,7 @@ const AddTerm = () => {
                         <Select
                             labelId="status-select-label"
                             id="status-select"
-                            value={term}
+                            value={termName}
                             onChange={(event) => setTermName(event.target.value)}
                             displayEmpty
                             label="Select Term"
