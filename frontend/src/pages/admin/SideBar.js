@@ -4,6 +4,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SchoolIcon from '@mui/icons-material/School';
 import { Link, useLocation } from 'react-router-dom';
 // import Image from "next/image";
+import Classes from "../../assets/log.jpg";
 
 import HomeIcon from "@mui/icons-material/Home";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -24,7 +25,9 @@ const SideBar = () => {
 
     return (
         <>
-        
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+             <img src={Classes} alt="Classes" style={{ width: "140px", height: "150px" }} />
+         </div>
             <React.Fragment>
                 <ListItemButton 
                     component={Link} 
