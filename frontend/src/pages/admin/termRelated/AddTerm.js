@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, CircularProgress, Stack, InputLabel, Typography} from "@mui/material";
-import { Select, MenuItem} from '@mui/material';
+import { Box, Button, CircularProgress, Stack, InputLabel, Typography, Select, MenuItem } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTerm } from '../../../redux/userRelated/userHandle';
@@ -13,83 +12,82 @@ import dayjs from 'dayjs';
 const AddTerm = () => {
     const currentYear = dayjs().year(); // Get the current year
     const [year] = useState(currentYear); 
+    const [termNames, setTermName] = useState('');
+    const [status, setStatus] = useState("");
 
-    // const [sclassName, setSclassName] = useState("");
-    // const [sclassName ] = useState("");
-
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const userState = useSelector(state => state.user);
-    const { status, currentUser, response, error } = userState;
+    const { status: userStatus, currentUser, response, error } = userState;
 
-    const [termName, setTermName] = useState("");
-    const [statu, setStatusName] = useState("");
-    const adminID = currentUser._id
-    const address = "Term"
+    const adminID = currentUser._id;
+    const address = "Term";
 
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(false);
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
-    const fields = {
-        termName,
-        statu,
-        adminID,
-    };
+    const handleSave = () => {
+        if (!termNames) {
+            alert('Please select a term.');
+            return;
+        }
 
-    const submitHandler = (event) => {
-        event.preventDefault()
-        setLoader(true)
-        dispatch(addTerm(fields, address))
+        const termName = `${year}/${termNames}`;
+
+        const fields = {
+            termName,
+            status,
+            adminID,
+        };
+
+        setLoader(true);
+        dispatch(addTerm(fields, address));
     };
 
     useEffect(() => {
-        if (status === 'added') {
-        navigate('/Admin/terms');
-        dispatch(underControl())
-        } else if (status === 'error') {
-        setMessage("Network Error")
-        setShowPopup(true)
-        setLoader(false)
+        if (userStatus === 'added') {
+            navigate('/Admin/terms');
+            dispatch(underControl());
+        } else if (userStatus === 'error') {
+            setMessage("Network Error");
+            setShowPopup(true);
+            setLoader(false);
         }
-    }, [status, navigate, error, response, dispatch]);
+    }, [userStatus, navigate, error, response, dispatch]);
 
     return (
         <>
             <StyledContainer>
                 <StyledBox>
-                    <Stack sx={{
-                        alignItems: 'center',
-                        mb: 3
-                    }}>
+                    <Stack sx={{ alignItems: 'center', mb: 3 }}>
                         <Typography variant="h4" color="primary" sx={{ mb: 3 }}>
-                          Register New Term For The Current Year
-                       </Typography>
+                            Register New Term For The Current Year
+                        </Typography>
                     </Stack>
-                    <form onSubmit={submitHandler}>
                     <Stack spacing={3}>
-                    {/* <InputLabel htmlFor="year-select">Year</InputLabel> */}
+                        <InputLabel id="year-select-label">Year</InputLabel>
                         <Select
                             id="year-select"
                             value={year}
-                            // onChange={(event) => setYear(event.target.value)} // No need for onChange since entry is fixed
                             required
                             fullWidth
                             variant="outlined"
-                            disabled // Make the select field non-editable
+                            disabled
                         >
                             <MenuItem value={currentYear}>{currentYear}</MenuItem>
                         </Select>
 
                         <InputLabel id="term-select-label">Select Term</InputLabel>
                         <Select
-                            labelId="status-select-label"
-                            id="status-select"
-                            value={termName}
+                            labelId="term-select-label"
+                            id="term-select"
+                            value={termNames}
                             onChange={(event) => setTermName(event.target.value)}
                             displayEmpty
                             label="Select Term"
+                            fullWidth
                         >
                             <MenuItem value="">
                                 <em>Select Term</em>
@@ -98,44 +96,44 @@ const AddTerm = () => {
                             <MenuItem value="II">Term Two</MenuItem>
                             <MenuItem value="III">Term Three</MenuItem>
                         </Select>
-                        
+
                         <InputLabel id="status-select-label">Select Term Status</InputLabel>
                         <Select
-                        label="Select Status"
-                        value={statu}
-                        onChange={(event) => setStatusName(event.target.value)}
-                        required
-                        fullWidth
-                        variant="outlined"
+                            labelId="status-select-label"
+                            id="status-select"
+                            value={status}
+                            onChange={(event) => setStatus(event.target.value)}
+                            required
+                            fullWidth
+                            variant="outlined"
                         >
-                        <MenuItem value="active">Active</MenuItem>
-                        <MenuItem value="inactive">Inactive</MenuItem>
+                            <MenuItem value="Active">Active</MenuItem>
+                            <MenuItem value="Inactive">Inactive</MenuItem>
                         </Select>
 
                         <BlueButton
-                        fullWidth
-                        size="large"
-                        sx={{ mt: 3 }}
-                        variant="contained"
-                        type="submit"
-                        disabled={loader}
+                            fullWidth
+                            size="large"
+                            sx={{ mt: 3 }}
+                            variant="contained"
+                            onClick={handleSave}
+                            disabled={loader}
                         >
-                        {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
+                            {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
                         </BlueButton>
 
                         <Button variant="outlined" onClick={() => navigate(-1)}>
-                        Back
+                            Back
                         </Button>
                     </Stack>
-                    </form>
                 </StyledBox>
             </StyledContainer>
             <Popup message={message} setShowPopup={setShowPopup} showPopup={showPopup} />
         </>
-    )
-}
+    );
+};
 
-export default AddTerm
+export default AddTerm;
 
 const StyledContainer = styled(Box)`
   flex: 1 1 auto;
