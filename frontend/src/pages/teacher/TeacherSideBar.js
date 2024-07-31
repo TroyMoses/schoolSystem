@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Divider, ListItemButton, ListItemIcon, ListItemText, ListSubheader } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
+import Classes from "../../assets/log.jpg";
 
 import HomeIcon from '@mui/icons-material/Home';
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -16,6 +17,23 @@ const TeacherSideBar = () => {
     const location = useLocation();
     return (
         <>
+        <div style={{ 
+            width: '250px', 
+            height: '90vh', 
+            backgroundColor: '#f59e0b', // Background color
+            overflowY: 'auto', // Enable vertical scrolling
+            padding: '10px', // Padding around the content
+        }}>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: window.innerWidth <= 480 ? "-30px" : window.innerWidth <= 768 ? "-20px" : window.innerWidth <= 1024 ? "-10px" : "-20px",
+            }}
+            >
+            <img src={Classes} alt="Classes" style={{ width: "140px", height: "150px", borderRadius: "50%", objectFit: "cover", }} />
+            </div>
             <React.Fragment>
                 <ListItemButton component={Link} to="/">
                     <ListItemIcon>
@@ -54,6 +72,7 @@ const TeacherSideBar = () => {
                     <ListItemText primary="Logout" />
                 </ListItemButton>
             </React.Fragment>
+            </div>
         </>
     )
 }
