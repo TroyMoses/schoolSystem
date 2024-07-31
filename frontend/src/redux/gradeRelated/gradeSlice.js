@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    gradesList: [],
+    gradingList: [],
     loading: false,
     error: null,
     response: null,
@@ -15,7 +15,7 @@ const gradingSlice = createSlice({
             state.loading = true;
         },
         getSuccess: (state, action) => {
-            state.gradesList = action.payload;
+            state.gradingList = action.payload;
             state.loading = false;
             state.error = null;
             state.response = null;

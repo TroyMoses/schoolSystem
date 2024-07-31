@@ -3,6 +3,7 @@ import { Divider, ListItemButton, ListItemIcon, ListItemText, ListSubheader } fr
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import SchoolIcon from '@mui/icons-material/School';
 import { Link, useLocation } from 'react-router-dom';
+// import Image from "next/image";
 
 import HomeIcon from "@mui/icons-material/Home";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
@@ -23,6 +24,7 @@ const SideBar = () => {
 
     return (
         <>
+        
             <React.Fragment>
                 <ListItemButton 
                     component={Link} 
