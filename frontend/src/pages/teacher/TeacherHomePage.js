@@ -32,7 +32,12 @@ const TeacherHomePage = () => {
             <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper
+                        style={{
+                            backgroundColor: '#fcd34d', // Blue color for background
+                            
+                        }}
+                        >
                             <img src={Students} alt="Students" />
                             <Title>
                                 Class Students
@@ -41,7 +46,12 @@ const TeacherHomePage = () => {
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper
+                        style={{
+                            backgroundColor: '#f59e0b', // Blue color for background
+                            
+                        }}
+                        >
                             <img src={Lessons} alt="Lessons" />
                             <Title>
                                 Total Lessons
@@ -50,7 +60,12 @@ const TeacherHomePage = () => {
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper 
+                        style={{
+                            backgroundColor: '#fcd34d', // Blue color for background
+                            
+                        }}
+                        >
                             <img src={Tests} alt="Tests" />
                             <Title>
                                 Tests Taken
@@ -59,7 +74,12 @@ const TeacherHomePage = () => {
                         </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={3} lg={3}>
-                        <StyledPaper>
+                        <StyledPaper 
+                        style={{
+                            backgroundColor: '#f59e0b', // Blue color for background
+                            
+                        }}
+                        >
                             <img src={Time} alt="Time" />
                             <Title>
                                 Total Hours
