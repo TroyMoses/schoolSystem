@@ -25,9 +25,23 @@ const SideBar = () => {
 
     return (
         <>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-             <img src={Classes} alt="Classes" style={{ width: "140px", height: "150px" }} />
-         </div>
+         <div style={{ 
+            width: '250px', 
+            height: '90vh', 
+            backgroundColor: '#f4f4f4', // Background color
+            overflowY: 'auto', // Enable vertical scrolling
+            padding: '10px', // Padding around the content
+        }}>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: window.innerWidth <= 480 ? "-30px" : window.innerWidth <= 768 ? "-40px" : window.innerWidth <= 1024 ? "-50px" : "-60px",
+            }}
+            >
+            <img src={Classes} alt="Classes" style={{ width: "140px", height: "150px" }} />
+            </div>
             <React.Fragment>
                 <ListItemButton 
                     component={Link} 
@@ -263,6 +277,7 @@ const SideBar = () => {
                     <ListItemText primary="Logout" />
                 </ListItemButton>
             </React.Fragment>
+            </div>
         </>
     )
 }
