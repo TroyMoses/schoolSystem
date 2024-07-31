@@ -98,7 +98,7 @@ const TeacherHomePage = () => {
 }
 
 const StyledPaper = styled(Paper)`
-  padding: 16px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
   width: 300px;
