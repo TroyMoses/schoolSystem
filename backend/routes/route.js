@@ -94,8 +94,6 @@ router.post('/TeacherAttendance/:id', teacherAttendance);
 
 // Student
 
-// router.post('/StudentReg', upload.single('photo'), studentRegister);
-
 router.post('/StudentReg', upload.single('photo'), async (req, res) => {
     try {
         // Upload photo to Cloudinary
