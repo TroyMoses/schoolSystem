@@ -64,8 +64,7 @@ const ShowGrades = () => {
       from: grading.from,
       to: grading.to,
       grade: grading.grade,
-      comment: grading.comment.comment,
-      // teachSclassID: grading.teachSclass._id,
+      comment: grading.comment,
       id: grading._id,
     };
   });
