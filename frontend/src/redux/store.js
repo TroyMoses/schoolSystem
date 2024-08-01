@@ -6,6 +6,7 @@ import { sclassReducer } from './sclassRelated/sclassSlice';
 import { teacherReducer } from './teacherRelated/teacherSlice';
 import { complainReducer } from './complainRelated/complainSlice';
 import { termReducer } from './termRelated/termSlice';
+import { gradingReducer } from './gradeRelated/gradeSlice';
 
 const store = configureStore({
     reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
         notice: noticeReducer,
         complain: complainReducer,
         sclass: sclassReducer,
-        term: termReducer
+        term: termReducer,
+        grading:gradingReducer
     },
 });
 

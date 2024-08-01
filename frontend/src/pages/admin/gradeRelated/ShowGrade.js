@@ -62,8 +62,8 @@ const ShowGrades = () => {
   const gradingRows = gradingList && gradingList.length > 0 && gradingList.map((grading) => {
     return {
       from: grading.from,
-      to: grading.to?.subName || null,
-      grade: grading.grade.grade,
+      to: grading.to,
+      grade: grading.grade,
       comment: grading.comment.comment,
       // teachSclassID: grading.teachSclass._id,
       id: grading._id,
