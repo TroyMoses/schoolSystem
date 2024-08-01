@@ -112,9 +112,10 @@ const AdminHomePage = () => {
 
 
 const StyledPaper = styled(Paper)`
-  padding: 16px;
+  padding: 26px;
   display: flex;
   flex-direction: column;
+  width: 300px;
   height: 200px;
   justify-content: space-between;
   align-items: center;

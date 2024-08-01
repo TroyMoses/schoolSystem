@@ -69,6 +69,7 @@ const AddCt = () => {
                     <TextField
                         label="From"
                         variant="outlined"
+                        type="number"
                         value={from}
                         onChange={(event) => setFromName(event.target.value)}
                         required
@@ -78,6 +79,7 @@ const AddCt = () => {
                         <TextField
                         label="To"
                         variant="outlined"
+                        type="number"
                         value={to}
                         onChange={(event) => setToName(event.target.value)}
                         required

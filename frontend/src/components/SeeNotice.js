@@ -39,6 +39,7 @@ const SeeNotice = () => {
             id: notice._id,
         };
     });
+    
     return (
         <div style={{ marginTop: '50px', marginRight: '20px' }}>
             {loading ? (

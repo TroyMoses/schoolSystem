@@ -3,7 +3,7 @@ import { Box, Button, CircularProgress, Stack, InputLabel, Typography} from "@mu
 import { Select, MenuItem} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addStuff } from '../../../redux/userRelated/userHandle';
+import { addTerm } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
@@ -15,7 +15,7 @@ const AddTerm = () => {
     const [year] = useState(currentYear); 
 
     // const [sclassName, setSclassName] = useState("");
-    const [sclassName ] = useState("");
+    // const [sclassName ] = useState("");
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -23,41 +23,38 @@ const AddTerm = () => {
     const userState = useSelector(state => state.user);
     const { status, currentUser, response, error, tempDetails } = userState;
 
+    const [term, setTermName] = useState("");
+    const [statu, setStatusName] = useState("");
     const adminID = currentUser._id
-    const address = "Sclass"
+    const address = "Term"
 
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
     const fields = {
-        sclassName,
+        term,
+        statu,
         adminID,
     };
 
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(addStuff(fields, address))
+        dispatch(addTerm(fields, address))
     };
 
     useEffect(() => {
-        if (status === 'added' && tempDetails) {
-            navigate("/Admin/terms/term/" + tempDetails._id)
-            dispatch(underControl())
-            setLoader(false)
+        if (status === 'added') {
+        navigate('/Admin/terms');
+        dispatch(underControl())
+        } else if (status === 'error') {
+        setMessage("Network Error")
+        setShowPopup(true)
+        setLoader(false)
         }
-        else if (status === 'failed') {
-            setMessage(response)
-            setShowPopup(true)
-            setLoader(false)
-        }
-        else if (status === 'error') {
-            setMessage("Network Error")
-            setShowPopup(true)
-            setLoader(false)
-        }
-    }, [status, navigate, error, response, dispatch, tempDetails]);
+    }, [status, navigate, error, response, dispatch]);
+
     return (
         <>
             <StyledContainer>
@@ -89,8 +86,8 @@ const AddTerm = () => {
                         <Select
                             labelId="status-select-label"
                             id="status-select"
-                            value={status}
-                            // onChange={(event) => setStatus(event.target.value)}
+                            value={term}
+                            onChange={(event) => setTermName(event.target.value)}
                             displayEmpty
                             label="Select Term"
                         >
@@ -105,8 +102,8 @@ const AddTerm = () => {
                         <InputLabel id="status-select-label">Select Term Status</InputLabel>
                         <Select
                         label="Select Status"
-                        value={status}
-                        // onChange={(event) => setStatus(event.target.value)}
+                        value={statu}
+                        onChange={(event) => setStatusName(event.target.value)}
                         required
                         fullWidth
                         variant="outlined"

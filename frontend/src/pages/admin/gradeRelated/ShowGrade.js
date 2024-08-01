@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { IconButton, Box, Menu, MenuItem, ListItemIcon} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
-import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
+import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+// import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import AddCardIcon from '@mui/icons-material/AddCard';
@@ -20,13 +20,17 @@ const ShowGrades = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
-  const { sclassesList, loading, error, getresponse } = useSelector((state) => state.sclass);
+  const { gradingList, loading, error, getresponse } = useSelector((state) => state.grading);
   const { currentUser } = useSelector(state => state.user)
 
-  const adminID = currentUser._id
+  // const adminID = currentUser._id
+  const adminID = currentUser?._id; 
 
   useEffect(() => {
-    dispatch(getAllSclasses(adminID, "Sclass"));
+    if (adminID) {
+      // Dispatching an action to fetch all grades
+      dispatch(getAllGrades(adminID, "Grading"));
+    }
   }, [adminID, dispatch]);
 
   if (error) {
@@ -44,25 +48,29 @@ const ShowGrades = () => {
     // setShowPopup(true);
     dispatch(deleteUser(deleteID, address))
       .then(() => {
-        dispatch(getAllSclasses(adminID, "Sclass"));
+        dispatch(getAllGrades(adminID, "Grading"));
       })
   }
 
-  const sclassColumns = [
-    { id: 'name', label: 'From', minWidth: 170 },
-    { id: 'name', label: 'To', minWidth: 170 },
-    { id: 'name', label: 'Grade', minWidth: 170 },
-    { id: 'name', label: 'Comment', minWidth: 170 },
+  const gradingColumns = [
+    { id: 'from', label: 'From', minWidth: 170 },
+    { id: 'to', label: 'To', minWidth: 170 },
+    { id: 'grade', label: 'Grade', minWidth: 170 },
+    { id: 'comment', label: 'Comment', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
+  const gradingRows = gradingList && gradingList.length > 0 && gradingList.map((grading) => {
     return {
-      name: sclass.sclassName,
-      id: sclass._id,
+      from: grading.from,
+      to: grading.to?.subName || null,
+      grade: grading.grade.grade,
+      comment: grading.comment.comment,
+      // teachSclassID: grading.teachSclass._id,
+      id: grading._id,
     };
   });
 
-  const SclassButtonHaver = ({ row }) => {
+  const GradingButtonHaver = ({ row }) => {
     const navigate = useNavigate();
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
@@ -163,8 +171,8 @@ const ShowGrades = () => {
             </Box>
             :
             <>
-              {Array.isArray(sclassesList) && sclassesList.length > 0 &&
-                <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
+              {Array.isArray(gradingList) && gradingList.length > 0 &&
+                <TableTemplate buttonHaver={GradingButtonHaver} columns={gradingColumns} rows={gradingRows} />
               }
               <SpeedDialTemplate actions={actions} />
             </>}
