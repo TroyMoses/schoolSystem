@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { IconButton, Box, Menu, MenuItem, ListItemIcon } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
-import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
+import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import AddCardIcon from '@mui/icons-material/AddCard';
@@ -20,13 +19,13 @@ const ShowHm = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
-  const { sclassesList, loading, error, getresponse } = useSelector((state) => state.sclass);
+  const { HeadTeacherCommentList, loading, error, getresponse } = useSelector((state) => state.HeadTeacherComment);
   const { currentUser } = useSelector(state => state.user)
 
   const adminID = currentUser._id
 
   useEffect(() => {
-    dispatch(getAllSclasses(adminID, "Sclass"));
+    dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
   }, [adminID, dispatch]);
 
   if (error) {
@@ -44,24 +43,26 @@ const ShowHm = () => {
     // setShowPopup(true);
     dispatch(deleteUser(deleteID, address))
       .then(() => {
-        dispatch(getAllSclasses(adminID, "Sclass"));
+        dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
       })
   }
 
-  const sclassColumns = [
-    { id: 'name', label: 'From', minWidth: 170 },
-    { id: 'name', label: 'To', minWidth: 170 },
-    { id: 'name', label: 'Comment', minWidth: 170 },
+  const HeadTeacherCommentColumns = [
+    { id: 'from', label: 'From', minWidth: 170 },
+    { id: 'to', label: 'To', minWidth: 170 },
+    { id: 'comment', label: 'Comment', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
+  const HeadTeacherCommentRows = HeadTeacherCommentList && HeadTeacherCommentList.length > 0 && HeadTeacherCommentList.map((HeadTeacherComment) => {
     return {
-      name: sclass.sclassName,
-      id: sclass._id,
+      from: HeadTeacherComment.from,
+      to: HeadTeacherComment.to,
+      comment: HeadTeacherComment.comment,
+      id: HeadTeacherComment._id,
     };
   });
 
-  const SclassButtonHaver = ({ row }) => {
+  const HeadTeacherCommentButtonHaver = ({ row }) => {
     const navigate = useNavigate();
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
@@ -70,7 +71,7 @@ const ShowHm = () => {
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
+        <IconButton onClick={() => deleteHandler(row.id, "HeadTeacherComment")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton variant="contained"
@@ -144,7 +145,7 @@ const ShowHm = () => {
     },
     {
       icon: <DeleteIcon color="error" />, name: 'Delete All Comments',
-      action: () => deleteHandler(adminID, "Sclasses")
+      action: () => deleteHandler(adminID, "HeadTeacherComment")
     },
   ];
 
@@ -162,8 +163,8 @@ const ShowHm = () => {
             </Box>
             :
             <>
-              {Array.isArray(sclassesList) && sclassesList.length > 0 &&
-                <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
+              {Array.isArray(HeadTeacherCommentList) && HeadTeacherCommentList.length > 0 &&
+                <TableTemplate buttonHaver={HeadTeacherCommentButtonHaver} columns={HeadTeacherCommentColumns} rows={HeadTeacherCommentRows} />
               }
               <SpeedDialTemplate actions={actions} />
             </>}
