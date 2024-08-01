@@ -4,11 +4,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
-import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
+import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import AddCardIcon from '@mui/icons-material/AddCard';
@@ -20,13 +19,13 @@ const ShowCt = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
-  const { sclassesList, loading, error, getresponse } = useSelector((state) => state.sclass);
+  const { ClassTeacherCommentList, loading, error, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { currentUser } = useSelector(state => state.user)
 
   const adminID = currentUser._id
 
   useEffect(() => {
-    dispatch(getAllSclasses(adminID, "Sclass"));
+    dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
   }, [adminID, dispatch]);
 
   if (error) {
@@ -44,25 +43,26 @@ const ShowCt = () => {
     // setShowPopup(true);
     dispatch(deleteUser(deleteID, address))
       .then(() => {
-        dispatch(getAllSclasses(adminID, "Sclass"));
+        dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
       })
   }
 
-  const sclassColumns = [
-    { id: 'name', label: 'From', minWidth: 170 },
-    { id: 'name', label: 'To', minWidth: 170 },
-    { id: 'name', label: 'Grade', minWidth: 170 },
-    { id: 'name', label: 'Comment', minWidth: 170 },
+  const ClassTeacherCommentColumns = [
+    { id: 'from', label: 'From', minWidth: 170 },
+    { id: 'to', label: 'To', minWidth: 170 },
+    { id: 'comment', label: 'Comment', minWidth: 170 },
   ]
 
-  const sclassRows = sclassesList && sclassesList.length > 0 && sclassesList.map((sclass) => {
+  const ClassTeacherCommentRows = ClassTeacherCommentList && ClassTeacherCommentList.length > 0 && ClassTeacherCommentList.map((ClassTeacherComment) => {
     return {
-      name: sclass.sclassName,
-      id: sclass._id,
+      from: ClassTeacherComment.from,
+      to: ClassTeacherComment.to,
+      comment: ClassTeacherComment.comment,
+      id: ClassTeacherComment._id,
     };
   });
 
-  const SclassButtonHaver = ({ row }) => {
+  const ClassTeacherCommentButtonHaver = ({ row }) => {
     const navigate = useNavigate();
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
@@ -71,7 +71,7 @@ const ShowCt = () => {
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
+        <IconButton onClick={() => deleteHandler(row.id, "ClassTeacherComment")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
         <BlueButton variant="contained"
@@ -163,8 +163,8 @@ const ShowCt = () => {
             </Box>
             :
             <>
-              {Array.isArray(sclassesList) && sclassesList.length > 0 &&
-                <TableTemplate buttonHaver={SclassButtonHaver} columns={sclassColumns} rows={sclassRows} />
+              {Array.isArray(ClassTeacherCommentList) && ClassTeacherCommentList.length > 0 &&
+                <TableTemplate buttonHaver={ClassTeacherCommentButtonHaver} columns={ClassTeacherCommentColumns} rows={ClassTeacherCommentRows} />
               }
               <SpeedDialTemplate actions={actions} />
             </>}
