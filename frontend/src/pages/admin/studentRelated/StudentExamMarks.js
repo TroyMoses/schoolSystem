@@ -58,7 +58,8 @@ const StudentExamMarks = ({ situation }) => {
         setChosenSubName(selectedSubject._id);
     }
 
-    const fields = { subName: chosenSubName, marksObtained }
+    let examsSession = "end"
+    const fields = { subName: chosenSubName, marksObtained, examsSession }
 
     const submitHandler = (event) => {
         event.preventDefault()
