@@ -109,7 +109,7 @@ const Prints = () => {
           </Typography>
         </Box>
 
-        <Box display="flex" justifyContent="space-between" mt={2}>
+        <Box display="flex" justifyContent="space-between" mt={2} mb={5}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
                         {/* {admission.date_of_birth}  */}
@@ -132,13 +132,88 @@ const Prints = () => {
           </Typography>
         </Box>
 
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Emis No. (LIN):</span>  <span style={{ borderBottom: '2px dotted black', paddingRight: '33rem' }}>
-                        {/* {admission.emis_no} */}
-                        </span>
-          </Typography>
-        </Box>
+        <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%', // Width of the table
+        margin: '0 auto', // Center the table
+        border: '4px solid black', // Thick border around the table
+        borderRadius: '8px', // Optional: border-radius for rounded corners
+        overflow: 'hidden', // Ensure content doesn't overflow
+      }}
+    >
+      {/* Table Header */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          backgroundColor: '#f0f0f0', // Optional: background color for header
+          textAlign: 'center',
+        }}
+      >
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Subject</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Full Marks</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Mid</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>End</Box>
+        <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>Teacher Comment</Box>
+        <Box sx={{ flex: 1, padding: '8px 0' }}>Initials</Box>
+      </Box>
+
+      {/* Table Body */}
+      {Array(4)
+        .fill(null)
+        .map((_, rowIndex) => (
+          <Box
+            key={rowIndex}
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              borderBottom: '4px solid black', // Thick border between rows
+              textAlign: 'center',
+            }}
+          >
+            <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Subject {rowIndex + 1}</Box>
+            <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>100</Box>
+            <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>
+              <Box display="flex" justifyContent="space-between">
+                <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Mid 1</Box>
+                <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Mid 2</Box>
+                <Box sx={{ flex: 1, padding: '8px 0' }}>Mid 3</Box>
+              </Box>
+            </Box>
+            <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>
+              <Box display="flex" justifyContent="space-between">
+                <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>End 1</Box>
+                <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>End 2</Box>
+                <Box sx={{ flex: 1, padding: '8px 0' }}>End 3</Box>
+              </Box>
+            </Box>
+            <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>Comment {rowIndex + 1}</Box>
+            <Box sx={{ flex: 1, padding: '8px 0' }}>Initials {rowIndex + 1}</Box>
+          </Box>
+        ))}
+
+      {/* Last Row */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          textAlign: 'center',
+        }}
+      >
+        <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '4px solid black', padding: '8px 0' }}>Marks</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Total</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Mid</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>End</Box>
+        <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}></Box>
+        <Box sx={{ flex: 1, padding: '8px 0' }}></Box>
+      </Box>
+    </Box>
       </Box>
 
       {/* Contact Information */}
