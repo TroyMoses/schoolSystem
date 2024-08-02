@@ -95,6 +95,10 @@ const ShowClasses = ({situation}) => {
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
         </BlueButton>
+        <BlueButton variant="contained"
+          onClick={() => navigate("/Admin/classes/print/" )}>
+          Print
+        </BlueButton>
         {/* <PurpleButton variant="contained"
             onClick={() => navigateHandler(row.id)}>
             Choose

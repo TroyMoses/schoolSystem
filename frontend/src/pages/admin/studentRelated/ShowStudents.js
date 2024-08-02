@@ -120,7 +120,7 @@ const ShowStudents = () => {
                     onClick={() => navigate("/Admin/students/student/" + row.id)}>
                     View
                 </BlueButton>
-                <React.Fragment>
+                {/* <React.Fragment>
                     <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
                         <BlackButton
@@ -171,7 +171,7 @@ const ShowStudents = () => {
                             </Grow>
                         )}
                     </Popper>
-                </React.Fragment>
+                </React.Fragment> */}
             </>
         );
     };
