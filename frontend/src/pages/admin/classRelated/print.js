@@ -30,7 +30,7 @@ const Prints = () => {
 //   if (!admission) return <Typography>No admission found with this ID.</Typography>;
 
   return (
-    <Box className="printable-content -mt-10">
+    <Box className="printable-content -mt-10" sx={{ width: '80%' , mx: 'auto'}}>
     
       <Box display="flex" justifyContent="center" textAlign="center" mb={1}>
         <Box mr={2}>
@@ -53,7 +53,7 @@ const Prints = () => {
           variant="h6"
           sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
         >
-            TEL: 0773297951, 0753753179, 0772413164
+            P.O.BOX  31007, TEL: 0773297951, 0753753179, 0772413164
           </Typography>
           <Typography
           variant="h6"
@@ -63,7 +63,13 @@ const Prints = () => {
           </Typography>
           <Typography variant="h6" fontWeight={400} >
             <span style={{ fontWeight: 900, color: 'black'  , fontSize: '0.9rem'}}>Email:</span>{' '}
-            <span style={{ textDecoration: 'underline' , fontSize: '0.9rem'}}>shiningstarsprimary2022@gmail.com</span>
+            <span style={{ textDecoration: 'underline' , fontSize: '0.9rem'}}>shiningstars.school2022@gmail.com</span>
+          </Typography>
+          <Typography
+          variant="h6"
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
+        >
+            "A Centre for Guaranteed excellence"
           </Typography>
         </Box>
       </Box>
@@ -74,19 +80,30 @@ const Prints = () => {
       <Box mb={1}>
       <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center' , fontSize: '0.9rem'}} // Inline styles for boldness and color
+          sx={{
+            border: '4px solid black', // Very thick black border
+            justifyContent: 'center', 
+            padding: '10px',           // Padding inside the box
+            display: 'flex',   // Shrink to fit the content
+            width: 'fit-content',      // Fit width to content
+            margin: '0 auto',         
+            fontWeight: 900,
+            color: 'black', 
+            textAlign: 'center' , 
+            fontSize: '1rem'
+          }}
         >
-          ADMISSION FORM
+          END OF TERM III ASSESSMENT REPORT
         </Typography>
 
         <Box display="flex" justifyContent="space-between" mt={2}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-          <span style={{ fontWeight: 900 }}>Pupil's Name: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
+          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
             {/* {admission.name} */}
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Admission No:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>
                         {/* {admission.admission_no} */}
                         </span>
           </Typography>
@@ -94,73 +111,23 @@ const Prints = () => {
 
         <Box display="flex" justifyContent="space-between" mt={2}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Date of Birth:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
+                    <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
                         {/* {admission.date_of_birth}  */}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Age:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
+                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
                         {/* {admission.age}  */}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Gender:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>  
+                    <span style={{ fontWeight: 900 }}>  LIN NO:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>  
                         {/* {admission.gender}  */}
                         </span>
           </Typography>
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Class:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.grade} */}
-                        </span>
-          </Typography>
-
-          <Box display="flex" alignItems="center">
-        <Typography variant="h6" fontWeight={300} mr={1} style={{ fontSize: '0.9rem' }}>
-                  <span style={{ fontWeight: 900 }}>  Day</span>
-        </Typography>
-        <Box
-          sx={{
-            width: 45,
-            height: 25,
-            border: '1px solid black',
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-          }}
-        >
-          {/* {admission.residence === 'Day' && (
-            <CheckIcon sx={{ color: 'red', fontSize: '2rem', position: 'absolute' }} />
-          )} */}
-        </Box>
-      </Box>
-      <Box display="flex" alignItems="center" >
-        <Typography variant="h6" fontWeight={300} mr={1} style={{ fontSize: '0.9rem' }}>
-                  <span style={{ fontWeight: 900 }}>  Boarding</span>
-        </Typography>
-        <Box
-          sx={{
-            width: 45,
-            height: 25,
-            border: '1px solid black',
-            display: 'inline-flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            position: 'relative',
-          }}
-        >
-          {/* {admission.residence === 'Boarding' && (
-            <CheckIcon sx={{ color: 'red', fontSize: '2rem', position: 'absolute' }} />
-          )} */}
-        </Box>
-      </Box>
-
-          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  Term:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.term} */}
+                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>  
+                        {/* {admission.gender}  */}
                         </span>
           </Typography>
         </Box>
