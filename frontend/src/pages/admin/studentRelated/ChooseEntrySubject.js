@@ -51,7 +51,7 @@ const ChooseEntrySubject = ({ situation }) => {
     const updateSubjectHandler = (teacherId, teachSubject) => {
         setLoader(true)
         dispatch(updateTeachSubject(teacherId, teachSubject))
-        navigate("/Admin/teachers")
+        navigate("/Admin/students/student/markEntryStudent/")
     }
 
     return (
@@ -81,7 +81,7 @@ const ChooseEntrySubject = ({ situation }) => {
                                     <StyledTableCell align="center">
                                         {situation === "Norm" ?
                                             <GreenButton variant="contained"
-                                                onClick={() => navigate("/Admin/teachers/addteacher/" + subject._id)}>
+                                                onClick={() => navigate("/Admin/students/student/markEntryStudent/" + subject._id)}>
                                                 Choose
                                             </GreenButton>
                                             :
