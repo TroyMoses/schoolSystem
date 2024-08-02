@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { getAllStudents } from '../../../redux/studentRelated/studentHandle';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import {
-    Paper, Box, IconButton, Button
+    Paper, Box, Button, TextField
 } from '@mui/material';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
-import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import SaveIcon from '@mui/icons-material/Save';
+import UpdateIcon from '@mui/icons-material/Update';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 
 import * as React from 'react';
@@ -17,16 +17,16 @@ import * as React from 'react';
 const MarkEntryStudents = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { studentsList, loading, error, response } = useSelector((state) => state.student);
+    const { studentsList, loading, response } = useSelector((state) => state.student);
     const { currentUser } = useSelector(state => state.user);
 
-    useEffect(() => {
-        dispatch(getAllStudents(currentUser._id));
-    }, [currentUser._id, dispatch]);
+    const [marksObtained, setMarksObtained] = useState("");
 
-    if (error) {
-        console.log(error);
-    }
+    useEffect(() => {
+        if (currentUser && currentUser._id) {
+          dispatch(getAllStudents(currentUser._id));
+        }
+      }, [currentUser, dispatch]);
 
     const deleteHandler = (deleteID, address) => {
         dispatch(deleteUser(deleteID, address))
@@ -48,13 +48,20 @@ const MarkEntryStudents = () => {
             name: student.name,
             sclassName: student.sclassName.sclassName,
             markEntryStudents: (
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => navigate(`/Admin/students/student/marks/${student._id}`)}
-                >
-                    Marks Entry
-                </Button>
+                <TextField type="number" label='Enter marks'
+                    value={marksObtained} required
+                    onChange={(e) => setMarksObtained(e.target.value)}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                />
+                // <Button
+                //     variant="contained"
+                //     color="primary"
+                //     onClick={() => navigate(`/Admin/students/student/marks/${student._id}`)}
+                // >
+                //     Marks Entry
+                // </Button>
             ),
             id: student._id,
         };
@@ -73,11 +80,11 @@ const MarkEntryStudents = () => {
 
     const actions = [
         {
-            icon: <PersonAddAlt1Icon color="primary" />, name: 'Save',
+            icon: <SaveIcon color="primary" />, name: 'Save',
             action: () => navigate("/Admin/addstudents")
         },
         {
-            icon: <PersonRemoveIcon color="error" />, name: 'Update',
+            icon: <UpdateIcon color="error" />, name: 'Update',
             action: () => deleteHandler(currentUser._id, "Students")
         },
     ];
