@@ -218,16 +218,16 @@ const ClassDetails = () => {
         return (
             <>
                 <Typography variant="h4" align="center" gutterBottom>
-                    Class Details
+                    <span style={{ fontWeight: 'bold' }}>Class Details</span> 
                 </Typography>
                 <Typography variant="h5" gutterBottom>
-                    This is Class {sclassDetails && sclassDetails.sclassName}
+                    <span style={{ fontWeight: 'bold' }}>This is Class</span>  {sclassDetails && sclassDetails.sclassName}
                 </Typography>
                 <Typography variant="h6" gutterBottom>
-                    Number of Subjects: {numberOfSubjects}
+                    <span style={{ fontWeight: 'bold' }}>Number of Subjects: </span> {numberOfSubjects}
                 </Typography>
                 <Typography variant="h6" gutterBottom>
-                    Number of Students: {numberOfStudents}
+                    <span style={{ fontWeight: 'bold' }}>Number of Students: </span> {numberOfStudents}
                 </Typography>
                 {getresponse &&
                     <GreenButton
