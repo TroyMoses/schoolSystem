@@ -33,21 +33,21 @@ const TeacherDetails = () => {
             ) : (
                 <Container>
                     <Typography variant="h4" align="center" gutterBottom>
-                        Teacher Details
+                        <span style={{ fontWeight: 'bold' }}> Teacher Details </span>
                     </Typography>
                     <Typography variant="h6" gutterBottom>
-                        Teacher Name: {teacherDetails?.name}
+                        <span style={{ fontWeight: 'bold' }}> Teacher Name: </span> {teacherDetails?.name}
                     </Typography>
                     <Typography variant="h6" gutterBottom>
-                        Class Name: {teacherDetails?.teachSclass?.sclassName}
+                        <span style={{ fontWeight: 'bold' }}> Class Name: </span> {teacherDetails?.teachSclass?.sclassName}
                     </Typography>
                     {isSubjectNamePresent ? (
                         <>
                             <Typography variant="h6" gutterBottom>
-                                Subject Name: {teacherDetails?.teachSubject?.subName}
+                            <span style={{ fontWeight: 'bold' }}>Subject Name:</span> {teacherDetails?.teachSubject?.subName}
                             </Typography>
                             <Typography variant="h6" gutterBottom>
-                                Subject Sessions: {teacherDetails?.teachSubject?.sessions}
+                                <span style={{ fontWeight: 'bold' }}> Subject Sessions: </span> {teacherDetails?.teachSubject?.sessions}
                             </Typography>
                         </>
                     ) : (
