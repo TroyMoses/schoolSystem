@@ -56,7 +56,7 @@ const ShowStudents = () => {
 
     const studentColumns = [
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'sclassName', label: 'Class', minWidth: 170 },
     ]
 
@@ -88,8 +88,11 @@ const ShowStudents = () => {
         const handleAttendance = () => {
             navigate("/Admin/students/student/attendance/" + row.id)
         }
+        // const handleMarks = () => {
+        //     navigate("/Admin/students/student/marks/" + row.id)
+        // };
         const handleMarks = () => {
-            navigate("/Admin/students/student/marks/" + row.id)
+            navigate("/Admin/students/student/markEntryStudent/")
         };
 
         const handleMenuItemClick = (event, index) => {
@@ -117,7 +120,7 @@ const ShowStudents = () => {
                     onClick={() => navigate("/Admin/students/student/" + row.id)}>
                     View
                 </BlueButton>
-                <React.Fragment>
+                {/* <React.Fragment>
                     <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
                         <Button onClick={handleClick}>{options[selectedIndex]}</Button>
                         <BlackButton
@@ -168,7 +171,7 @@ const ShowStudents = () => {
                             </Grow>
                         )}
                     </Popper>
-                </React.Fragment>
+                </React.Fragment> */}
             </>
         );
     };

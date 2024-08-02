@@ -3,7 +3,7 @@ import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/mat
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { deleteUser } from '../../../redux/userRelated/userHandle';
+import { deleteTerm } from '../../../redux/userRelated/userHandle';
 import { getAllTerms } from '../../../redux/termRelated/termHandle';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
@@ -42,7 +42,7 @@ const ShowTerms = () => {
     // console.log(address);
     // setMessage("Sorry the delete function has been disabled for now.")
     // setShowPopup(true);
-    dispatch(deleteUser(deleteID, address))
+    dispatch(deleteTerm(deleteID, address))
       .then(() => {
         dispatch(getAllTerms(adminID, "Term"));
       })
@@ -74,10 +74,10 @@ const ShowTerms = () => {
         <IconButton onClick={() => deleteHandler(row.id, "Term")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
-        <BlueButton variant="contained"
+        {/* <BlueButton variant="contained"
           onClick={() => navigate("/Admin/terms/term/" + row.id)}>
           View
-        </BlueButton>
+        </BlueButton> */}
         <ActionMenu actions={actions} />
       </ButtonContainer>
     );
