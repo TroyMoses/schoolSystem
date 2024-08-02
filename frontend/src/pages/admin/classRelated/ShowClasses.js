@@ -16,8 +16,9 @@ import AddCardIcon from '@mui/icons-material/AddCard';
 import styled from 'styled-components';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
 import Popup from '../../../components/Popup';
+import { PurpleButton } from '../../../components/buttonStyles';
 
-const ShowClasses = () => {
+const ShowClasses = ({situation}) => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -26,6 +27,15 @@ const ShowClasses = () => {
 
   const adminID = currentUser._id
   console.log(adminID);
+
+  const navigateHandler = (classID) => {
+    if (situation === "Class") {
+        navigate("/Admin/students/chooseentrysubject/" + classID)
+    }
+    else if (situation === "Subject") {
+        navigate("/Admin/addsubject/" + classID)
+    }
+}
 
   useEffect(() => {
     dispatch(getAllSclasses(adminID, "Sclass"));
@@ -69,6 +79,7 @@ const ShowClasses = () => {
       { icon: <GradeIcon />, name: 'Add BOT', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <GradeIcon />, name: 'Add MID', action: () => navigate("/Admin/class/addstudents/" + row.id) },
       { icon: <GradeIcon />, name: 'Add END', action: () => navigate("/Admin/class/addstudents/" + row.id) },
+      { icon: <GradeIcon />, name: 'Add END', action: () => navigate("/Admin/students/chooseentrysubject/" + row.id)}, 
     ];
     // const actions = [
     //   { icon: <PostAddIcon />, name: 'Add BOT', action: () => navigate("/Admin/addsubject/" + row.id) },
@@ -84,6 +95,10 @@ const ShowClasses = () => {
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
         </BlueButton>
+        <PurpleButton variant="contained"
+            onClick={() => navigateHandler(row.id)}>
+            Choose
+        </PurpleButton>
         <ActionMenu actions={actions} />
       </ButtonContainer>
     );
