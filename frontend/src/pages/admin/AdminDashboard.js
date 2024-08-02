@@ -41,6 +41,7 @@ import TeacherDetails from './teacherRelated/TeacherDetails';
 
 import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
+import Prints from './classRelated/print';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
 // import ShowYears from './yearRelated/ShowYears';
@@ -146,6 +147,7 @@ const AdminDashboard = () => {
                         <Route path="/Admin/addclass" element={<AddClass />} />
                         <Route path="/Admin/classes" element={<ShowClasses situation="Teacher"/>} />
                         <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
+                        <Route path="/Admin/classes/print/" element={<Prints />} />
                         <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} />
 
                         {/* Student */}
