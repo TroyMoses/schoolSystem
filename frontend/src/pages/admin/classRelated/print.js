@@ -154,12 +154,12 @@ const Prints = () => {
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Subject</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Full Marks</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Mid</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>End</Box>
-        <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>Teacher Comment</Box>
-        <Box sx={{ flex: 1, padding: '8px 0' }}>Initials</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' , fontWeight: 'bold'}}>SUBJECT</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' , fontWeight: 'bold'}}>FULL MARKS</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' , fontWeight: 'bold'}}>MID TERM III EXAMS</Box>
+        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' , fontWeight: 'bold'}}>END OF TERM III EXAMS</Box>
+        <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' , fontWeight: 'bold'}}>TEACHER'S COMMENT</Box>
+        <Box sx={{ flex: 1, padding: '8px 0' , fontWeight: 'bold'}}>INITIALS</Box>
       </Box>
 
       {/* Table Body */}
@@ -172,7 +172,7 @@ const Prints = () => {
               display: 'flex',
               justifyContent: 'space-between',
               width: '100%',
-              borderBottom: '4px solid black', // Thick border between rows
+              borderBottom: '1px solid black', // Thick border between rows
               textAlign: 'center',
             }}
           >
