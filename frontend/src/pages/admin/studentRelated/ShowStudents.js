@@ -88,8 +88,11 @@ const ShowStudents = () => {
         const handleAttendance = () => {
             navigate("/Admin/students/student/attendance/" + row.id)
         }
+        // const handleMarks = () => {
+        //     navigate("/Admin/students/student/marks/" + row.id)
+        // };
         const handleMarks = () => {
-            navigate("/Admin/students/student/marks/" + row.id)
+            navigate("/Admin/students/student/markEntryStudent/")
         };
 
         const handleMenuItemClick = (event, index) => {
