@@ -7,7 +7,7 @@ import {
     Paper, Box, IconButton, Button
 } from '@mui/material';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
-import { GreenButton } from '../../../components/buttonStyles';
+import { BlueButton, GreenButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import SpeedDialTemplate from '../../../components/SpeedDialTemplate';
@@ -36,16 +36,16 @@ const MarkEntryStudents = () => {
     }
 
     const studentColumns = [
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
         { id: 'sclassName', label: 'Class', minWidth: 170 },
-        { id: 'markEntryStudents', label: 'Marks Entry', minWidth: 150 }, // New column for marks entry
+        { id: 'markEntryStudents', label: 'Marks Entry(Subject)', minWidth: 150 }, // New column for marks entry
     ];
 
     const studentRows = studentsList && studentsList.length > 0 && studentsList.map((student) => {
         return {
-            name: student.name,
             rollNum: student.rollNum,
+            name: student.name,
             sclassName: student.sclassName.sclassName,
             markEntryStudents: (
                 <Button
@@ -63,9 +63,10 @@ const MarkEntryStudents = () => {
     const StudentButtonHaver = ({ row }) => {
         return (
             <>
-                <IconButton onClick={() => deleteHandler(row.id, "Student")}>
-                    <PersonRemoveIcon color="error" />
-                </IconButton>
+            <BlueButton variant="contained"
+                onClick={() => navigate("/Admin/students/student/" + row.id)}>
+                View
+            </BlueButton>
             </>
         );
     };
