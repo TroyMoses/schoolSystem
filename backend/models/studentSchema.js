@@ -27,7 +27,40 @@ const studentSchema = new mongoose.Schema({
         type: String,
         default: "Student"
     },
-    examResult: [
+    gender: {
+        type: String,
+        enum: ['Male', 'Female'],
+        required: true
+    },
+    photo: {
+        type: String,
+        required: true
+    },
+    botExamResult: [
+        {
+            subName: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'subject',
+            },
+            marksObtained: {
+                type: Number,
+                default: 0
+            }
+        }
+    ],
+    midExamResult: [
+        {
+            subName: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'subject',
+            },
+            marksObtained: {
+                type: Number,
+                default: 0
+            }
+        }
+    ],
+    endExamResult: [
         {
             subName: {
                 type: mongoose.Schema.Types.ObjectId,

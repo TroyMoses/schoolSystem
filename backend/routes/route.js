@@ -1,4 +1,9 @@
 const router = require('express').Router();
+const multer = require('multer');
+const cloudinary = require('../config/cloudinaryConfig');
+
+// Configure multer for file upload
+const upload = multer({ dest: 'uploads/' });
 
 // const { adminRegister, adminLogIn, deleteAdmin, getAdminDetail, updateAdmin } = require('../controllers/admin-controller.js');
 
@@ -89,7 +94,25 @@ router.post('/TeacherAttendance/:id', teacherAttendance);
 
 // Student
 
-router.post('/StudentReg', studentRegister);
+router.post('/StudentReg', upload.single('photo'), async (req, res) => {
+    try {
+        // Upload photo to Cloudinary
+        const result = await cloudinary.uploader.upload(req.file.path, {
+            folder: 'students'
+        });
+
+        // Get photo URL
+        const photoUrl = result.secure_url;
+
+        // Create a new student object with the photo URL and other data
+        req.body.photoUrl = photoUrl; // Add photo URL to request body
+
+        // Call the studentRegister controller function
+        studentRegister(req, res);
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to upload photo', error: error.message });
+    }
+});
 router.post('/StudentLogin', studentLogIn);
 
 router.get("/Students/:id", getStudents);
