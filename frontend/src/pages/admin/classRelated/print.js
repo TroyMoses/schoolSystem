@@ -139,7 +139,7 @@ const Prints = () => {
         alignItems: 'center',
         width: '100%', // Width of the table
         margin: '0 auto', // Center the table
-        border: '4px solid black', // Thick border around the table
+        border: '1px solid black', // Thick border around the table
         borderRadius: '8px', // Optional: border-radius for rounded corners
         overflow: 'hidden', // Ensure content doesn't overflow
       }}
@@ -152,15 +152,46 @@ const Prints = () => {
           width: '100%',
           backgroundColor: '#f0f0f0', // Optional: background color for header
           textAlign: 'center',
+          // border: '1px solid black',
         }}
       >
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>SUBJECT</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>FULL MARKS</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>MID TERM III EXAMS</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>END OF TERM III EXAMS</Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>TEACHER'S COMMENT</Box>
+        <Box sx={{ flex: 2, borderRight: '4px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>MID TERM III EXAMS</Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>END OF TERM III EXAMS</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>TEACHER'S COMMENT</Box>
         <Box sx={{ flex: 1, borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>INITIALS</Box>
       </Box>
+
+      <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              width: '100%',
+              borderBottom: '1px solid black', // Thick border between rows
+              textAlign: 'center',
+            }}
+          >
+            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
+            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
+            <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>
+              <Box display="flex" justifyContent="space-between">
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mark</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Agg</Box>
+                <Box sx={{ flex: 1, padding: '8px 0' }}>Div</Box>
+              </Box>
+            </Box>
+            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}>
+              <Box display="flex" justifyContent="space-between">
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mark</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Agg</Box>
+                <Box sx={{ flex: 1, padding: '8px 0' }}>Div</Box>
+              </Box>
+            </Box>
+            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Comment </Box>
+            <Box sx={{ flex: 1, padding: '8px 0' }}>Initials </Box>
+          </Box>
+      
 
       {/* Table Body */}
       {Array(4)
@@ -178,21 +209,21 @@ const Prints = () => {
           >
             <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Subject {rowIndex + 1}</Box>
             <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>100</Box>
-            <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>
+            <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>
               <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mid 1</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mid 2</Box>
-                <Box sx={{ flex: 1, padding: '8px 0' }}>Mid 3</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mark</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Agg</Box>
+                <Box sx={{ flex: 1, padding: '8px 0' }}>Div</Box>
               </Box>
             </Box>
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>
+            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}>
               <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>End 1</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>End 2</Box>
-                <Box sx={{ flex: 1, padding: '8px 0' }}>End 3</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mark</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Agg</Box>
+                <Box sx={{ flex: 1, padding: '8px 0' }}>Div</Box>
               </Box>
             </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}>Comment {rowIndex + 1}</Box>
+            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Comment {rowIndex + 1}</Box>
             <Box sx={{ flex: 1, padding: '8px 0' }}>Initials {rowIndex + 1}</Box>
           </Box>
         ))}
@@ -207,10 +238,10 @@ const Prints = () => {
         }}
       >
         <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black', padding: '8px 0' }}>Marks</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Total</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}>Mid</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>End</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>TOTAL MARKS</Box>
+        <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}></Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
         <Box sx={{ flex: 1, padding: '8px 0' }}></Box>
       </Box>
     </Box>
