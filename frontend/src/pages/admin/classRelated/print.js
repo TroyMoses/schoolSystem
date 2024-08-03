@@ -282,7 +282,7 @@ const Prints = () => {
       >
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
       </Box>
       
@@ -297,7 +297,7 @@ const Prints = () => {
       >
         <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>V.Good</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Excellent</Box>
-        <Box sx={{ flex: 1, borderRight: '4px solid black', padding: '8px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
       </Box>
     </Box>
@@ -425,104 +425,22 @@ const Prints = () => {
 
 
       {/* Medical Information */}
-      <Box mb={1}>
-      <Typography
-          variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem' }} // Inline styles for boldness and color
-        >
-          MEDICAL INFORMATION
-        </Typography>
-        <Typography
-          variant="body1"
-          mt={1}
-          mb={2}
-          style={{ fontSize: "0.9rem" }}
-        >
-                   <span style={{ fontWeight: 900 }}> Does your child have any medical issue(s) of which we need to be aware
-          of? </span>
-        </Typography>
-        <Typography variant="body1">
-        <span style={{ fontWeight: 900 , fontSize: "0.9rem"}}>  If YES please explain: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
+      <Box mb={3} mt={3}>
+        <Typography variant="body1" >
+          <span style={{ fontWeight: 900, fontSize: "0.9rem" }}>Next term begins on </span>
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '15rem' }}>
             {/* {admission.child_medical_info} */}
-            </span>
-          
-        </Typography>
-        <Typography
-          variant="body1"
-          fontWeight={300}
-          style={{ fontSize: "1rem" }}
-        >
-          {/* <span
-            style={{
-              borderBottom: "1px dotted black",
-              display: "inline-block",
-              width: "1000px",
-            }}
-          /> */}
+          </span>
+          <span style={{ fontWeight: 900, fontSize: "0.9rem" }}> and ends on </span>
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '15rem' }}>
+            {/* {admission.child_medical_info} */}
+          </span>
         </Typography>
 
-        <Typography
-          variant="body1"
-          fontWeight={300}
-          style={{ fontSize: "0.9rem" }}
-        >
-                   <span style={{ fontWeight: 900 }}> I </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '11rem' }}>
-                    {/* {admission.parent_name} */}
-                      </span>         <span style={{ fontWeight: 900 }}> hereby certify to the best of my knowledge that the above information
-          is true and accurate. </span>
-        </Typography>
       </Box>
-
-      {/* signtures */}
-
-      <Box display="flex" justifyContent="space-between" >
-            <Typography
-        variant="h6"
-        fontWeight={300}
-        fontSize= "0.8rem"
-        style={{ fontFamily: 'Cursive', fontStyle: 'italic' }}
-      >
-        <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.parent_name.toLowerCase()} */}
-            </span>
-      </Typography>
-
-      <Typography
-        variant="h6"
-        fontWeight={300}
-        fontSize= "0.8rem"
-        style={{ fontFamily: 'Cursive', fontStyle: 'italic' }}
-      >
-        <span style={{ borderBottom: '2px dotted black', paddingRight: '5rem' }}>
-            {/* {admission.createdAt} */}
-            </span>
-        </Typography>
-      </Box>
-      <Box display="flex" justifyContent="space-between" >
-      <Typography
-          variant="h6"
-          sx={{ fontWeight: 500, color: 'black'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
-        >
-          PARENT'S/GUARDIAN'S SIGNATURE
-        </Typography>
-
-        <Typography
-          variant="h6"
-          sx={{ fontWeight: 500, color: 'black'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
-        >
-          DATE
-        </Typography>
-      </Box>
-
-      <Typography
-          variant="h6" mt={1}
-          sx={{ fontWeight: 700, color: 'black', textAlign: 'center'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
-        >
-        LOCATED ALONG GAYAZA-ZIROBWE ROAD BUSIKA TOWN COUNCIL
-      </Typography>
 
       <Typography variant="h6" fontWeight={400}  fontSize= "0.9rem" textAlign="center" >
-        "A CENTRE FOR GUARANTEED EXCELLENCE"
+        THIS REPORT IS NOT VALID WITHOUT A SCHOOL STAMP
       </Typography>
       {/* </Box> */}
 {/* Print Button */}
