@@ -322,118 +322,107 @@ const Prints = () => {
             fontWeight={300}
             style={{ fontSize: "0.9rem" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '50rem' }}>
+                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
                         {/* {admission.parent_address} */}
                         </span>
             
           </Typography>
         </Box>
+
+        {/* Head  */}
         <Box display="flex" justifyContent="space-between" mt={2}>
           <Typography
             variant="h6"
             fontWeight={300}
             style={{ fontSize: "0.9rem" }}
           >
-                    <span style={{ fontWeight: 900 }}>  NIN No:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '33rem' }}> 
-                        {/* {admission.parent_nin} */}
+                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '50rem' }}>
+                        {/* {admission.parent_telephone} */}
+                        </span>
+          </Typography>
+
+        </Box>
+
+        <Box display="flex" justifyContent="space-between" mt={2}>
+          <Typography
+            variant="h6"
+            fontWeight={300}
+            style={{ fontSize: "0.9rem" }}
+          >
+                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
+                        {/* {admission.parent_address} */}
                         </span>
             
           </Typography>
         </Box>
+
       </Box>
 
       {/* Next of Kin */}
-      <Box mb={1} textAlign="center">
+      <Box mb={2} mt={3}  textAlign="center">
       <Typography
           variant="h6"
           sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem' }} // Inline styles for boldness and color
         >
-          NEXT OF KIN
+          GRADING SCALE
         </Typography>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Name:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '15rem' }}>
-                        {/* {admission.next_of_kin_name} */}
-                        </span>
-            
-          </Typography>
-
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Gender:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.next_of_kin_gender} */}
-                        </span>
-            
-          </Typography>
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Telephone Number:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
-                        {/* {admission.next_of_kin_telephone} */}
-                        </span>
-            
-          </Typography>
-
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Relationship with the pupil:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
-                        {/* {admission.next_of_kin_relationship_with_pupil} */}
-                        </span>
-            
-          </Typography>
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Address:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.next_of_kin_address} */}
-                        </span>
-            
-          </Typography>
-
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Village:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.next_of_kin_village} */}
-                        </span>
-            
-          </Typography>
-
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  LC1:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.next_of_kin_lc} */}
-                        </span>
-            
-          </Typography>
-        </Box>
       </Box>
+
+      <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%', // Width of the table
+        margin: '0 auto', // Center the table
+        border: '1px solid black', // Thick border around the table
+        borderRadius: '8px', // Optional: border-radius for rounded corners
+        overflow: 'hidden', // Ensure content doesn't overflow
+      }}
+    >
+      {/* Table Header */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          backgroundColor: '#f0f0f0', // Optional: background color for header
+          textAlign: 'center',
+          // border: '1px solid black',
+        }}
+      >
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>90 - 100</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>80 - 89</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>70 - 79</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>60 - 69</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>55 - 59</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>50 - 54</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>45 - 49</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>40 - 44</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>0 - 39</Box>
+      </Box>
+      
+      {/* Last Row */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          width: '100%',
+          textAlign: 'center',
+        }}
+      >
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>D1</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>D2</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>C3</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>C4</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>C5</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>C6</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>P7</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>P8</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>F9</Box>
+      </Box>
+    </Box>
+
 
       {/* Medical Information */}
       <Box mb={1}>
