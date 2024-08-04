@@ -30,7 +30,7 @@ const Prints = () => {
 //   if (!admission) return <Typography>No admission found with this ID.</Typography>;
 
   return (
-    <Box className="printable-content -mt-10" sx={{ width: '90%' , mx: 'auto', border: '10px solid black',}}>
+    <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
        <Box>
        <Typography
           variant="h6"
@@ -40,7 +40,7 @@ const Prints = () => {
           </Typography>
        </Box>
 
-       <Box display="flex" justifyContent="center" textAlign="center" mb={1} className="relative">
+       <Box display="flex" justifyContent="center" textAlign="center" className="relative">
       {/* Image on the left */}
       <Box mr={2}>
         <img src={log} alt="Shining" style={{ width: '100px', height: '100px' }} />
@@ -50,29 +50,29 @@ const Prints = () => {
       <Box className="flex-1 flex flex-col justify-center">
         <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', textDecoration: 'underline', fontSize: '0.9rem' }}
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', textDecoration: 'underline', fontSize: '0.8rem' }}
         >
           Mixed day and boarding
         </Typography>
         <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.9rem' }}
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.8rem' }}
         >
           P.O.BOX 31007, TEL: 0773297951, 0753753179, 0772413164
         </Typography>
         <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.9rem' }}
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.8rem' }}
         >
           "Arise and shine"
         </Typography>
-        <Typography variant="h6" fontWeight={400}>
-          <span style={{ fontWeight: 900, color: 'black', fontSize: '0.9rem' }}>Email:</span>{' '}
-          <span style={{ textDecoration: 'underline', fontSize: '0.9rem' }}>shiningstars.school2022@gmail.com</span>
+        <Typography variant="h6" >
+          <span style={{ fontWeight: 900, color: 'black', fontSize: '0.8rem' }}>Email:</span>{' '}
+          <span style={{ textDecoration: 'underline', fontSize: '0.8rem' }}>shiningstars.school2022@gmail.com</span>
         </Typography>
         <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.9rem' }}
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.8rem' }}
         >
           "A Centre for Guaranteed excellence"
         </Typography>
