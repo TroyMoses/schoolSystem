@@ -30,49 +30,58 @@ const Prints = () => {
 //   if (!admission) return <Typography>No admission found with this ID.</Typography>;
 
   return (
-    <Box className="printable-content -mt-10" sx={{ width: '80%' , mx: 'auto'}}>
-    
-      <Box display="flex" justifyContent="center" textAlign="center" mb={1}>
-        <Box mr={2}>
-          <img src={log} alt="Shining" style={{ width: '100px', height: '100px' }} />
-        </Box>
-        <Box justifyContent="center" textAlign="center">
-        <Typography
+    <Box className="printable-content -mt-10" sx={{ width: '90%' , mx: 'auto', border: '10px solid black',}}>
+       <Box>
+       <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center' , fontSize: '1.1rem'}} // Inline styles for boldness and color
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center' , fontSize: '1rem'}} // Inline styles for boldness and color
         >
             SHINING STARS NURSERY AND PRIMARY SCHOOL - VVUMBA
           </Typography>
-          <Typography
-          variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center' , textDecoration: 'underline' , fontSize: '0.9rem' }} // Inline styles for boldness and color
-        >
-            Mixed day and boarding
-          </Typography>
-          <Typography
-          variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
-        >
-            P.O.BOX  31007, TEL: 0773297951, 0753753179, 0772413164
-          </Typography>
-          <Typography
-          variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
-        >
-            "Arise and shine"
-          </Typography>
-          <Typography variant="h6" fontWeight={400} >
-            <span style={{ fontWeight: 900, color: 'black'  , fontSize: '0.9rem'}}>Email:</span>{' '}
-            <span style={{ textDecoration: 'underline' , fontSize: '0.9rem'}}>shiningstars.school2022@gmail.com</span>
-          </Typography>
-          <Typography
-          variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem'}} // Inline styles for boldness and color
-        >
-            "A Centre for Guaranteed excellence"
-          </Typography>
-        </Box>
+       </Box>
+
+       <Box display="flex" justifyContent="center" textAlign="center" mb={1} className="relative">
+      {/* Image on the left */}
+      <Box mr={2}>
+        <img src={log} alt="Shining" style={{ width: '100px', height: '100px' }} />
       </Box>
+
+      {/* Centered Text Content */}
+      <Box className="flex-1 flex flex-col justify-center">
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', textDecoration: 'underline', fontSize: '0.9rem' }}
+        >
+          Mixed day and boarding
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.9rem' }}
+        >
+          P.O.BOX 31007, TEL: 0773297951, 0753753179, 0772413164
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.9rem' }}
+        >
+          "Arise and shine"
+        </Typography>
+        <Typography variant="h6" fontWeight={400}>
+          <span style={{ fontWeight: 900, color: 'black', fontSize: '0.9rem' }}>Email:</span>{' '}
+          <span style={{ textDecoration: 'underline', fontSize: '0.9rem' }}>shiningstars.school2022@gmail.com</span>
+        </Typography>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center', fontSize: '0.9rem' }}
+        >
+          "A Centre for Guaranteed excellence"
+        </Typography>
+      </Box>
+
+      {/* Placeholder on the right */}
+      <Box mr={2} style={{ width: '100px', height: '100px', border: '2px solid red',marginLeft: '10px'}} />
+
+    </Box>
       <Box justifyContent="center" textAlign="center">
         <Box mb={2} sx={{ borderBottom: 'double 4px black' }} />
       </Box>
@@ -251,7 +260,7 @@ const Prints = () => {
       <Box mb={1} mt={3} textAlign="center">
       <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '1.2rem' }} // Inline styles for boldness and color
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '1.2rem',textDecoration: 'underline' }} // Inline styles for boldness and color
         >
           PUPIL'S GENERAL CONDUCT
         </Typography>
@@ -362,7 +371,7 @@ const Prints = () => {
       <Box mb={2} mt={3}  textAlign="center">
       <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem' }} // Inline styles for boldness and color
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '0.9rem' ,textDecoration: 'underline'}} // Inline styles for boldness and color
         >
           GRADING SCALE
         </Typography>
@@ -439,9 +448,15 @@ const Prints = () => {
 
       </Box>
 
-      <Typography variant="h6" fontWeight={400}  fontSize= "0.9rem" textAlign="center" >
-        THIS REPORT IS NOT VALID WITHOUT A SCHOOL STAMP
-      </Typography>
+      <Typography 
+      variant="h6" 
+      fontWeight={700}  // Bold text
+      fontStyle="italic" // Italic text
+      fontSize="1rem" // Increased font size
+      textAlign="center"
+    >
+      THIS REPORT IS NOT VALID WITHOUT A SCHOOL STAMP
+    </Typography>
       {/* </Box> */}
 {/* Print Button */}
 <Box
