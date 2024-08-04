@@ -105,7 +105,7 @@ const Prints = () => {
           END OF TERM III ASSESSMENT REPORT
         </Typography>
 
-        <Box display="flex" justifyContent="space-between" mt={2}>
+        <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
           <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
             {/* {admission.name} */}
@@ -162,6 +162,7 @@ const Prints = () => {
           backgroundColor: '#f0f0f0', // Optional: background color for header
           textAlign: 'center',
           // border: '1px solid black',
+          fontSize: '0.7rem', 
         }}
       >
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '2px 0' , fontWeight: 'bold'}}>SUBJECT</Box>
@@ -257,10 +258,10 @@ const Prints = () => {
       </Box>
 
       {/* Contact Information */}
-      <Box mb={1} mt={3} textAlign="center">
+      <Box mb={1} mt={1} textAlign="center">
       <Typography
           variant="h6"
-          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '1.2rem',textDecoration: 'underline' }} // Inline styles for boldness and color
+          sx={{ fontWeight: 900, color: 'black', textAlign: 'center'  , fontSize: '1rem',textDecoration: 'underline' }} // Inline styles for boldness and color
         >
           PUPIL'S GENERAL CONDUCT
         </Typography>
@@ -287,12 +288,13 @@ const Prints = () => {
           backgroundColor: '#f0f0f0', // Optional: background color for header
           textAlign: 'center',
           // border: '1px solid black',
+          fontSize: '0.875rem', 
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
       </Box>
       
       {/* Last Row */}
@@ -304,10 +306,10 @@ const Prints = () => {
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}>V.Good</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}>Excellent</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}></Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>V.Good</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>Excellent</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}></Box>
       </Box>
     </Box>
 
