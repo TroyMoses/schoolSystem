@@ -289,10 +289,10 @@ const Prints = () => {
           // border: '1px solid black',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
       </Box>
       
       {/* Last Row */}
@@ -304,10 +304,10 @@ const Prints = () => {
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>V.Good</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Excellent</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}>V.Good</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}>Excellent</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '4px 0' }}></Box>
       </Box>
     </Box>
 
@@ -400,15 +400,15 @@ const Prints = () => {
           // border: '1px solid black',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>90 - 100</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>80 - 89</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>70 - 79</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>60 - 69</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>55 - 59</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>50 - 54</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>45 - 49</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>40 - 44</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' }}>0 - 39</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>90 - 100</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>80 - 89</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>70 - 79</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>60 - 69</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>55 - 59</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>50 - 54</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>45 - 49</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>40 - 44</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '4px 0' }}>0 - 39</Box>
       </Box>
       
       {/* Last Row */}
