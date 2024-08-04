@@ -166,7 +166,7 @@ const Prints = () => {
       >
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>SUBJECT</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>FULL MARKS</Box>
-        <Box sx={{ flex: 2, borderRight: '4px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>MID TERM III EXAMS</Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>MID TERM III EXAMS</Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>END OF TERM III EXAMS</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>TEACHER'S COMMENT</Box>
         <Box sx={{ flex: 1, borderBottom: '1px solid black', padding: '8px 0' , fontWeight: 'bold'}}>INITIALS</Box>
@@ -183,7 +183,7 @@ const Prints = () => {
           >
             <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
             <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
-            <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>
+            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}>
               <Box display="flex" justifyContent="space-between">
                 <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>MARK</Box>
                 <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>AGG</Box>
@@ -218,7 +218,7 @@ const Prints = () => {
           >
             <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Subject {rowIndex + 1}</Box>
             <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>100</Box>
-            <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}>
+            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}>
               <Box display="flex" justifyContent="space-between">
                 <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Mark</Box>
                 <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>Agg</Box>
@@ -248,7 +248,7 @@ const Prints = () => {
       >
         <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black', padding: '8px 0' }}>Marks</Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}>TOTAL MARKS</Box>
-        <Box sx={{ flex: 2, borderRight: '4px solid black', padding: '8px 0' }}></Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}></Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '8px 0' }}></Box>
         <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '8px 0' }}></Box>
         <Box sx={{ flex: 1, padding: '8px 0' }}></Box>
