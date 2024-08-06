@@ -62,7 +62,7 @@ const studentLogIn = async (req, res) => {
         student = await student.populate("school", "schoolName");
         student = await student.populate("sclassName", "sclassName");
         student.password = undefined;
-        student.examResult = undefined;
+        student.botExamResult = undefined;
         student.attendance = undefined;
         res.send(student);
       } else {
@@ -97,16 +97,17 @@ const getStudents = async (req, res) => {
 
 const getStudentDetail = async (req, res) => {
   try {
-    let student = await Student.findById(req.params.id)
+    let student = await Student.findById("66a747e56c465dda812e01f0")
       .populate("school", "schoolName")
       .populate("sclassName", "sclassName")
-      .populate("examResult.subName", "subName")
+      .populate("botExamResult.subName", "subName")
       .populate("attendance.subName", "subName sessions");
     if (student) {
       student.password = undefined;
       res.send(student);
     } else {
       res.send({ message: "No student found" });
+     
     }
   } catch (err) {
     res.status(500).json(err);
@@ -193,7 +194,7 @@ const deleteStudentsByClass = async (req, res) => {
             student = await student.populate("school", "schoolName");
             student = await student.populate("sclassName", "sclassName");
             student.password = undefined;
-            student.examResult = undefined;
+            student.botExamResult = undefined;
             student.attendance = undefined;
             res.send(student);
           } else {
@@ -231,7 +232,7 @@ const deleteStudentsByClass = async (req, res) => {
         let student = await Student.findById(req.params.id)
           .populate("school", "schoolName")
           .populate("sclassName", "sclassName")
-          .populate("examResult.subName", "subName")
+          .populate("botExamResult.subName", "subName")
           .populate("attendance.subName", "subName sessions");
         if (student) {
           student.password = undefined;
@@ -300,7 +301,7 @@ const deleteStudentsByClass = async (req, res) => {
 
     const updateExamResult = async (req, res) => {
       const { subName, marksObtained, examsSession } = req.body;
-      console.log(examsSession);
+      
       try {
         const student = await Student.findById(req.params.id);
 
@@ -318,7 +319,7 @@ const deleteStudentsByClass = async (req, res) => {
           } else {
             student.botExamResult.push({ subName, marksObtained });
           }
-        } else if (examsSession === "mid") {
+        } else if (examsSession === "mot") {
           const existingResult = student.midExamResult.find(
             (result) => result.subName.toString() === subName
           );
@@ -328,7 +329,7 @@ const deleteStudentsByClass = async (req, res) => {
           } else {
             student.midExamResult.push({ subName, marksObtained });
           }
-        } else if (examsSession === "end") {
+        } else if (examsSession === "eot") {
           const existingResult = student.endExamResult.find(
             (result) => result.subName.toString() === subName
           );
@@ -490,7 +491,7 @@ const updateStudent = async (req, res) => {
 
 const updateExamResult = async (req, res) => {
   const { subName, marksObtained, examsSession } = req.body;
-  console.log(examsSession);
+  
   try {
     const student = await Student.findById(req.params.id);
 

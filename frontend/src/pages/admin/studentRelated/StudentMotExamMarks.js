@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getUserDetails } from '../../../redux/userRelated/userHandle';
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
@@ -14,7 +14,8 @@ import {
     TextField, CircularProgress, FormControl
 } from '@mui/material';
 
-const StudentExamMarks = ({ situation }) => {
+const StudentMotExamMarks = ({ situation }) => {
+    const navigate = useNavigate()
     const dispatch = useDispatch();
     const { currentUser, userDetails, loading } = useSelector((state) => state.user);
     const { subjectsList } = useSelector((state) => state.sclass);
@@ -22,6 +23,7 @@ const StudentExamMarks = ({ situation }) => {
     const params = useParams()
 
     const [studentID, setStudentID] = useState("");
+    const [subjectID, setSubjectID] = useState("");
     const [subjectName, setSubjectName] = useState("");
     const [chosenSubName, setChosenSubName] = useState("");
     const [marksObtained, setMarksObtained] = useState("");
@@ -37,8 +39,10 @@ const StudentExamMarks = ({ situation }) => {
             dispatch(getUserDetails(stdID, "Student"));
         }
         else if (situation === "Subject") {
+            console.log(params);
             const { studentID, subjectID } = params
             setStudentID(studentID);
+            setSubjectID(subjectID);
             dispatch(getUserDetails(studentID, "Student"));
             setChosenSubName(subjectID);
         }
@@ -58,7 +62,7 @@ const StudentExamMarks = ({ situation }) => {
         setChosenSubName(selectedSubject._id);
     }
 
-    let examsSession = "end"
+    let examsSession = "eot"
     const fields = { subName: chosenSubName, marksObtained, examsSession }
 
     const submitHandler = (event) => {
@@ -81,7 +85,7 @@ const StudentExamMarks = ({ situation }) => {
         else if (statestatus === "added") {
             setLoader(false)
             setShowPopup(true)
-            setMessage("Done Successfully")
+            setMessage("Marks added Successfully")
         }
     }, [response, statestatus, error])
 
@@ -112,7 +116,7 @@ const StudentExamMarks = ({ situation }) => {
                         >
                             <Stack spacing={1} sx={{ mb: 3 }}>
                                 <Typography variant="h4">
-                                    Student Name: {userDetails.name}
+                                    Add Marks
                                 </Typography>
                                 {currentUser.teachSubject &&
                                     <Typography variant="h4">
@@ -179,4 +183,4 @@ const StudentExamMarks = ({ situation }) => {
     )
 }
 
-export default StudentExamMarks
+export default StudentMotExamMarks

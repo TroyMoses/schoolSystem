@@ -69,6 +69,20 @@ a {
   border-radius: 10px;
 }
 
+.marksInput {
+  width: 50%; 
+  max-width: 90px; 
+  padding: 10px 15px; 
+  margin: 7px 10px; 
+  border: 2px solid #ccc; 
+  font-size: 1.1rem; 
+  color: #333; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+}
+
 .registerInput:focus {
   outline: none;
 }
