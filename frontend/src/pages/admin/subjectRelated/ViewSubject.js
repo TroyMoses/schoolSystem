@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getClassStudents, getSubjectDetails } from '../../../redux/sclassRelated/sclassHandle';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Tab, Container, Typography, BottomNavigation, BottomNavigationAction, Paper } from '@mui/material';
+import { Box, Tab, Container, Typography, BottomNavigation, BottomNavigationAction, Paper, CircularProgress } from '@mui/material';
 import { BlueButton, GreenButton, PurpleButton } from '../../../components/buttonStyles';
 import TableTemplate from '../../../components/TableTemplate';
 import TabContext from '@mui/lab/TabContext';
@@ -13,6 +13,7 @@ import InsertChartIcon from '@mui/icons-material/InsertChart';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import TableChartOutlinedIcon from '@mui/icons-material/TableChartOutlined';
+import { updateStudentFields } from '../../../redux/studentRelated/studentHandle';
 
 const ViewSubject = () => {
   const navigate = useNavigate()
@@ -32,6 +33,9 @@ const ViewSubject = () => {
   }
 
   const [value, setValue] = useState('1');
+  // const [marksObtained, setMarksObtained] = useState('');
+  // const [studentId, setStudentId] = useState('');
+  // const [loader, setLoader] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -42,18 +46,37 @@ const ViewSubject = () => {
     setSelectedSection(newSection);
   };
 
+  
   const studentColumns = [
     { id: 'rollNum', label: 'Roll No.', minWidth: 100 },
     { id: 'name', label: 'Name', minWidth: 170 },
   ]
-
+  
   const studentRows = sclassStudents.map((student) => {
     return {
       rollNum: student.rollNum,
       name: student.name,
       id: student._id,
+      // botExamResult: student.botExamResult.marksObtained,
     };
   })
+  // console.log(studentRows);
+  // console.log(studentId);
+
+  // const botExamResult = studentRows.botExamResult;
+  
+  // const bot = "bot";
+  // const mid = "mid";
+  // const eot = "eot";
+
+  // const botFields = { subName: subjectDetails.subName, marksObtained, bot }
+
+  // const botMarksSubmitHandler = (event) => {
+  //   event.preventDefault();
+  //   setLoader(true);
+  //   dispatch(updateStudentFields(studentId, botFields, "UpdateExamResult"))
+  //   navigate(`/Admin/subjects/subject/${classID}/${subjectID}`)
+  // };
 
   const StudentsAttendanceButtonHaver = ({ row }) => {
     return (
@@ -76,7 +99,41 @@ const ViewSubject = () => {
     );
   };
 
-  const StudentsMarksButtonHaver = ({ row }) => {
+  const StudentsMarksButtonHaver1 = ({ row }) => {
+    return (
+      <>
+        <PurpleButton variant="contained"
+          onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
+          Provide Marks
+        </PurpleButton>
+        {/* <form onSubmit={botMarksSubmitHandler}>
+        {/* <input className="marksInput" type="text" placeholder="Marks"
+            value={botExamResult ? botExamResult : marksObtained}
+            onChange={(event) => {
+              setMarksObtained(event.target.value);
+              setStudentId(row.id);
+            }}
+            required /> */}
+        <BlueButton
+          variant="contained"
+          // onClick={() => navigate("/Admin/students/student/" + row.id)}
+          onClick={() => navigate(`/Admin/students/student/${row.id}`)}
+        >
+          View
+        </BlueButton>
+        {/* <button className="registerButton" type="submit" disabled={loader}>
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              'Add'
+            )}
+          </button> */}
+          {/* </form> */}
+      </>
+    );
+  };
+
+  const StudentsMarksButtonHaver2 = ({ row }) => {
     return (
       <>
         <BlueButton
@@ -86,7 +143,24 @@ const ViewSubject = () => {
           View
         </BlueButton>
         <PurpleButton variant="contained"
-          onClick={() => navigate(`/Admin/subject/student/marks/${row.id}/${subjectID}`)}>
+          onClick={() => navigate(`/Admin/subject/student/motmarks/${row.id}/${subjectID}`)}>
+          Provide Marks
+        </PurpleButton>
+      </>
+    );
+  };
+
+  const StudentsMarksButtonHaver3 = ({ row }) => {
+    return (
+      <>
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          View
+        </BlueButton>
+        <PurpleButton variant="contained"
+          onClick={() => navigate(`/Admin/subject/student/eotmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton>
       </>
@@ -116,8 +190,14 @@ const ViewSubject = () => {
             {selectedSection === 'attendance' &&
               <TableTemplate buttonHaver={StudentsAttendanceButtonHaver} columns={studentColumns} rows={studentRows} />
             }
-            {selectedSection === 'marks' &&
-              <TableTemplate buttonHaver={StudentsMarksButtonHaver} columns={studentColumns} rows={studentRows} />
+            {selectedSection === 'marks1' &&
+              <TableTemplate buttonHaver={StudentsMarksButtonHaver1} columns={studentColumns} rows={studentRows} />
+            }
+            {selectedSection === 'marks2' &&
+              <TableTemplate buttonHaver={StudentsMarksButtonHaver2} columns={studentColumns} rows={studentRows} />
+            }
+            {selectedSection === 'marks3' &&
+              <TableTemplate buttonHaver={StudentsMarksButtonHaver3} columns={studentColumns} rows={studentRows} />
             }
 
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -128,9 +208,19 @@ const ViewSubject = () => {
                   icon={selectedSection === 'attendance' ? <TableChartIcon /> : <TableChartOutlinedIcon />}
                 />
                 <BottomNavigationAction
-                  label="Marks"
-                  value="marks"
-                  icon={selectedSection === 'marks' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                  label="BOT Marks"
+                  value="marks1"
+                  icon={selectedSection === 'marks1' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                />
+                <BottomNavigationAction
+                  label="MOT Marks"
+                  value="marks2"
+                  icon={selectedSection === 'marks2' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                />
+                <BottomNavigationAction
+                  label="EOT Marks"
+                  value="marks3"
+                  icon={selectedSection === 'marks3' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                 />
               </BottomNavigation>
             </Paper>

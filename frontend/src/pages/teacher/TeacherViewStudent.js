@@ -46,7 +46,7 @@ const TeacherViewStudent = () => {
         if (userDetails) {
             setSclassName(userDetails.sclassName || '');
             setStudentSchool(userDetails.school || '');
-            setSubjectMarks(userDetails.examResult || '');
+            setSubjectMarks(userDetails.botExamResult || '');
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails]);
@@ -202,7 +202,7 @@ const TeacherViewStudent = () => {
                     <PurpleButton variant="contained"
                         onClick={() =>
                             navigate(
-                                `/Teacher/class/student/marks/${studentID}/${teachSubjectID}`
+                                `/Teacher/class/student/botmarks/${studentID}/${teachSubjectID}`
                             )}>
                         Add Marks
                     </PurpleButton>

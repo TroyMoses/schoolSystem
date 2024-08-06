@@ -29,12 +29,12 @@ const StudentSubjects = () => {
 
     useEffect(() => {
         if (userDetails) {
-            setSubjectMarks(userDetails.examResult || []);
+            setSubjectMarks(userDetails.botExamResult || []);
         }
     }, [userDetails])
 
     useEffect(() => {
-        if (subjectMarks === []) {
+        if (subjectMarks.length === 0) {
             dispatch(getSubjectList(currentUser.sclassName._id, "ClassSubjects"));
         }
     }, [subjectMarks, dispatch, currentUser.sclassName._id]);
