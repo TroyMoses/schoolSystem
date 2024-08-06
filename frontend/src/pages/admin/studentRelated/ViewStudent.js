@@ -85,7 +85,7 @@ const ViewStudent = () => {
             setRollNum(userDetails.rollNum || '');
             setSclassName(userDetails.sclassName || '');
             setStudentSchool(userDetails.school || '');
-            setSubjectMarks(userDetails.examResult || '');
+            setSubjectMarks(userDetails.botExamResult || '');
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails]);
@@ -102,8 +102,6 @@ const ViewStudent = () => {
     }
 
     const deleteHandler = () => {
-        // setMessage("Sorry the delete function has been disabled for now.")
-        // setShowPopup(true);
 
         dispatch(deleteUser(studentID, address))
             .then(() => {

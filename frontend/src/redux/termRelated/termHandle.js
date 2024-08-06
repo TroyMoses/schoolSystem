@@ -6,6 +6,7 @@ import {
     getError
 } from './termSlice';
 
+// const REACT_APP_BASE_URL = "http://localhost:5000";
 const REACT_APP_BASE_URL = "https://schoolsystem-ice2.onrender.com";
 
 export const getAllTerms = (id, address) => async (dispatch) => {

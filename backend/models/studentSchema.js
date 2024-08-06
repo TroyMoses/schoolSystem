@@ -30,11 +30,11 @@ const studentSchema = new mongoose.Schema({
     gender: {
         type: String,
         enum: ['Male', 'Female'],
-        required: true
+        required: false
     },
     photo: {
         type: String,
-        required: true
+        required: false
     },
     botExamResult: [
         {
