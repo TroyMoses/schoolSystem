@@ -48,7 +48,7 @@ router.get("/Admin/:id", getAdminDetail);
 
 router.post('/TermCreate', termCreate);
 router.get('/TermList/:id', termList);
-router.get('/TermList/:id', deleteTerm);
+router.get('/Term/:id', deleteTerm);
 router.get("/Term/:id", getTermDetail);
 
 
