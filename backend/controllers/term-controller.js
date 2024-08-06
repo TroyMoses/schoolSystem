@@ -39,6 +39,21 @@ const termList = async (req, res) => {
     }
 };
 
+const deleteTerm = async (req, res) => {
+    try {
+        const deletedTerm = await Term.findByIdAndDelete(req.params.id);
+        if (!deletedTerm) {
+            return res.send({ message: "Term not found" });
+        }
+        // const deletedStudents = await Student.deleteMany({ sclassName: req.params.id });
+        // const deletedSubjects = await Subject.deleteMany({ sclassName: req.params.id });
+        // const deletedTeachers = await Teacher.deleteMany({ teachSclass: req.params.id });
+        res.send(deletedTerm);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
+
 const getTermDetail = async (req, res) => {
     try {
         let term = await Term.findById(req.params.id);
@@ -54,4 +69,4 @@ const getTermDetail = async (req, res) => {
     }
 };
 
-module.exports = { termCreate, termList, getTermDetail };
+module.exports = { termCreate, termList, deleteTerm, getTermDetail };
