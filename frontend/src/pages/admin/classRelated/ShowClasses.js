@@ -26,7 +26,6 @@ const ShowClasses = ({situation}) => {
   const { currentUser } = useSelector(state => state.user)
 
   const adminID = currentUser._id
-  console.log(adminID);
 
   const navigateHandler = (classID) => {
     if (situation === "Class") {
