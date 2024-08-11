@@ -1,16 +1,37 @@
-import React from 'react';
+import React , { useEffect }from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-// import { useList} from '@refinedev/core';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Print from '@mui/icons-material/Print';
 import log from "../../../assets/log.jpg";
-import CheckIcon from '@mui/icons-material/Check';
+import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
+// import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
+
+  const dispatch = useDispatch();
+  const { gradingList, loading, error } = useSelector((state) => state.grading);
+  const { currentUser } = useSelector(state => state.user);
+
+  const adminID = currentUser?._id; 
+
+  useEffect(() => {
+    if (adminID) {
+      dispatch(getAllGrades(adminID, "Grading"));
+    }
+  }, [adminID, dispatch]);
+
+  if (loading) {
+    return <Typography>Loading...</Typography>;
+  }
+
+  if (error) {
+    return <Typography>Error loading grading data...</Typography>;
+  }
 
 //   const { data, isLoading, isError } = useList({
 //     resource: 'admissions',
@@ -381,59 +402,56 @@ const Prints = () => {
       </Box>
 
       <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        width: '100%', // Width of the table
-        margin: '0 auto', // Center the table
-        border: '1px solid black', // Thick border around the table
-        borderRadius: '8px', // Optional: border-radius for rounded corners
-        overflow: 'hidden', // Ensure content doesn't overflow
-      }}
-    >
-      {/* Table Header */}
-      <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
+          flexDirection: 'column',
+          alignItems: 'center',
           width: '100%',
-          backgroundColor: '#f0f0f0', // Optional: background color for header
-          textAlign: 'center',
-          // border: '1px solid black',
+          margin: '0 auto',
+          border: '1px solid black',
+          borderRadius: '8px',
+          overflow: 'hidden',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>90 - 100</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>80 - 89</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>70 - 79</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>60 - 69</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>55 - 59</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>50 - 54</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>45 - 49</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>40 - 44</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>0 - 39</Box>
+        {/* Table Header */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            backgroundColor: '#f0f0f0',
+            textAlign: 'center',
+          }}
+        >
+          {gradingList && gradingList.map((grading) => (
+            <Box
+              key={grading._id}
+              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}
+            >
+              {grading.from} - {grading.to}
+            </Box>
+          ))}
+        </Box>
+
+        {/* Grading Row */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            textAlign: 'center',
+          }}
+        >
+          {gradingList && gradingList.map((grading) => (
+            <Box
+              key={grading._id}
+              sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0', fontWeight: 'bold' }}
+            >
+              {grading.grade}
+            </Box>
+          ))}
+        </Box>
       </Box>
-      
-      {/* Last Row */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          width: '100%',
-          textAlign: 'center',
-        }}
-      >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>D1</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>D2</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C3</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C4</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C5</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C6</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>P7</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>P8</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>F9</Box>
-      </Box>
-    </Box>
 
 
       {/* Medical Information */}
