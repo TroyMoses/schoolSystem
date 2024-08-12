@@ -39,7 +39,7 @@ const StudentMotExamMarks = ({ situation }) => {
             dispatch(getUserDetails(stdID, "Student"));
         }
         else if (situation === "Subject") {
-            console.log(params);
+            
             const { studentID, subjectID } = params
             setStudentID(studentID);
             setSubjectID(subjectID);
@@ -62,7 +62,7 @@ const StudentMotExamMarks = ({ situation }) => {
         setChosenSubName(selectedSubject._id);
     }
 
-    let examsSession = "eot"
+    let examsSession = "mot"
     const fields = { subName: chosenSubName, marksObtained, examsSession }
 
     const submitHandler = (event) => {
