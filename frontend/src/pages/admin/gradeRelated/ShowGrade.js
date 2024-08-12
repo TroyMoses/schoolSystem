@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon} from '@mui/material';
+import { IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import { Box, Menu, MenuItem, ListItemIcon} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +27,10 @@ const ShowGrades = () => {
   // const adminID = currentUser._id
   const adminID = currentUser?._id; 
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deleteID, setDeleteID] = useState(null);
+  const [deleteAddress, setDeleteAddress] = useState("");
+
   useEffect(() => {
     if (adminID) {
       // Dispatching an action to fetch all grades
@@ -50,6 +55,23 @@ const ShowGrades = () => {
       .then(() => {
         dispatch(getAllGrades(adminID, "Grading"));
       })
+  }
+
+  const handleDeleteClick = (id, address) => {
+    setDeleteID(id);
+    setDeleteAddress(address);
+    setShowConfirmation(true);
+  }
+
+  const handleConfirmDelete = () => {
+    if (deleteID && deleteAddress) {
+      deleteHandler(deleteID, deleteAddress);
+      setShowConfirmation(false);  // Close the confirmation dialog
+    }
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);  // Close the confirmation dialog without deleting
   }
 
   const gradingColumns = [
@@ -78,9 +100,31 @@ const ShowGrades = () => {
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Grading")} color="secondary">
-          <DeleteIcon color="error" />
-        </IconButton>
+        <IconButton onClick={() => handleDeleteClick(row.id, "Grading")} color="secondary">
+        <DeleteIcon color="error" />
+      </IconButton>
+
+        {/* Confirmation Dialog */}
+        <Dialog
+          open={showConfirmation}
+          onClose={handleCancelDelete}
+        >
+          <DialogTitle>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this Grade Range?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmDelete} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        
         <BlueButton variant="contained"
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           Edit
