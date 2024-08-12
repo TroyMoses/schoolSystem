@@ -66,7 +66,7 @@ const ViewSubject = () => {
   const studentColumns = [
     { id: "rollNum", label: "Lin No.", minWidth: 150 },
     { id: "name", label: "Name", minWidth: 270 },
-    { id: "marksObtained", label: "Marks", minWidth: 50 },
+    { id: "marksObtained", label: "Marks For BOT", minWidth: 100 },
   ];
 
   const studentRows = sclassStudents.map((student) => {
@@ -124,16 +124,23 @@ const ViewSubject = () => {
           Provide Marks
         </PurpleButton> */}
         <form onSubmit={botMarksSubmitHandler}>
-          <input
-            className="marksInput"
+        <input
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             type="text"
             placeholder="Marks"
-            value={botExamResult ? botExamResult : marksObtained}
+            value={marksObtained}
+            inputMode="numeric"
+            pattern="[0-9]*"
             onChange={(event) => {
-              setMarksObtained(event.target.value);
-              setStudentId(row.id);
+              const value = event.target.value;
+
+              if (/^\d*$/.test(value)) {
+                setMarksObtained(value);
+                setStudentId(row.id);
+              }
             }}
             required
+            autoFocus
           />
           {/* <BlueButton
           variant="contained"
