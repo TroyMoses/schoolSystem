@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState , useRef} from "react";
 import {
   getClassStudents,
   getSubjectDetails,
@@ -39,6 +39,7 @@ const ViewSubject = () => {
     useSelector((state) => state.sclass);
 
   const { classID, subjectID } = params;
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -51,7 +52,7 @@ const ViewSubject = () => {
 
   const [value, setValue] = useState("1");
   const [marksObtained, setMarksObtained] = useState("");
-  const [studentId, setStudentId] = useState("");
+  const [marksByStudent, setMarksByStudent] = useState({});
   const [loader, setLoader] = useState(false);
 
   const handleChange = (event, newValue) => {
@@ -66,7 +67,7 @@ const ViewSubject = () => {
   const studentColumns = [
     { id: "rollNum", label: "Lin No.", minWidth: 150 },
     { id: "name", label: "Name", minWidth: 270 },
-    { id: "marksObtained", label: "Marks", minWidth: 50 },
+    { id: "marksObtained", label: "Marks For BOT", minWidth: 100 },
   ];
 
   const studentRows = sclassStudents.map((student) => {
@@ -88,12 +89,46 @@ const ViewSubject = () => {
 
   const botFields = { subName: subjectID, marksObtained, examsSession };
 
-  const botMarksSubmitHandler = (event) => {
+  // const botMarksSubmitHandler = (event) => {
+  //   event.preventDefault();
+  //   setLoader(true);
+  //   dispatch(updateStudentFields(studentId, botFields, "UpdateExamResult"));
+  //   navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
+  // };
+
+  const botMarksSubmitHandler = async (event, studentId) => {
     event.preventDefault();
     setLoader(true);
-    dispatch(updateStudentFields(studentId, botFields, "UpdateExamResult"));
-    navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
+    setSuccessMessage(""); // Reset the success message before submission
+  
+    const marksObtained = marksByStudent[studentId] || ""; // Get marks for the specific student
+    const botFields = { subName: subjectID, marksObtained, examsSession };
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, botFields, "UpdateExamResult"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+      
+      // Navigate after successful update
+      navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
   };
+
+  const handleMarksChange = (studentId, value) => {
+    setMarksByStudent(prevMarks => ({
+      ...prevMarks,
+      [studentId]: value,
+    }));
+  };
+
 
   const StudentsAttendanceButtonHaver = ({ row }) => {
     return (
@@ -115,26 +150,80 @@ const ViewSubject = () => {
       </>
     );
   };
-
+  
   const StudentsMarksButtonHaver1 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  React.useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
     return (
       <>
         {/* <PurpleButton variant="contained"
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={botMarksSubmitHandler}>
-          <input
-            className="marksInput"
+        <form onSubmit={(e) => botMarksSubmitHandler(e, row.id)}>
+        <input
+            ref={inputRef}
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             type="text"
             placeholder="Marks"
-            value={botExamResult ? botExamResult : marksObtained}
-            onChange={(event) => {
-              setMarksObtained(event.target.value);
-              setStudentId(row.id);
-            }}
+            value={marksByStudent[row.id] || ""} // Use specific student's marks
+            // value={marksObtained}
+            inputMode="numeric"
+            pattern="[0-9]*"
+            onFocus={handleFocus}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            // onChange={(event) => {
+            //   const value = event.target.value;
+            //   if (/^\d*$/.test(value)) {
+            //     handleMarksChange(row.id, value);
+            //   }
+            // }}
             required
+            autoFocus
           />
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
           {/* <BlueButton
           variant="contained"
           // onClick={() => navigate("/Admin/students/student/" + row.id)}
@@ -142,9 +231,7 @@ const ViewSubject = () => {
         >
           View
         </BlueButton> */}
-          <button className="registerButton" type="submit" disabled={loader}>
-            {loader ? <CircularProgress size={24} color="inherit" /> : "Add"}
-          </button>
+
         </form>
       </>
     );
@@ -257,7 +344,7 @@ const ViewSubject = () => {
                 showLabels
               >
                 <BottomNavigationAction
-                  label="Attendance"
+                  label="Show Marks"
                   value="attendance"
                   icon={
                     selectedSection === "attendance" ? (
