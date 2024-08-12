@@ -64,14 +64,17 @@ const ViewSubject = () => {
   };
 
   const studentColumns = [
-    { id: "rollNum", label: "Roll No.", minWidth: 100 },
-    { id: "name", label: "Name", minWidth: 170 },
+    { id: "rollNum", label: "Lin No.", minWidth: 150 },
+    { id: "name", label: "Name", minWidth: 270 },
+    { id: "marksObtained", label: "Marks", minWidth: 50 },
   ];
 
   const studentRows = sclassStudents.map((student) => {
+    const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
     return {
       rollNum: student.rollNum,
       name: student.name,
+      marksObtained: marks,
       id: student._id,
       botExamResult: student.botExamResult.marksObtained,
     };
