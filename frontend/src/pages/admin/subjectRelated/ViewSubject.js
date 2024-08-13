@@ -64,6 +64,29 @@ const ViewSubject = () => {
     setSelectedSection(newSection);
   };
 
+  const marksColumns = [
+    { id: "rollNum", label: "Lin No.", minWidth: 150 },
+    { id: "name", label: "Name", minWidth: 270 },
+    { id: "marksObtained", label: "Marks For BOT", minWidth: 100 },
+    { id: "midObtained", label: "Marks For MID", minWidth: 100 },
+    { id: "endObtained", label: "Marks For EOT", minWidth: 100 },
+  ];
+
+  const marksRows = sclassStudents.map((student) => {
+    const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
+    const mid = student.midExamResult.length > 0 ? student.midExamResult[0].marksObtained : "";
+    const end = student.endExamResult.length > 0 ? student.endExamResult[0].marksObtained : "";
+    return {
+      rollNum: student.rollNum,
+      name: student.name,
+      marksObtained: marks,
+      midObtained: mid,
+      endObtained: end,
+      id: student._id,
+      botExamResult: student.botExamResult.marksObtained,
+    };
+  });
+
   const studentColumns = [
     { id: "rollNum", label: "Lin No.", minWidth: 150 },
     { id: "name", label: "Name", minWidth: 270 },
@@ -133,11 +156,11 @@ const ViewSubject = () => {
   const StudentsAttendanceButtonHaver = ({ row }) => {
     return (
       <>
-        <BlueButton
+        {/* <BlueButton
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
         >
-          View
+          View 
         </BlueButton>
         <PurpleButton
           variant="contained"
@@ -146,7 +169,7 @@ const ViewSubject = () => {
           }
         >
           Take Attendance
-        </PurpleButton>
+        </PurpleButton> */}
       </>
     );
   };
@@ -308,8 +331,8 @@ const ViewSubject = () => {
             {selectedSection === "attendance" && (
               <TableTemplate
                 buttonHaver={StudentsAttendanceButtonHaver}
-                columns={studentColumns}
-                rows={studentRows}
+                columns={marksColumns}
+                rows={marksRows}
               />
             )}
             {selectedSection === "marks1" && (
