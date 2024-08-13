@@ -174,6 +174,7 @@ const ViewSubject = () => {
     );
   };
   
+  
   const StudentsMarksButtonHaver1 = ({ row }) => {
     const inputRef = useRef(null);
     const [focusedRowId, setFocusedRowId] = useState(null);
@@ -224,13 +225,8 @@ const ViewSubject = () => {
             onFocus={handleFocus}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
-            // onChange={(event) => {
-            //   const value = event.target.value;
-            //   if (/^\d*$/.test(value)) {
-            //     handleMarksChange(row.id, value);
-            //   }
-            // }}
             required
+            tabIndex={0}
             autoFocus
           />
           <button
@@ -401,6 +397,28 @@ const ViewSubject = () => {
                 />
                 <BottomNavigationAction
                   label="EOT Marks"
+                  value="marks3"
+                  icon={
+                    selectedSection === "marks3" ? (
+                      <InsertChartIcon />
+                    ) : (
+                      <InsertChartOutlinedIcon />
+                    )
+                  }
+                />
+                <BottomNavigationAction
+                  label="Print MID"
+                  value="marks3"
+                  icon={
+                    selectedSection === "marks3" ? (
+                      <InsertChartIcon />
+                    ) : (
+                      <InsertChartOutlinedIcon />
+                    )
+                  }
+                />
+                <BottomNavigationAction
+                  label="Print END"
                   value="marks3"
                   icon={
                     selectedSection === "marks3" ? (
