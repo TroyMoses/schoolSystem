@@ -104,6 +104,40 @@ const ViewSubject = () => {
     };
   });
 
+  // PRINT MID
+  const printMidColumns = [
+    { id: "rollNum", label: "Lin No.", minWidth: 150 },
+    { id: "name", label: "Name", minWidth: 270 },
+  ];
+
+  const printMidRows = sclassStudents.map((student) => {
+    // const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
+    return {
+      rollNum: student.rollNum,
+      name: student.name,
+      id: student._id,
+      botExamResult: student.botExamResult.marksObtained,
+    };
+  });
+  // END PRINT MID
+
+  // PRINT END
+  const printEndColumns = [
+    { id: "rollNum", label: "Lin No.", minWidth: 150 },
+    { id: "name", label: "Pupil's Names To Be Print For END Reports", minWidth: 270 },
+  ];
+
+  const printEndRows = sclassStudents.map((student) => {
+    // const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
+    return {
+      rollNum: student.rollNum,
+      name: student.name,
+      id: student._id,
+      botExamResult: student.botExamResult.marksObtained,
+    };
+  });
+  // END PRINT ENDD
+
   const botExamResult = studentRows.botExamResult;
 
   let examsSession = "bot";
@@ -297,6 +331,32 @@ const ViewSubject = () => {
       </>
     );
   };
+  // PRINT MID
+  const PrintMidButtonHaver3 = ({ row }) => {
+    return (
+      <>
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          Print
+        </BlueButton>
+      </>
+    );
+  };
+  // PRINT END
+  const PrintEndButtonHaver3 = ({ row }) => {
+    return (
+      <>
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          Print
+        </BlueButton>
+      </>
+    );
+  };
 
   const SubjectStudentsSection = () => {
     return (
@@ -350,6 +410,20 @@ const ViewSubject = () => {
                 buttonHaver={StudentsMarksButtonHaver3}
                 columns={studentColumns}
                 rows={studentRows}
+              />
+            )}
+            {selectedSection === "mid" && (
+              <TableTemplate
+                buttonHaver={PrintMidButtonHaver3}
+                columns={printMidColumns}
+                rows={printMidRows}
+              />
+            )}
+            {selectedSection === "end" && (
+              <TableTemplate
+                buttonHaver={PrintEndButtonHaver3}
+                columns={printEndColumns}
+                rows={printEndRows}
               />
             )}
 
@@ -408,9 +482,9 @@ const ViewSubject = () => {
                 />
                 <BottomNavigationAction
                   label="Print MID"
-                  value="marks3"
+                  value="mid"
                   icon={
-                    selectedSection === "marks3" ? (
+                    selectedSection === "mid" ? (
                       <InsertChartIcon />
                     ) : (
                       <InsertChartOutlinedIcon />
@@ -419,9 +493,9 @@ const ViewSubject = () => {
                 />
                 <BottomNavigationAction
                   label="Print END"
-                  value="marks3"
+                  value="end"
                   icon={
-                    selectedSection === "marks3" ? (
+                    selectedSection === "end" ? (
                       <InsertChartIcon />
                     ) : (
                       <InsertChartOutlinedIcon />
