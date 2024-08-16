@@ -44,6 +44,9 @@ const ViewSubject = () => {
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
+    // console.log(subjectID)
+    // console.log(sclassStudents)
+    // console.log(subjectDetails)
   }, [dispatch, subjectID, classID]);
 
   if (error) {
@@ -67,40 +70,92 @@ const ViewSubject = () => {
   const marksColumns = [
     { id: "rollNum", label: "Lin No.", minWidth: 150 },
     { id: "name", label: "Name", minWidth: 270 },
-    { id: "marksObtained", label: "Marks For BOT", minWidth: 100 },
+    { id: "markObtained", label: "Marks For BOT", minWidth: 100 },
     { id: "midObtained", label: "Marks For MID", minWidth: 100 },
     { id: "endObtained", label: "Marks For EOT", minWidth: 100 },
   ];
 
   const marksRows = sclassStudents.map((student) => {
-    const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
-    const mid = student.midExamResult.length > 0 ? student.midExamResult[0].marksObtained : "";
-    const end = student.endExamResult.length > 0 ? student.endExamResult[0].marksObtained : "";
+    const botExam = student.botExamResult.find(exam => exam.subName === subjectID);
+    const midExam = student.midExamResult.find(exam => exam.subName === subjectID);
+    const endExam = student.endExamResult.find(exam => exam.subName === subjectID);
+
+    const marks = botExam ? botExam.marksObtained : "";
+    const mid = midExam ? midExam.marksObtained : "";
+    const end = endExam ? endExam.marksObtained : "";
+
     return {
       rollNum: student.rollNum,
-      name: student.name,
-      marksObtained: marks,
+      name: student.name, 
+      markObtained: marks,
       midObtained: mid,
       endObtained: end,
       id: student._id,
-      botExamResult: student.botExamResult.marksObtained,
     };
   });
 
   const studentColumns = [
     { id: "rollNum", label: "Lin No.", minWidth: 150 },
     { id: "name", label: "Name", minWidth: 270 },
-    { id: "marksObtained", label: "Marks For BOT", minWidth: 100 },
+    { id: "markObtained", label: "Marks For BOT", minWidth: 100 },
   ];
 
   const studentRows = sclassStudents.map((student) => {
-    const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
+    // const marks = student.botExamResult.length > 0 ? student.botExamResult[0].marksObtained : "";
+    const botExam = student.botExamResult.find(exam => exam.subName === subjectID);
+
+    const marks = botExam ? botExam.marksObtained : "";
+
     return {
       rollNum: student.rollNum,
       name: student.name,
-      marksObtained: marks,
+      markObtained: marks,
       id: student._id,
-      botExamResult: student.botExamResult.marksObtained,
+      // botExamResult: student.botExamResult.marksObtained,
+    };
+  });
+
+    // mid entry part
+    const midColumns = [
+      { id: "rollNum", label: "Lin No.", minWidth: 150 },
+      { id: "name", label: "Name", minWidth: 270 },
+      { id: "markObtained", label: "Marks For MID", minWidth: 100 },
+    ];
+  
+    const midRows = sclassStudents.map((student) => {
+      // const marks = student.midExamResult.length > 0 ? student.midExamResult[0].marksObtained : "";
+      const midExam = student.midExamResult.find(exam => exam.subName === subjectID);
+
+      const mid = midExam ? midExam.marksObtained : "";
+      return {
+        rollNum: student.rollNum,
+        name: student.name,
+        markObtained: mid,
+        id: student._id,
+        // midExamResult: student.midExamResult.marksObtained,
+      };
+    });
+  
+
+  // end entry part
+  const endColumns = [
+    { id: "rollNum", label: "Lin No.", minWidth: 150 },
+    { id: "name", label: "Name", minWidth: 270 },
+    { id: "markObtained", label: "Marks For END", minWidth: 100 },
+  ];
+
+  const endRows = sclassStudents.map((student) => {
+    // const marks = student.endExamResult.length > 0 ? student.endExamResult[0].marksObtained : "";
+    const endExam = student.endExamResult.find(exam => exam.subName === subjectID);
+
+    const end = endExam ? endExam.marksObtained : "";
+
+    return {
+      rollNum: student.rollNum,
+      name: student.name,
+      markObtained: end,
+      id: student._id,
+      // endExamResult: student.endExamResult.marksObtained,
     };
   });
 
@@ -116,7 +171,7 @@ const ViewSubject = () => {
       rollNum: student.rollNum,
       name: student.name,
       id: student._id,
-      botExamResult: student.botExamResult.marksObtained,
+      // botExamResult: student.botExamResult.marksObtained,
     };
   });
   // END PRINT MID
@@ -133,7 +188,7 @@ const ViewSubject = () => {
       rollNum: student.rollNum,
       name: student.name,
       id: student._id,
-      botExamResult: student.botExamResult.marksObtained,
+      // botExamResult: student.botExamResult.marksObtained,
     };
   });
   // END PRINT ENDD
@@ -178,6 +233,59 @@ const ViewSubject = () => {
       setLoader(false); // Always stop the loader
     }
   };
+
+  const motMarksSubmitHandler = async (event, studentId) => {
+    event.preventDefault();
+    setLoader(true);
+    setSuccessMessage(""); // Reset the success message before submission
+  
+    const marksObtained = marksByStudent[studentId] || ""; // Get marks for the specific student
+    const motFields = { subName: subjectID, marksObtained, examsSession };
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, motFields, "UpdateExamResult"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+      
+      // Navigate after successful update
+      navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
+  };
+
+  const endMarksSubmitHandler = async (event, studentId) => {
+    event.preventDefault();
+    setLoader(true);
+    setSuccessMessage(""); // Reset the success message before submission
+  
+    const marksObtained = marksByStudent[studentId] || ""; // Get marks for the specific student
+    const endFields = { subName: subjectID, marksObtained, examsSession };
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, endFields, "UpdateExamResult"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+      
+      // Navigate after successful update
+      navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
+  };
+
 
   const handleMarksChange = (studentId, value) => {
     setMarksByStudent(prevMarks => ({
@@ -291,43 +399,163 @@ const ViewSubject = () => {
   };
 
   const StudentsMarksButtonHaver2 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  React.useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
     return (
       <>
-        <BlueButton
+        {/* <PurpleButton variant="contained"
+          onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
+          Provide Marks
+        </PurpleButton> */}
+        <form onSubmit={(e) => motMarksSubmitHandler(e, row.id)}>
+        <input
+            ref={inputRef}
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            type="text"
+            placeholder="Marks"
+            value={marksByStudent[row.id] || ""} // Use specific student's marks
+            // value={marksObtained}
+            inputMode="numeric"
+            pattern="[0-9]*"
+            onFocus={handleFocus}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            required
+            tabIndex={0}
+            autoFocus
+          />
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
+          {/* <BlueButton
           variant="contained"
-          onClick={() => navigate("/Admin/students/student/" + row.id)}
+          // onClick={() => navigate("/Admin/students/student/" + row.id)}
+          onClick={() => navigate(`/Admin/students/student/${row.id}`)}
         >
           View
-        </BlueButton>
-        <PurpleButton
-          variant="contained"
-          onClick={() =>
-            navigate(`/Admin/subject/student/motmarks/${row.id}/${subjectID}`)
-          }
-        >
-          Provide Marks
-        </PurpleButton>
+        </BlueButton> */}
+
+        </form>
       </>
     );
   };
 
   const StudentsMarksButtonHaver3 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  React.useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
     return (
       <>
-        <BlueButton
+        {/* <PurpleButton variant="contained"
+          onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
+          Provide Marks
+        </PurpleButton> */}
+        <form onSubmit={(e) => endMarksSubmitHandler(e, row.id)}>
+        <input
+            ref={inputRef}
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            type="text"
+            placeholder="Marks"
+            value={marksByStudent[row.id] || ""} // Use specific student's marks
+            // value={marksObtained}
+            inputMode="numeric"
+            pattern="[0-9]*"
+            onFocus={handleFocus}
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            required
+            tabIndex={0}
+            autoFocus
+          />
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
+          {/* <BlueButton
           variant="contained"
-          onClick={() => navigate("/Admin/students/student/" + row.id)}
+          // onClick={() => navigate("/Admin/students/student/" + row.id)}
+          onClick={() => navigate(`/Admin/students/student/${row.id}`)}
         >
           View
-        </BlueButton>
-        <PurpleButton
-          variant="contained"
-          onClick={() =>
-            navigate(`/Admin/subject/student/eotmarks/${row.id}/${subjectID}`)
-          }
-        >
-          Provide Marks
-        </PurpleButton>
+        </BlueButton> */}
+
+        </form>
       </>
     );
   };
@@ -401,15 +629,15 @@ const ViewSubject = () => {
             {selectedSection === "marks2" && (
               <TableTemplate
                 buttonHaver={StudentsMarksButtonHaver2}
-                columns={studentColumns}
-                rows={studentRows}
+                columns={midColumns}
+                rows={midRows}
               />
             )}
             {selectedSection === "marks3" && (
               <TableTemplate
                 buttonHaver={StudentsMarksButtonHaver3}
-                columns={studentColumns}
-                rows={studentRows}
+                columns={endColumns}
+                rows={endRows}
               />
             )}
             {selectedSection === "mid" && (
