@@ -9,7 +9,7 @@ import log from "../../../assets/log.jpg";
 import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 // import CheckIcon from '@mui/icons-material/Check';
 
-const Prints = () => {
+const PrintEnd = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
 
@@ -503,4 +503,4 @@ const Prints = () => {
   );
 };
 
-export default Prints;
+export default PrintEnd;

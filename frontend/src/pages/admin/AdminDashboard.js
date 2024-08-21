@@ -43,7 +43,8 @@ import TeacherDetails from './teacherRelated/TeacherDetails';
 
 import AddClass from './classRelated/AddClass';
 import ClassDetails from './classRelated/ClassDetails';
-import Prints from './classRelated/print';
+import Prints from './classRelated/printMid';
+import PrintEnd from './classRelated/print';
 import ShowClasses from './classRelated/ShowClasses';
 import AccountMenu from '../../components/AccountMenu';
 // import ShowYears from './yearRelated/ShowYears';
@@ -151,7 +152,9 @@ const AdminDashboard = () => {
                         <Route path="/Admin/addclass" element={<AddClass />} />
                         <Route path="/Admin/classes" element={<ShowClasses situation="Teacher"/>} />
                         <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
-                        <Route path="/Admin/classes/print/" element={<Prints />} />
+                        <Route path="/Admin/classes/print/:id" element={<Prints />} />
+
+                        <Route path="/Admin/classes/print/" element={<PrintEnd />} />
                         <Route path="/Admin/class/addstudents/:id" element={<AddStudent situation="Class" />} />
 
                         {/* Student */}
@@ -161,6 +164,7 @@ const AdminDashboard = () => {
                         <Route path="/Admin/students/student/markEntryStudent/" element={<MarkEntryStudents />} />
 
                         <Route path="/Admin/students/student/:id" element={<ViewStudent />} />
+                        <Route path="/Admin/students/student/:id" element={<Prints />} />
                         <Route path="/Admin/students/student/attendance/:id" element={<StudentAttendance situation="Student" />} />
                         <Route path="/Admin/students/student/botmarks/:id" element={<StudentBotExamMarks situation="Student" />} />
                         <Route path="/Admin/students/student/motmarks/:id" element={<StudentMotExamMarks situation="Student" />} />

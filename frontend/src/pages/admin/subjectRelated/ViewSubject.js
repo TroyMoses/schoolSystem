@@ -586,6 +586,13 @@ const ViewSubject = () => {
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
         >
+          Details
+        </BlueButton>
+        <BlueButton
+          variant="contained"
+          // onClick={() => navigate(`/print?id=${row._id}`)}
+          onClick={() => navigate(`/Admin/classes/print/${row.id}`)}
+        >
           Print
         </BlueButton>
       </>
