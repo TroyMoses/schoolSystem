@@ -18,7 +18,7 @@ import {
 import {
   BlueButton,
   GreenButton,
-  PurpleButton,
+  // PurpleButton,
 } from "../../../components/buttonStyles";
 import TableTemplate from "../../../components/TableTemplate";
 import TabContext from "@mui/lab/TabContext";
@@ -40,6 +40,7 @@ const ViewSubject = () => {
 
   const { classID, subjectID } = params;
   const [successMessage, setSuccessMessage] = useState("");
+  let [examsSession, setExamsSession] = useState("mot");
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -54,7 +55,7 @@ const ViewSubject = () => {
   }
 
   const [value, setValue] = useState("1");
-  const [marksObtained, setMarksObtained] = useState("");
+  // const [marksObtained, setMarksObtained] = useState("");
   const [marksByStudent, setMarksByStudent] = useState({});
   const [loader, setLoader] = useState(false);
 
@@ -193,13 +194,13 @@ const ViewSubject = () => {
   });
   // END PRINT ENDD
 
-  const botExamResult = studentRows.botExamResult;
+  // const botExamResult = studentRows.botExamResult;
 
-  let examsSession = "bot";
-  // examsSession = "mid";
-  // examsSession = "eot";
+  // const botExamsSession = "bot";
+  // const midExamsSession = "mid";
+  // const endExamsSession = "eot";
 
-  const botFields = { subName: subjectID, marksObtained, examsSession };
+  // const botFields = { subName: subjectID, marksObtained, examsSession };
 
   // const botMarksSubmitHandler = (event) => {
   //   event.preventDefault();
@@ -208,7 +209,10 @@ const ViewSubject = () => {
   //   navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
   // };
 
+ 
+
   const botMarksSubmitHandler = async (event, studentId) => {
+    console.log(examsSession);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
@@ -235,6 +239,7 @@ const ViewSubject = () => {
   };
 
   const motMarksSubmitHandler = async (event, studentId) => {
+    console.log(examsSession);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
@@ -261,6 +266,7 @@ const ViewSubject = () => {
   };
 
   const endMarksSubmitHandler = async (event, studentId) => {
+    console.log(examsSession);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
@@ -354,7 +360,11 @@ const ViewSubject = () => {
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={(e) => botMarksSubmitHandler(e, row.id)}>
+        <form onSubmit={(e) => {
+          setExamsSession("bot");
+          botMarksSubmitHandler(e, row.id)
+        }
+          }>
         <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -435,7 +445,11 @@ const ViewSubject = () => {
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={(e) => motMarksSubmitHandler(e, row.id)}>
+        <form onSubmit={(e) => {
+          setExamsSession("mot");
+          motMarksSubmitHandler(e, row.id)
+        }
+        }>
         <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -516,7 +530,12 @@ const ViewSubject = () => {
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={(e) => endMarksSubmitHandler(e, row.id)}>
+        <form onSubmit={(e) => {
+          setExamsSession("eot");
+          endMarksSubmitHandler(e, row.id)
+        }
+
+        }>
         <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
