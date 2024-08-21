@@ -770,29 +770,29 @@ const ViewSubject = () => {
     return (
       <>
         <Typography variant="h4" align="center" gutterBottom>
-          Subject Details
+        <span style={{ fontWeight: 'bold' }}>Subject Details</span>
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Subject Name : {subjectDetails && subjectDetails.subName}
+          <span style={{ fontWeight: 'bold' }}>Subject Name : </span>{subjectDetails && subjectDetails.subName}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Subject Code : {subjectDetails && subjectDetails.subCode}
+          <span style={{ fontWeight: 'bold' }}>Subject Code : </span>{subjectDetails && subjectDetails.subCode}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Subject Sessions : {subjectDetails && subjectDetails.sessions}
+          <span style={{ fontWeight: 'bold' }}>Subject Sessions : </span>{subjectDetails && subjectDetails.sessions}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Number of Students: {numberOfStudents}
+          <span style={{ fontWeight: 'bold' }}>Number of Students: </span>{numberOfStudents}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Class Name :{" "}
+          <span style={{ fontWeight: 'bold' }}>Class Name :</span>{" "}
           {subjectDetails &&
             subjectDetails.sclassName &&
             subjectDetails.sclassName.sclassName}
         </Typography>
         {subjectDetails && subjectDetails.teacher ? (
           <Typography variant="h6" gutterBottom>
-            Teacher Name : {subjectDetails.teacher.name}
+            <span style={{ fontWeight: 'bold' }}>Teacher Name :</span> {subjectDetails.teacher.name}
           </Typography>
         ) : (
           <GreenButton

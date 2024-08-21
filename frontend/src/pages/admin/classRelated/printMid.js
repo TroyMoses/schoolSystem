@@ -1,33 +1,61 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
-// import { useList} from '@refinedev/core';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Print from '@mui/icons-material/Print';
 import log from "../../../assets/log.jpg";
-import CheckIcon from '@mui/icons-material/Check';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getClassStudents,
+  getSubjectDetails,
+} from "../../../redux/sclassRelated/sclassHandle";
+// import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
   const [searchParams] = useSearchParams();
   const id = searchParams.get('id');
 
-//   const { data, isLoading, isError } = useList({
-//     resource: 'admissions',
-//   });
+  const navigate = useNavigate();
+  const params = useParams();
+  const dispatch = useDispatch();
 
-//   const admissions = data?.data ?? [];
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-//   const admission = admissions.find((admission) => admission._id === id);
+  const { subloading, subjectDetails, sclassStudents, getresponse, error } =
+    useSelector((state) => state.sclass);
+
+  const { classID, subjectID } = params;
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    dispatch(getSubjectDetails(subjectID, "Subject"));
+    dispatch(getClassStudents(classID));
+  }, [dispatch, subjectID, classID]);
+  
+  // const student = sclassStudents.find((student) => student._id === id);
+
+  useEffect(() => {
+    const student = sclassStudents.find((student) => student._id === id);
+    if (student) {
+      setFilteredStudents([student]);
+    }
+    setIsLoading(false);
+  }, [sclassStudents, id]);
 
   const handlePrint = () => {
     window.print();
   };
 
-//   if (isLoading) return <Typography>Loading...</Typography>;
-//   if (isError) return <Typography>Error loading data...</Typography>;
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
 
-//   if (!admission) return <Typography>No admission found with this ID.</Typography>;
+  if (!filteredStudents.length) return <Typography>No Pupil found with this ID.</Typography>;
+
+  const student = filteredStudents[0]; 
 
   return (
     <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
@@ -108,7 +136,7 @@ const Prints = () => {
         <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
           <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.name} */}
+            {student.name}
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
