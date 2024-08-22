@@ -59,6 +59,10 @@ const Prints = () => {
   const handlePrint = () => {
     window.print();
   };
+const results = filteredStudent.botExamResult;
+  // Calculate total for col2
+const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
+
 
   // if (isLoading) return <Typography>Loading...</Typography>;
   // if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
@@ -261,21 +265,21 @@ const Prints = () => {
             {subject.subName}
           </Box>
           <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
-          <Box key={result._id + 'col3'} sx={{ flex: 2, padding: '2px 0' }}>
+          <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{result.marksObtained}</Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
-              <Box sx={{ flex: 1 }}>Div</Box>
+              <Box sx={{ flex: 1 }}></Box>
             </Box>
           </Box>
-          <Box key={result._id + 'col4'} sx={{ flex: 2, padding: '2px 0' }}>
+          <Box key={result._id + 'col4'} sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Mark</Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
-              <Box sx={{ flex: 1 }}>Div</Box>
+              <Box sx={{ flex: 1 }}></Box>
             </Box>
           </Box>
-          <Box key={result._id + 'col5'} sx={{ flex: 2 }}>Comment</Box>
+          <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>Comment</Box>
           <Box key={result._id + 'col6'} sx={{ flex: 1 }}>Initials</Box>
         </Box>
       );
@@ -294,7 +298,7 @@ const Prints = () => {
         }}
       >
         <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black', padding: '2px 0' }}>TOTAL</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalCol2}</Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
