@@ -46,10 +46,13 @@ const ViewStudent = () => {
 
     const [name, setName] = useState('');
     const [rollNum, setRollNum] = useState('');
+    const [gender, setGender] = useState('');
     const [password, setPassword] = useState('');
     const [sclassName, setSclassName] = useState('');
     const [studentSchool, setStudentSchool] = useState('');
     const [subjectMarks, setSubjectMarks] = useState('');
+    // const [subjectMarksMot, setSubjectMarksMot] = useState('');
+    // const [subjectMarksEnd, setSubjectMarksEnd] = useState('');
     const [subjectAttendance, setSubjectAttendance] = useState([]);
 
     const [openStates, setOpenStates] = useState({});
@@ -83,9 +86,13 @@ const ViewStudent = () => {
         if (userDetails) {
             setName(userDetails.name || '');
             setRollNum(userDetails.rollNum || '');
+            setGender(userDetails.gender || '');
+            setPassword(userDetails.password || '');
             setSclassName(userDetails.sclassName || '');
             setStudentSchool(userDetails.school || '');
             setSubjectMarks(userDetails.botExamResult || '');
+            // setSubjectMarksMot(userDetails.motExamResult || '');
+            // setSubjectMarksEnd(userDetails.endExamResult || '');
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails]);
@@ -340,13 +347,17 @@ const ViewStudent = () => {
     const StudentDetailsSection = () => {
         return (
             <div>
-                Name: {userDetails.name}
+                <span style={{ fontWeight: 'bold' }}>Name:</span> {userDetails.name}
                 <br />
-                Roll Number: {userDetails.rollNum}
+                <span style={{ fontWeight: 'bold' }}>Lin Number:</span> {userDetails.rollNum}
                 <br />
-                Class: {sclassName.sclassName}
+                <span style={{ fontWeight: 'bold' }}>Gender:</span> {userDetails.gender}
                 <br />
-                School: {studentSchool.schoolName}
+                <span style={{ fontWeight: 'bold' }}>Password:</span> {userDetails.password}
+                <br />
+                <span style={{ fontWeight: 'bold' }}>Class:</span> {sclassName.sclassName}
+                <br />
+                <span style={{ fontWeight: 'bold' }}>School:</span> {studentSchool.schoolName}
                 {
                     subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
                         <CustomPieChart data={chartData} />

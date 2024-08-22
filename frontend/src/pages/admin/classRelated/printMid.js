@@ -14,48 +14,49 @@ import {
 // import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('id');
+  // const [searchParams] = useSearchParams();
+  // const id = searchParams.get('id');
 
-  const navigate = useNavigate();
-  const params = useParams();
-  const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const params = useParams();
+    const dispatch = useDispatch();
 
-  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [filteredStudent, setFilteredStudent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const { subloading, subjectDetails, sclassStudents, getresponse, error } =
+  const { subloading, subjectDetails, sclassStudents, error } =
     useSelector((state) => state.sclass);
 
-  const { classID, subjectID } = params;
-  const [successMessage, setSuccessMessage] = useState("");
+  const { classID, subjectID, id } = params;
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
   }, [dispatch, subjectID, classID]);
-  
-  // const student = sclassStudents.find((student) => student._id === id);
 
   useEffect(() => {
-    const student = sclassStudents.find((student) => student._id === id);
-    if (student) {
-      setFilteredStudents([student]);
+    if (sclassStudents.length > 0) {
+      const student = sclassStudents.find((student) => student._id === id);
+      setFilteredStudent(student);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [sclassStudents, id]);
+
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isError || !filteredStudent) return <Typography>Error loading data or No Pupil found with this ID.</Typography>;
+
 
   const handlePrint = () => {
     window.print();
   };
 
-  if (isLoading) return <Typography>Loading...</Typography>;
-  if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
+  // if (isLoading) return <Typography>Loading...</Typography>;
+  // if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
 
-  if (!filteredStudents.length) return <Typography>No Pupil found with this ID.</Typography>;
+  // if (!filteredStudents.length) return <Typography>No Pupil found with this ID.</Typography>;
 
-  const student = filteredStudents[0]; 
+  // const student = filteredStudents[0]; 
 
   return (
     <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
@@ -135,13 +136,13 @@ const Prints = () => {
 
         <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {student.name}
+          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem',textTransform: 'uppercase', }}>
+          {filteredStudent.name}
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>
-                        {/* {admission.admission_no} */}
+                    {filteredStudent.sclassName}
                         </span>
           </Typography>
         </Box>
@@ -149,7 +150,7 @@ const Prints = () => {
         <Box display="flex" justifyContent="space-between" mt={2} mb={3}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.date_of_birth}  */}
+                    {filteredStudent.gender}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
@@ -159,7 +160,7 @@ const Prints = () => {
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  LIN NO:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>  
-                        {/* {admission.gender}  */}
+                    {filteredStudent.rollNum}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
