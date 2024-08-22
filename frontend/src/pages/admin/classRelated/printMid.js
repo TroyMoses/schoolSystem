@@ -60,8 +60,10 @@ const Prints = () => {
     window.print();
   };
 const results = filteredStudent.botExamResult;
+const resultEnd = filteredStudent.midExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
+const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
 
 const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
 
@@ -277,7 +279,18 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           </Box>
           <Box key={result._id + 'col4'} sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Mark</Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+                {filteredStudent.midExamResult.map((result2) => {
+                  const subject2 = subjectsList.find((sub) => sub._id === result.subName);
+                  return (
+                    <Box key={result2._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
+                        <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+                        {result2.marksObtained}
+                        </Box>
+                    </Box>
+                    )
+                })}
+              </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
               <Box sx={{ flex: 1 }}></Box>
             </Box>
@@ -314,7 +327,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
 
         <Box display="flex" justifyContent="space-between">
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksObtained}
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksEnd}
             
           </Box>
           <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
