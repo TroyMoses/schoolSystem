@@ -590,7 +590,6 @@ const ViewSubject = () => {
         </BlueButton>
         <BlueButton
           variant="contained"
-          // onClick={() => navigate(`/print?id=${row._id}`)}
           onClick={() => navigate(`/Admin/classes/print/${classID}/${subjectID}/${row.id}`)}
         >
           Print
@@ -602,9 +601,21 @@ const ViewSubject = () => {
   const PrintEndButtonHaver3 = ({ row }) => {
     return (
       <>
-        <BlueButton
+      <BlueButton
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          Details
+        </BlueButton>
+        {/* <BlueButton
+          variant="contained"
+          onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          Print
+        </BlueButton> */}
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate(`/Admin/classes/printEnd/${classID}/${subjectID}/${row.id}`)}
         >
           Print
         </BlueButton>

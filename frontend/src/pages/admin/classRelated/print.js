@@ -1,6 +1,6 @@
-import React , { useEffect }from 'react';
+import React , { useEffect , useState}from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -8,13 +8,42 @@ import Print from '@mui/icons-material/Print';
 import log from "../../../assets/log.jpg";
 import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 // import CheckIcon from '@mui/icons-material/Check';
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getClassStudents,
+  getSubjectDetails,
+} from "../../../redux/sclassRelated/sclassHandle";
 
 const PrintEnd = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('id');
+  // const [searchParams] = useSearchParams();
+  // const id = searchParams.get('id');
+  const params = useParams();
 
   const dispatch = useDispatch();
-  const { gradingList, loading, error } = useSelector((state) => state.grading);
+
+  const [filteredStudent, setFilteredStudent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  const { subloading, subjectDetails, sclassStudents, error } =
+    useSelector((state) => state.sclass);
+
+  const { classID, subjectID, id } = params;
+
+  useEffect(() => {
+    dispatch(getSubjectDetails(subjectID, "Subject"));
+    dispatch(getClassStudents(classID));
+  }, [dispatch, subjectID, classID]);
+
+  useEffect(() => {
+    if (sclassStudents.length > 0) {
+      const student = sclassStudents.find((student) => student._id === id);
+      setFilteredStudent(student);
+      setIsLoading(false);
+    }
+  }, [sclassStudents, id]);
+
+  const { gradingList, loading } = useSelector((state) => state.grading);
   const { currentUser } = useSelector(state => state.user);
 
   const adminID = currentUser?._id; 
@@ -25,30 +54,13 @@ const PrintEnd = () => {
     }
   }, [adminID, dispatch]);
 
-  if (loading) {
-    return <Typography>Loading...</Typography>;
-  }
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isError || !filteredStudent) return <Typography>Error loading data or No Pupil found with this ID.</Typography>;
 
-  if (error) {
-    return <Typography>Error loading grading data...</Typography>;
-  }
-
-//   const { data, isLoading, isError } = useList({
-//     resource: 'admissions',
-//   });
-
-//   const admissions = data?.data ?? [];
-
-//   const admission = admissions.find((admission) => admission._id === id);
 
   const handlePrint = () => {
     window.print();
   };
-
-//   if (isLoading) return <Typography>Loading...</Typography>;
-//   if (isError) return <Typography>Error loading data...</Typography>;
-
-//   if (!admission) return <Typography>No admission found with this ID.</Typography>;
 
   return (
     <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
@@ -128,8 +140,8 @@ const PrintEnd = () => {
 
         <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.name} */}
+          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' ,textTransform: 'uppercase',}}>
+          {filteredStudent.name}
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
