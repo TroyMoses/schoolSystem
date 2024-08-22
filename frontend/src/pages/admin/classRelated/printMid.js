@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Print from '@mui/icons-material/Print';
+import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import log from "../../../assets/log.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -27,8 +28,16 @@ const Prints = () => {
 
   const { subloading, subjectDetails, sclassStudents, error } =
     useSelector((state) => state.sclass);
+  const { subjectsList, loading, response } = useSelector((state) => state.sclass);
+  const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
+
+  useEffect(() => {
+    dispatch(getSubjectList(currentUser._id, "AllSubjects"));
+  }, [currentUser._id, dispatch]);
+
+  console.log(subjectsList);
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -234,40 +243,47 @@ const Prints = () => {
       
 
       {/* Table Body */}
-      {Array(4)
-        .fill(null)
-        .map((_, rowIndex) => (
-          <Box
-            key={rowIndex}
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              borderBottom: '1px solid black', // Thick border between rows
-              textAlign: 'center',
-            }}
-          >
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Subject {rowIndex + 1}</Box>
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>100</Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
-              <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Mark</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>Div</Box>
-              </Box>
-            </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
-              <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Mark</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>Div</Box>
-              </Box>
-            </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>Comment {rowIndex + 1}</Box>
-            <Box sx={{ flex: 1, padding: '2px 0' }}>Initials {rowIndex + 1}</Box>
+      {filteredStudent ? (
+  <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column', // Change to 'column' for vertical layout
+      justifyContent: 'space-between',
+      width: '100%',
+      textAlign: 'center',
+    }}
+  >
+    {filteredStudent.botExamResult.map((result) => {
+      const subject = subjectsList.find((sub) => sub._id === result.subName);
+      return (
+        <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
+          <Box key={result._id + 'subject'} sx={{ flex: 1, borderRight: '1px solid black' }}>
+            {subject.subName}
           </Box>
-        ))}
-
+          <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
+          <Box key={result._id + 'col3'} sx={{ flex: 2, padding: '2px 0' }}>
+            <Box display="flex" justifyContent="space-between">
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{result.marksObtained}</Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
+              <Box sx={{ flex: 1 }}>Div</Box>
+            </Box>
+          </Box>
+          <Box key={result._id + 'col4'} sx={{ flex: 2, padding: '2px 0' }}>
+            <Box display="flex" justifyContent="space-between">
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Mark</Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
+              <Box sx={{ flex: 1 }}>Div</Box>
+            </Box>
+          </Box>
+          <Box key={result._id + 'col5'} sx={{ flex: 2 }}>Comment</Box>
+          <Box key={result._id + 'col6'} sx={{ flex: 1 }}>Initials</Box>
+        </Box>
+      );
+    })}
+  </Box>
+) : (
+  <Typography>No subjects available for this class.</Typography>
+)}
       {/* Last Row */}
       <Box
         sx={{
