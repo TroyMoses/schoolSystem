@@ -4,8 +4,15 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { getClassDetails, getClassStudents, getSubjectList } from "../../../redux/sclassRelated/sclassHandle";
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import {
-    Box, Container, Typography, Tab, IconButton
-} from '@mui/material';
+    Box,
+    Tab,
+    IconButton,
+    Container,
+    Typography,
+    BottomNavigation,
+    BottomNavigationAction,
+    Paper,
+  } from "@mui/material";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
@@ -18,12 +25,18 @@ import SpeedDialTemplate from "../../../components/SpeedDialTemplate";
 import Popup from "../../../components/Popup";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PostAddIcon from '@mui/icons-material/PostAdd';
+import InsertChartIcon from "@mui/icons-material/InsertChart";
+import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
+import TableChartIcon from "@mui/icons-material/TableChart";
+import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
 
 const ClassDetails = () => {
     const params = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { subjectsList, sclassStudents, sclassDetails, loading, error, response, getresponse } = useSelector((state) => state.sclass);
+
+    useSelector((state) => state.sclass);
 
     const classID = params.id
 
@@ -41,6 +54,11 @@ const ClassDetails = () => {
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
+    };
+
+    const [selectedSection, setSelectedSection] = useState("attendance");
+    const handleSectionChange = (event, newSection) => {
+        setSelectedSection(newSection);
     };
 
     const [showPopup, setShowPopup] = useState(false);
@@ -152,14 +170,14 @@ const ClassDetails = () => {
                 >
                     View
                 </BlueButton>
-                <PurpleButton
+                {/* <PurpleButton
                     variant="contained"
                     onClick={() =>
                         navigate("/Admin/students/student/attendance/" + row.id)
                     }
                 >
                     Attendance
-                </PurpleButton>
+                </PurpleButton> */}
             </>
         );
     };
@@ -245,8 +263,150 @@ const ClassDetails = () => {
             </>
         )
     }
-    
+
     const ClassConductSection = () => {
+    return (
+      <>
+        {getresponse ? (
+          <>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+                marginTop: "16px",
+              }}
+            >
+              <GreenButton
+                variant="contained"
+                onClick={() => navigate("/Admin/class/addstudents/" + classID)}
+              >
+                Add Students
+              </GreenButton>
+            </Box>
+          </>
+        ) : (
+          <>
+            <Typography variant="h5" gutterBottom>
+              Pupil's General Conducts:
+            </Typography>
+
+            {selectedSection === "attendance" && (
+              <TableTemplate
+                buttonHaver={ConductButtonHaver}
+                columns={studentConductColumns}
+                rows={studentConductRows}
+              />
+            )}
+            {/* {selectedSection === "marks1" && (
+              <TableTemplate
+                buttonHaver={StudentsMarksButtonHaver1}
+                columns={studentColumns}
+                rows={studentRows}
+              />
+            )}
+            {selectedSection === "marks2" && (
+              <TableTemplate
+                buttonHaver={StudentsMarksButtonHaver2}
+                columns={midColumns}
+                rows={midRows}
+              />
+            )}
+            {selectedSection === "marks3" && (
+              <TableTemplate
+                buttonHaver={StudentsMarksButtonHaver3}
+                columns={endColumns}
+                rows={endRows}
+              />
+            )}
+            {selectedSection === "mid" && (
+              <TableTemplate
+                buttonHaver={PrintMidButtonHaver3}
+                columns={printMidColumns}
+                rows={printMidRows}
+              />
+            )}
+            {selectedSection === "end" && (
+              <TableTemplate
+                buttonHaver={PrintEndButtonHaver3}
+                columns={printEndColumns}
+                rows={printEndRows}
+              />
+            )} */}
+
+            <Paper
+              sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
+              elevation={3}
+            >
+              <BottomNavigation
+                value={selectedSection}
+                onChange={handleSectionChange}
+                showLabels
+              >
+                <BottomNavigationAction
+                  label="Show Conducts"
+                  value="attendance"
+                  icon={
+                    selectedSection === "attendance" ? (
+                      <TableChartIcon />
+                    ) : (
+                      <TableChartOutlinedIcon />
+                    )
+                  }
+                />
+                <BottomNavigationAction
+                  label="Add Discipline"
+                  value="marks1"
+                  icon={
+                    selectedSection === "marks1" ? (
+                      <InsertChartIcon />
+                    ) : (
+                      <InsertChartOutlinedIcon />
+                    )
+                  }
+                />
+                <BottomNavigationAction
+                  label="Add Time Management"
+                  value="marks2"
+                  icon={
+                    selectedSection === "marks2" ? (
+                      <InsertChartIcon />
+                    ) : (
+                      <InsertChartOutlinedIcon />
+                    )
+                  }
+                />
+                <BottomNavigationAction
+                  label="Add Smartness"
+                  value="marks3"
+                  icon={
+                    selectedSection === "marks3" ? (
+                      <InsertChartIcon />
+                    ) : (
+                      <InsertChartOutlinedIcon />
+                    )
+                  }
+                />
+                <BottomNavigationAction
+                  label="Add Attendance"
+                  value="mid"
+                  icon={
+                    selectedSection === "mid" ? (
+                      <InsertChartIcon />
+                    ) : (
+                      <InsertChartOutlinedIcon />
+                    )
+                  }
+                />
+              </BottomNavigation>
+            </Paper>
+          </>
+        )}
+      </>
+    );
+  };
+
+    
+    const ClassConductSection1 = () => {
         return (
             <>
                 {getresponse ? (
@@ -362,5 +522,6 @@ const ClassDetails = () => {
         </>
     );
 };
+
 
 export default ClassDetails;
