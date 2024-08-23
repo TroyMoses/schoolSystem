@@ -12,6 +12,7 @@ import {
   getClassStudents,
   getSubjectDetails,
 } from "../../../redux/sclassRelated/sclassHandle";
+import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 // import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
@@ -29,9 +30,17 @@ const Prints = () => {
   const { subloading, subjectDetails, sclassStudents, error } =
     useSelector((state) => state.sclass);
   const { subjectsList, loading, response } = useSelector((state) => state.sclass);
+  const { gradingList } = useSelector((state) => state.grading);
   const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
+  
+  const adminID = currentUser?._id; 
+  useEffect(() => {
+    if (adminID) {
+      dispatch(getAllGrades(adminID, "Grading"));
+    }
+  }, [adminID, dispatch]);
 
   useEffect(() => {
     dispatch(getSubjectList(currentUser._id, "AllSubjects"));
@@ -264,6 +273,26 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
   >
     {filteredStudent.botExamResult.map((result) => {
       const subject = subjectsList.find((sub) => sub._id === result.subName);
+      const matchingMidExamResult = filteredStudent.midExamResult.find(
+        (result2) => result2.subName === result.subName
+      );
+       // Find the grade based on marksObtained for botExamResult
+    const grade = result.marksObtained !== null && result.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          result.marksObtained >= grading.from && result.marksObtained <= grading.to
+      )?.grade
+    : '-'; // Display nothing if marks are null or undefined
+
+    // Find the grade based on marksObtained for matchingMidExamResult
+    const midExamGrade = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
+      )?.grade
+    : '-'; // Display nothing if marks are null or undefined
+    /* Calculate total grade */
+
       return (
         <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
           <Box key={result._id + 'subject'} sx={{ flex: 1, borderRight: '1px solid black' }}>
@@ -272,26 +301,21 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
           <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{result.marksObtained}</Box>
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+                {result.marksObtained}
+
+              </Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
               <Box sx={{ flex: 1 }}></Box>
             </Box>
           </Box>
-          <Box key={result._id + 'col4'} sx={{ flex: 2, borderRight: '1px solid black' }}>
+          <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                {filteredStudent.midExamResult.map((result2) => {
-                  const subject2 = subjectsList.find((sub) => sub._id === result.subName);
-                  return (
-                    <Box key={result2._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
-                        <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                        {result2.marksObtained}
-                        </Box>
-                    </Box>
-                    )
-                })}
+              <Box key={matchingMidExamResult._id} sx={{ flex: 1, borderRight: '1px solid black' }}>
+                {matchingMidExamResult.marksObtained}
+                    
               </Box>
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>Agg</Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
               <Box sx={{ flex: 1 }}></Box>
             </Box>
           </Box>
@@ -486,15 +510,14 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           // border: '1px solid black',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>90 - 100</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>80 - 89</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>70 - 79</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>60 - 69</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>55 - 59</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>50 - 54</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>45 - 49</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>40 - 44</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>0 - 39</Box>
+        {gradingList && gradingList.map((grading) => (
+            <Box
+              key={grading._id}
+              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}
+            >
+              {grading.from} - {grading.to}
+            </Box>
+          ))}
       </Box>
       
       {/* Last Row */}
@@ -506,15 +529,14 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>D1</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>D2</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C3</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C4</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C5</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C6</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>P7</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>P8</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>F9</Box>
+        {gradingList && gradingList.map((grading) => (
+            <Box
+              key={grading._id}
+              sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0', fontWeight: 'bold' }}
+            >
+              {grading.grade}
+            </Box>
+          ))}
       </Box>
     </Box>
 
