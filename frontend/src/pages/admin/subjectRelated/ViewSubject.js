@@ -18,7 +18,7 @@ import {
 import {
   BlueButton,
   GreenButton,
-  PurpleButton,
+  // PurpleButton,
 } from "../../../components/buttonStyles";
 import TableTemplate from "../../../components/TableTemplate";
 import TabContext from "@mui/lab/TabContext";
@@ -40,6 +40,7 @@ const ViewSubject = () => {
 
   const { classID, subjectID } = params;
   const [successMessage, setSuccessMessage] = useState("");
+  let [examsSession, setExamsSession] = useState("mot");
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -54,7 +55,7 @@ const ViewSubject = () => {
   }
 
   const [value, setValue] = useState("1");
-  const [marksObtained, setMarksObtained] = useState("");
+  // const [marksObtained, setMarksObtained] = useState("");
   const [marksByStudent, setMarksByStudent] = useState({});
   const [loader, setLoader] = useState(false);
 
@@ -193,13 +194,13 @@ const ViewSubject = () => {
   });
   // END PRINT ENDD
 
-  const botExamResult = studentRows.botExamResult;
+  // const botExamResult = studentRows.botExamResult;
 
-  let examsSession = "bot";
-  // examsSession = "mid";
-  // examsSession = "eot";
+  // const botExamsSession = "bot";
+  // const midExamsSession = "mid";
+  // const endExamsSession = "eot";
 
-  const botFields = { subName: subjectID, marksObtained, examsSession };
+  // const botFields = { subName: subjectID, marksObtained, examsSession };
 
   // const botMarksSubmitHandler = (event) => {
   //   event.preventDefault();
@@ -208,7 +209,10 @@ const ViewSubject = () => {
   //   navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
   // };
 
+ 
+
   const botMarksSubmitHandler = async (event, studentId) => {
+    console.log(examsSession);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
@@ -235,6 +239,7 @@ const ViewSubject = () => {
   };
 
   const motMarksSubmitHandler = async (event, studentId) => {
+    console.log(examsSession);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
@@ -261,6 +266,7 @@ const ViewSubject = () => {
   };
 
   const endMarksSubmitHandler = async (event, studentId) => {
+    console.log(examsSession);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
@@ -354,7 +360,11 @@ const ViewSubject = () => {
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={(e) => botMarksSubmitHandler(e, row.id)}>
+        <form onSubmit={(e) => {
+          setExamsSession("bot");
+          botMarksSubmitHandler(e, row.id)
+        }
+          }>
         <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -435,7 +445,11 @@ const ViewSubject = () => {
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={(e) => motMarksSubmitHandler(e, row.id)}>
+        <form onSubmit={(e) => {
+          setExamsSession("mot");
+          motMarksSubmitHandler(e, row.id)
+        }
+        }>
         <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -516,7 +530,12 @@ const ViewSubject = () => {
           onClick={() => navigate(`/Admin/subject/student/botmarks/${row.id}/${subjectID}`)}>
           Provide Marks
         </PurpleButton> */}
-        <form onSubmit={(e) => endMarksSubmitHandler(e, row.id)}>
+        <form onSubmit={(e) => {
+          setExamsSession("eot");
+          endMarksSubmitHandler(e, row.id)
+        }
+
+        }>
         <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
@@ -567,6 +586,12 @@ const ViewSubject = () => {
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
         >
+          Details
+        </BlueButton>
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate(`/Admin/classes/print/${classID}/${subjectID}/${row.id}`)}
+        >
           Print
         </BlueButton>
       </>
@@ -576,9 +601,21 @@ const ViewSubject = () => {
   const PrintEndButtonHaver3 = ({ row }) => {
     return (
       <>
-        <BlueButton
+      <BlueButton
           variant="contained"
           onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          Details
+        </BlueButton>
+        {/* <BlueButton
+          variant="contained"
+          onClick={() => navigate("/Admin/students/student/" + row.id)}
+        >
+          Print
+        </BlueButton> */}
+        <BlueButton
+          variant="contained"
+          onClick={() => navigate(`/Admin/classes/printEnd/${classID}/${subjectID}/${row.id}`)}
         >
           Print
         </BlueButton>
@@ -744,29 +781,29 @@ const ViewSubject = () => {
     return (
       <>
         <Typography variant="h4" align="center" gutterBottom>
-          Subject Details
+        <span style={{ fontWeight: 'bold' }}>Subject Details</span>
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Subject Name : {subjectDetails && subjectDetails.subName}
+          <span style={{ fontWeight: 'bold' }}>Subject Name : </span>{subjectDetails && subjectDetails.subName}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Subject Code : {subjectDetails && subjectDetails.subCode}
+          <span style={{ fontWeight: 'bold' }}>Subject Code : </span>{subjectDetails && subjectDetails.subCode}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Subject Sessions : {subjectDetails && subjectDetails.sessions}
+          <span style={{ fontWeight: 'bold' }}>Subject Sessions : </span>{subjectDetails && subjectDetails.sessions}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Number of Students: {numberOfStudents}
+          <span style={{ fontWeight: 'bold' }}>Number of Students: </span>{numberOfStudents}
         </Typography>
         <Typography variant="h6" gutterBottom>
-          Class Name :{" "}
+          <span style={{ fontWeight: 'bold' }}>Class Name :</span>{" "}
           {subjectDetails &&
             subjectDetails.sclassName &&
             subjectDetails.sclassName.sclassName}
         </Typography>
         {subjectDetails && subjectDetails.teacher ? (
           <Typography variant="h6" gutterBottom>
-            Teacher Name : {subjectDetails.teacher.name}
+            <span style={{ fontWeight: 'bold' }}>Teacher Name :</span> {subjectDetails.teacher.name}
           </Typography>
         ) : (
           <GreenButton

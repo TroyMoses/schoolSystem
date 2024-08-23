@@ -1,33 +1,62 @@
-import React from 'react';
-import { useSearchParams } from 'react-router-dom';
-// import { useList} from '@refinedev/core';
+import React, { useEffect, useState } from "react";
+// import { useSearchParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Print from '@mui/icons-material/Print';
 import log from "../../../assets/log.jpg";
-import CheckIcon from '@mui/icons-material/Check';
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getClassStudents,
+  getSubjectDetails,
+} from "../../../redux/sclassRelated/sclassHandle";
+// import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
-  const [searchParams] = useSearchParams();
-  const id = searchParams.get('id');
+  // const [searchParams] = useSearchParams();
+  // const id = searchParams.get('id');
 
-//   const { data, isLoading, isError } = useList({
-//     resource: 'admissions',
-//   });
+    const navigate = useNavigate();
+    const params = useParams();
+    const dispatch = useDispatch();
 
-//   const admissions = data?.data ?? [];
+  const [filteredStudent, setFilteredStudent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
-//   const admission = admissions.find((admission) => admission._id === id);
+  const { subloading, subjectDetails, sclassStudents, error } =
+    useSelector((state) => state.sclass);
+
+  const { classID, subjectID, id } = params;
+
+  useEffect(() => {
+    dispatch(getSubjectDetails(subjectID, "Subject"));
+    dispatch(getClassStudents(classID));
+  }, [dispatch, subjectID, classID]);
+
+  useEffect(() => {
+    if (sclassStudents.length > 0) {
+      const student = sclassStudents.find((student) => student._id === id);
+      setFilteredStudent(student);
+      setIsLoading(false);
+    }
+  }, [sclassStudents, id]);
+
+  if (isLoading) return <Typography>Loading...</Typography>;
+  if (isError || !filteredStudent) return <Typography>Error loading data or No Pupil found with this ID.</Typography>;
+
 
   const handlePrint = () => {
     window.print();
   };
 
-//   if (isLoading) return <Typography>Loading...</Typography>;
-//   if (isError) return <Typography>Error loading data...</Typography>;
+  // if (isLoading) return <Typography>Loading...</Typography>;
+  // if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
 
-//   if (!admission) return <Typography>No admission found with this ID.</Typography>;
+  // if (!filteredStudents.length) return <Typography>No Pupil found with this ID.</Typography>;
+
+  // const student = filteredStudents[0]; 
 
   return (
     <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
@@ -107,35 +136,35 @@ const Prints = () => {
 
         <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.name} */}
+          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem',textTransform: 'uppercase', }}>
+          {filteredStudent.name}
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>
-                        {/* {admission.admission_no} */}
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' ,textTransform: 'uppercase', }}>
+                    {/* {filteredStudent.sclassName} */}
                         </span>
           </Typography>
         </Box>
 
         <Box display="flex" justifyContent="space-between" mt={2} mb={3}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
-                        {/* {admission.date_of_birth}  */}
+                    <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' ,textTransform: 'uppercase', }}>
+                    {filteredStudent.gender}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' }}>
+                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem',textTransform: 'uppercase',  }}>
                         {/* {admission.age}  */}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  LIN NO:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>  
-                        {/* {admission.gender}  */}
+                    <span style={{ fontWeight: 900 }}>  LIN NO:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' ,textTransform: 'uppercase', }}>  
+                    {filteredStudent.rollNum}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>  
+                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem',textTransform: 'uppercase',  }}>  
                         {/* {admission.gender}  */}
                         </span>
           </Typography>
