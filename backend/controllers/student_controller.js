@@ -88,7 +88,6 @@ const getStudentDetail = async (req, res) => {
       .populate("botExamResult.subName", "subName")
       .populate("attendance.subName", "subName sessions");
     if (student) {
-      student.password = undefined;
       res.send(student);
     } else {
       res.send({ message: "No student found" });
