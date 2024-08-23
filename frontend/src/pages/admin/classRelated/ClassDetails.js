@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState  , useRef} from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { getClassDetails, getClassStudents, getSubjectList } from "../../../redux/sclassRelated/sclassHandle";
@@ -12,6 +12,7 @@ import {
     BottomNavigation,
     BottomNavigationAction,
     Paper,
+  CircularProgress,
   } from "@mui/material";
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -37,8 +38,10 @@ const ClassDetails = () => {
     const { subjectsList, sclassStudents, sclassDetails, loading, error, response, getresponse } = useSelector((state) => state.sclass);
 
     useSelector((state) => state.sclass);
+    const [successMessage, setSuccessMessage] = useState("");
 
     const classID = params.id
+     const [marksByStudent, setMarksByStudent] = useState({});
 
     useEffect(() => {
         dispatch(getClassDetails(classID, "Sclass"));
@@ -50,7 +53,16 @@ const ClassDetails = () => {
         console.log(error)
     }
 
+    const handleMarksChange = (studentId, value) => {
+    setMarksByStudent(prevMarks => ({
+      ...prevMarks,
+      [studentId]: value,
+    }));
+  };
+
     const [value, setValue] = useState('1');
+
+    const [loader, setLoader] = useState(false);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -200,6 +212,69 @@ const ClassDetails = () => {
         };
     })
 
+    // first discipline
+    const studentDisciplineColumns = [
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: "rollNum", label: "Discipline", minWidth: 150 },
+        ]
+
+    const studentDisciplineRows = sclassStudents.map((student) => {
+        return {
+            rollNum: student.rollNum,
+            name: student.name,
+            id: student._id,
+        };
+    })
+
+    // first Time
+    const studentTimeColumns = [
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: "rollNum", label: "Time Management", minWidth: 150 },
+        ]
+
+    const studentTimeRows = sclassStudents.map((student) => {
+        return {
+            rollNum: student.rollNum,
+            name: student.name,
+            id: student._id,
+        };
+    })
+
+    // first Smartness
+    const studentSmartnessColumns = [
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: "rollNum", label: "Smartness", minWidth: 150 },
+        ]
+
+    const studentSmartnessRows = sclassStudents.map((student) => {
+        return {
+            rollNum: student.rollNum,
+            name: student.name,
+            id: student._id,
+        };
+    })
+
+    // first Attendance
+    const studentAttendanceColumns = [
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: "rollNum", label: "Attendance", minWidth: 150 },
+        ]
+
+    const studentAttendanceRows = sclassStudents.map((student) => {
+        return {
+            rollNum: student.rollNum,
+            name: student.name,
+            id: student._id,
+        };
+    })
+
+
+
+
     const ConductButtonHaver = ({ row }) => {
         return (
             <>
@@ -223,6 +298,290 @@ const ClassDetails = () => {
             </>
         );
     };
+
+    const ConductButtonHaver1 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
+    return (
+      <>
+        <form onSubmit={(e) => {
+        //   setExamsSession("bot");
+        //   botMarksSubmitHandler(e, row.id)
+        }
+          }>
+<select
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            defaultValue=""
+            >
+            <option value="" disabled>
+                Select Discipline
+            </option>
+            <option value="Excellent">Excellent</option>
+             <option value="V. Good">V. Good</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
+            </select>
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
+
+        </form>
+      </>
+    );
+  };
+
+  const ConductButtonHaver2 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
+    return (
+      <>
+        <form onSubmit={(e) => {
+        //   setExamsSession("bot");
+        //   botMarksSubmitHandler(e, row.id)
+        }
+          }>
+        <select
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            defaultValue=""
+            >
+            <option value="" disabled>
+                Select Time Management
+            </option>
+            <option value="Excellent">Excellent</option>
+             <option value="V. Good">V. Good</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
+            </select>
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
+
+        </form>
+      </>
+    );
+  };
+  
+  const ConductButtonHaver3 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
+    return (
+      <>
+        <form onSubmit={(e) => {
+        //   setExamsSession("bot");
+        //   botMarksSubmitHandler(e, row.id)
+        }
+          }>
+        <select
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            defaultValue=""
+            >
+            <option value="" disabled>
+                Select Smartness
+            </option>
+            <option value="Excellent">Excellent</option>
+             <option value="V. Good">V. Good</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
+            </select>
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
+
+        </form>
+      </>
+    );
+  };
+
+  const ConductButtonHaver4 = ({ row }) => {
+    const inputRef = useRef(null);
+    const [focusedRowId, setFocusedRowId] = useState(null);
+
+    const handleFocus = () => {
+      setFocusedRowId(row.id);
+    };
+
+    // Handle change event to update marks
+  const handleChange = (event) => {
+    const value = event.target.value;
+    if (/^\d*$/.test(value)) {
+      handleMarksChange(row.id, value);
+    }
+  };
+  
+
+   // Manage the focus on component mount or when focusedRowId changes
+  useEffect(() => {
+    if (focusedRowId === row.id) {
+      inputRef.current?.focus();
+    }
+  }, [focusedRowId, row.id]);
+
+  // Prevent focus from shifting to other inputs
+  const handleKeyDown = (event) => {
+    if (event.key === 'Tab' || event.key === 'Enter') {
+      event.preventDefault();
+    }
+  };
+
+    return (
+      <>
+        <form onSubmit={(e) => {
+        //   setExamsSession("bot");
+        //   botMarksSubmitHandler(e, row.id)
+        }
+          }>
+        <select
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            defaultValue=""
+            >
+            <option value="" disabled>
+                Select Attendance
+            </option>
+            <option value="Excellent">Excellent</option>
+             <option value="V. Good">V. Good</option>
+            <option value="Good">Good</option>
+            <option value="Fair">Fair</option>
+            <option value="Poor">Poor</option>
+            </select>
+          <button
+            className="registerButton"
+            type="submit"
+            disabled={loader}
+          >
+            {loader ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Add/Update"
+            )}
+          </button>
+      {successMessage && (
+        <div className="successMessage">{successMessage}</div>
+      )}
+
+        </form>
+      </>
+    );
+  };
  
 
     const studentActions = [
@@ -297,41 +656,41 @@ const ClassDetails = () => {
                 rows={studentConductRows}
               />
             )}
-            {/* {selectedSection === "marks1" && (
+            {selectedSection === "marks1" && (
               <TableTemplate
-                buttonHaver={StudentsMarksButtonHaver1}
-                columns={studentColumns}
-                rows={studentRows}
+                buttonHaver={ConductButtonHaver1}
+                columns={studentDisciplineColumns}
+                rows={studentDisciplineRows}
               />
             )}
             {selectedSection === "marks2" && (
               <TableTemplate
-                buttonHaver={StudentsMarksButtonHaver2}
-                columns={midColumns}
-                rows={midRows}
+                buttonHaver={ConductButtonHaver2}
+                columns={studentTimeColumns}
+                rows={studentTimeRows}
               />
             )}
             {selectedSection === "marks3" && (
               <TableTemplate
-                buttonHaver={StudentsMarksButtonHaver3}
-                columns={endColumns}
-                rows={endRows}
+                buttonHaver={ConductButtonHaver3}
+                columns={studentSmartnessColumns}
+                rows={studentSmartnessRows}
               />
             )}
             {selectedSection === "mid" && (
               <TableTemplate
-                buttonHaver={PrintMidButtonHaver3}
-                columns={printMidColumns}
-                rows={printMidRows}
+                buttonHaver={ConductButtonHaver4}
+                columns={studentAttendanceColumns}
+                rows={studentAttendanceRows}
               />
             )}
-            {selectedSection === "end" && (
+            {/* {selectedSection === "end" && (
               <TableTemplate
                 buttonHaver={PrintEndButtonHaver3}
                 columns={printEndColumns}
                 rows={printEndRows}
               />
-            )} */}
+            )}  */}
 
             <Paper
               sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
