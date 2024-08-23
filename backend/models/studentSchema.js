@@ -29,12 +29,27 @@ const studentSchema = new mongoose.Schema({
     },
     gender: {
         type: String,
-        enum: ['Male', 'Female'],
-        required: false
+        required: false,
     },
     photo: {
         type: String,
-        required: false
+        required: false,
+    },
+    discipline: {
+        type: String,
+        required: false,
+    },
+    timeManagement: {
+        type: String,
+        required: false,
+    },
+    smartness: {
+        type: String,
+        required: false,
+    },
+    attendanceRemarks: {
+        type: String,
+        required: false,
     },
     botExamResult: [
         {
