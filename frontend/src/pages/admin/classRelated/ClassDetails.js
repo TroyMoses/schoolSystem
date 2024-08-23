@@ -129,7 +129,7 @@ const ClassDetails = () => {
 
     const studentColumns = [
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: 'rollNum', label: 'Roll Number', minWidth: 100 },
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
     ]
 
     const studentRows = sclassStudents.map((student) => {
@@ -164,6 +164,49 @@ const ClassDetails = () => {
         );
     };
 
+    // conduct
+    const studentConductColumns = [
+        { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
+        { id: 'name', label: 'Name', minWidth: 170 },
+        { id: "rollNum", label: "Discipline", minWidth: 150 },
+        { id: "rollNum", label: "Time Management", minWidth: 150 },
+        { id: "rollNum", label: "Smartness", minWidth: 150 },
+        { id: "rollNum", label: "Attendance", minWidth: 150 },
+        ]
+
+    const studentConductRows = sclassStudents.map((student) => {
+        return {
+            rollNum: student.rollNum,
+            name: student.name,
+            id: student._id,
+        };
+    })
+
+    const ConductButtonHaver = ({ row }) => {
+        return (
+            <>
+                {/* <IconButton onClick={() => deleteHandler(row.id, "Student")}>
+                    <PersonRemoveIcon color="error" />
+                </IconButton>
+                <BlueButton
+                    variant="contained"
+                    onClick={() => navigate("/Admin/students/student/" + row.id)}
+                >
+                    View
+                </BlueButton>
+                <PurpleButton
+                    variant="contained"
+                    onClick={() =>
+                        navigate("/Admin/students/student/attendance/" + row.id)
+                    }
+                >
+                    Attendance
+                </PurpleButton> */}
+            </>
+        );
+    };
+ 
+
     const studentActions = [
         {
             icon: <PersonAddAlt1Icon color="primary" />, name: 'Add New Student',
@@ -196,6 +239,34 @@ const ClassDetails = () => {
                         </Typography>
 
                         <TableTemplate buttonHaver={StudentsButtonHaver} columns={studentColumns} rows={studentRows} />
+                        <SpeedDialTemplate actions={studentActions} />
+                    </>
+                )}
+            </>
+        )
+    }
+    
+    const ClassConductSection = () => {
+        return (
+            <>
+                {getresponse ? (
+                    <>
+                        <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+                            <GreenButton
+                                variant="contained"
+                                onClick={() => navigate("/Admin/class/addstudents/" + classID)}
+                            >
+                                Add Students
+                            </GreenButton>
+                        </Box>
+                    </>
+                ) : (
+                    <>
+                        <Typography variant="h5" gutterBottom>
+                            Pupil's General Conducts:
+                        </Typography>
+
+                        <TableTemplate buttonHaver={ConductButtonHaver} columns={studentConductColumns} rows={studentConductRows} />
                         <SpeedDialTemplate actions={studentActions} />
                     </>
                 )}
@@ -262,7 +333,8 @@ const ClassDetails = () => {
                                     <Tab label="Details" value="1" />
                                     <Tab label="Subjects" value="2" />
                                     <Tab label="Students" value="3" />
-                                    <Tab label="Teachers" value="4" />
+                                    <Tab label="General Conduct" value="4" />
+                                    <Tab label="Teachers" value="5" />
                                 </TabList>
                             </Box>
                             <Container sx={{ marginTop: "3rem", marginBottom: "4rem" }}>
@@ -276,6 +348,9 @@ const ClassDetails = () => {
                                     <ClassStudentsSection />
                                 </TabPanel>
                                 <TabPanel value="4">
+                                    <ClassConductSection />
+                                </TabPanel>
+                                <TabPanel value="5">
                                     <ClassTeachersSection />
                                 </TabPanel>
                             </Container>

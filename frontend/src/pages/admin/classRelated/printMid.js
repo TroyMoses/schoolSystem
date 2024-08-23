@@ -46,7 +46,7 @@ const Prints = () => {
     dispatch(getSubjectList(currentUser._id, "AllSubjects"));
   }, [currentUser._id, dispatch]);
 
-  console.log(subjectsList);
+  // console.log(subjectsList);
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -168,8 +168,8 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' ,textTransform: 'uppercase', }}>
-                    {/* {filteredStudent.sclassName} */}
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>
+                    {filteredStudent.sclassName}
                         </span>
           </Typography>
         </Box>
@@ -178,6 +178,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' ,textTransform: 'uppercase', }}>
                     {filteredStudent.gender}
+                    
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
@@ -276,6 +277,8 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
       const matchingMidExamResult = filteredStudent.midExamResult.find(
         (result2) => result2.subName === result.subName
       );
+      // console.log(subject)
+      console.log(matchingMidExamResult)
        // Find the grade based on marksObtained for botExamResult
     const grade = result.marksObtained !== null && result.marksObtained !== undefined
     ? gradingList?.find(
@@ -291,11 +294,18 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
       )?.grade
     : '-'; // Display nothing if marks are null or undefined
-    /* Calculate total grade */
+
+    const midExamComment = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+  ? gradingList?.find(
+      (grading) =>
+        matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
+    )?.comment
+  : '-'; // Display '-' if marks are null or undefined
+
 
       return (
         <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
-          <Box key={result._id + 'subject'} sx={{ flex: 1, borderRight: '1px solid black' }}>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
             {subject.subName}
           </Box>
           <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
@@ -311,15 +321,15 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           </Box>
           <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
-              <Box key={matchingMidExamResult._id} sx={{ flex: 1, borderRight: '1px solid black' }}>
-                {matchingMidExamResult.marksObtained}
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+                {/* {matchingMidExamResult.marksObtained} */}
                     
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
               <Box sx={{ flex: 1 }}></Box>
             </Box>
           </Box>
-          <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>Comment</Box>
+          <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{midExamComment}</Box>
           <Box key={result._id + 'col6'} sx={{ flex: 1 }}>Initials</Box>
         </Box>
       );
