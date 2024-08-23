@@ -45,6 +45,7 @@ const ClassDetails = () => {
     const [disciplineByStudent, setDisciplineByStudent] = useState({});
     const [smartnessByStudent, setSmartnessByStudent] = useState({});
     const [timeByStudent, setTimeByStudent] = useState({});
+    const [attendanceByStudent, setAttendanceByStudent] = useState({});
 
     useEffect(() => {
         dispatch(getClassDetails(classID, "Sclass"));
@@ -263,13 +264,14 @@ const ClassDetails = () => {
     const studentSmartnessColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "rollNum", label: "Smartness", minWidth: 150 },
+        { id: "smartness", label: "Smartness", minWidth: 150 },
         ]
 
     const studentSmartnessRows = sclassStudents.map((student) => {
         return {
             rollNum: student.rollNum,
             name: student.name,
+            smartness: student.smartness,
             id: student._id,
         };
     })
@@ -278,13 +280,14 @@ const ClassDetails = () => {
     const studentAttendanceColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "rollNum", label: "Attendance", minWidth: 150 },
+        { id: "attendanceRemarks", label: "Attendance", minWidth: 150 },
         ]
 
     const studentAttendanceRows = sclassStudents.map((student) => {
         return {
             rollNum: student.rollNum,
             name: student.name,
+            attendanceRemarks: student.attendanceRemarks,
             id: student._id,
         };
     })
@@ -365,6 +368,32 @@ const ClassDetails = () => {
       setLoader(false); // Always stop the loader
     }
   };
+
+  const attendanceSubmitHandler = async (event, studentId) => {
+    event.preventDefault();
+    setLoader(true);
+    setSuccessMessage(""); // Reset the success message before submission
+
+    const attendanceObtained = attendanceByStudent[studentId] || ""; 
+    const attendanceFields = { attendanceRemarks: attendanceObtained };
+  
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, attendanceFields, "Student"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+      
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
+  };
+
 
 
     const ConductButtonHaver = ({ row }) => {
@@ -566,6 +595,8 @@ const ClassDetails = () => {
         <select
             name={row.id}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={smartnessByStudent[row.id] || ""}
+            onChange={handleChange}
             defaultValue=""
             >
             <option value="" disabled>
@@ -605,13 +636,14 @@ const ClassDetails = () => {
       setFocusedRowId(row.id);
     };
 
-    // Handle change event to update marks
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (/^\d*$/.test(value)) {
-      handleMarksChange(row.id, value);
-    }
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Update the state for the selected discipline
+        setAttendanceByStudent((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      };
   
 
    // Manage the focus on component mount or when focusedRowId changes
@@ -621,22 +653,18 @@ const ClassDetails = () => {
     }
   }, [focusedRowId, row.id]);
 
-  // Prevent focus from shifting to other inputs
-  const handleKeyDown = (event) => {
-    if (event.key === 'Tab' || event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
     return (
       <>
         <form onSubmit={(e) => {
         //   setExamsSession("bot");
-        //   botMarksSubmitHandler(e, row.id)
+          attendanceSubmitHandler(e, row.id)
         }
           }>
         <select
+            name={row.id}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={disciplineByStudent[row.id] || ""}
+            onChange={handleChange}
             defaultValue=""
             >
             <option value="" disabled>
