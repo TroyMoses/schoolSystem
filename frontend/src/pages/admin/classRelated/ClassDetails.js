@@ -28,6 +28,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import InsertChartIcon from "@mui/icons-material/InsertChart";
 import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
+import { updateStudentFields } from "../../../redux/studentRelated/studentHandle";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
 
@@ -41,7 +42,9 @@ const ClassDetails = () => {
     const [successMessage, setSuccessMessage] = useState("");
 
     const classID = params.id
-     const [marksByStudent, setMarksByStudent] = useState({});
+    const [disciplineByStudent, setDisciplineByStudent] = useState({});
+    const [smartnessByStudent, setSmartnessByStudent] = useState({});
+    const [timeByStudent, setTimeByStudent] = useState({});
 
     useEffect(() => {
         dispatch(getClassDetails(classID, "Sclass"));
@@ -52,10 +55,18 @@ const ClassDetails = () => {
     if (error) {
         console.log(error)
     }
-
+    
+    // discipline
+    const handleDisciplineChange = (studentId, value) => {
+        setDisciplineByStudent(prevDiscipline => ({
+          ...prevDiscipline,
+          [studentId]: value,
+        }));
+      };
+    // time
     const handleMarksChange = (studentId, value) => {
-    setMarksByStudent(prevMarks => ({
-      ...prevMarks,
+    setTimeByStudent(prevTime => ({
+      ...prevTime,
       [studentId]: value,
     }));
   };
@@ -198,16 +209,20 @@ const ClassDetails = () => {
     const studentConductColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "rollNum", label: "Discipline", minWidth: 150 },
-        { id: "rollNum", label: "Time Management", minWidth: 150 },
-        { id: "rollNum", label: "Smartness", minWidth: 150 },
-        { id: "rollNum", label: "Attendance", minWidth: 150 },
+        { id: "discipline", label: "Discipline", minWidth: 150 },
+        { id: "timeManagement", label: "Time Management", minWidth: 150 },
+        { id: "smartness", label: "Smartness", minWidth: 150 },
+        { id: "attendanceRemarks", label: "Attendance", minWidth: 150 },
         ]
 
     const studentConductRows = sclassStudents.map((student) => {
         return {
             rollNum: student.rollNum,
             name: student.name,
+            discipline: student.discipline,
+            timeManagement: student.timeManagement,
+            smartness: student.smartness,
+            attendanceRemarks: student.attendanceRemarks,
             id: student._id,
         };
     })
@@ -216,13 +231,14 @@ const ClassDetails = () => {
     const studentDisciplineColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "rollNum", label: "Discipline", minWidth: 150 },
+        { id: "discipline", label: "Discipline", minWidth: 150 },
         ]
 
     const studentDisciplineRows = sclassStudents.map((student) => {
         return {
             rollNum: student.rollNum,
             name: student.name,
+            discipline: student.discipline,
             id: student._id,
         };
     })
@@ -231,13 +247,14 @@ const ClassDetails = () => {
     const studentTimeColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "rollNum", label: "Time Management", minWidth: 150 },
+        { id: "timeManagement", label: "Time Management", minWidth: 150 },
         ]
 
     const studentTimeRows = sclassStudents.map((student) => {
         return {
             rollNum: student.rollNum,
             name: student.name,
+            timeManagement: student.timeManagement,
             id: student._id,
         };
     })
@@ -272,7 +289,82 @@ const ClassDetails = () => {
         };
     })
 
+    const disciplineSubmitHandler = async (event, studentId) => {
+    event.preventDefault();
+    setLoader(true);
+    setSuccessMessage(""); // Reset the success message before submission
 
+    const disciplineObtained = disciplineByStudent[studentId] || ""; 
+    const disciplineFields = { discipline: disciplineObtained };
+  
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, disciplineFields, "Student"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+      console.log(disciplineFields);
+      
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
+  };
+
+  const timeSubmitHandler = async (event, studentId) => {
+    event.preventDefault();
+    setLoader(true);
+    setSuccessMessage(""); // Reset the success message before submission
+
+    const timeObtained = timeByStudent[studentId] || ""; 
+    const timeFields = { timeManagement: timeObtained };
+  
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, timeFields, "Student"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+    //   console.log(timeFields);
+      
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
+  };
+
+  const smartnessSubmitHandler = async (event, studentId) => {
+    event.preventDefault();
+    setLoader(true);
+    setSuccessMessage(""); // Reset the success message before submission
+
+    const smartnessObtained = smartnessByStudent[studentId] || ""; 
+    const smartnessFields = { smartness: smartnessObtained };
+  
+  
+    try {
+      // Perform API call or dispatch action
+      await dispatch(updateStudentFields(studentId, smartnessFields, "Student"));
+      
+      // If successful, set the success message
+      setSuccessMessage("Added/Updated Successfully");
+      
+    } catch (error) {
+      // Handle errors if needed
+      console.error("Submission failed", error);
+      // Optionally set an error message or handle error state here
+    } finally {
+      setLoader(false); // Always stop the loader
+    }
+  };
 
 
     const ConductButtonHaver = ({ row }) => {
@@ -308,12 +400,14 @@ const ClassDetails = () => {
     };
 
     // Handle change event to update marks
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (/^\d*$/.test(value)) {
-      handleMarksChange(row.id, value);
-    }
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Update the state for the selected discipline
+        setDisciplineByStudent((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      };
   
 
    // Manage the focus on component mount or when focusedRowId changes
@@ -323,22 +417,18 @@ const ClassDetails = () => {
     }
   }, [focusedRowId, row.id]);
 
-  // Prevent focus from shifting to other inputs
-  const handleKeyDown = (event) => {
-    if (event.key === 'Tab' || event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
     return (
       <>
         <form onSubmit={(e) => {
         //   setExamsSession("bot");
-        //   botMarksSubmitHandler(e, row.id)
+          disciplineSubmitHandler(e, row.id)
         }
           }>
-<select
+          <select
+            name={row.id}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={disciplineByStudent[row.id] || ""}
+            onChange={handleChange}
             defaultValue=""
             >
             <option value="" disabled>
@@ -379,12 +469,14 @@ const ClassDetails = () => {
     };
 
     // Handle change event to update marks
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (/^\d*$/.test(value)) {
-      handleMarksChange(row.id, value);
-    }
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Update the state for the selected discipline
+        setTimeByStudent((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      };
   
 
    // Manage the focus on component mount or when focusedRowId changes
@@ -394,22 +486,19 @@ const ClassDetails = () => {
     }
   }, [focusedRowId, row.id]);
 
-  // Prevent focus from shifting to other inputs
-  const handleKeyDown = (event) => {
-    if (event.key === 'Tab' || event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
     return (
       <>
         <form onSubmit={(e) => {
         //   setExamsSession("bot");
-        //   botMarksSubmitHandler(e, row.id)
+          timeSubmitHandler(e, row.id)
         }
           }>
         <select
+            name={row.id}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={timeByStudent[row.id] || ""}
+            onChange={handleChange}
+
             defaultValue=""
             >
             <option value="" disabled>
@@ -450,12 +539,14 @@ const ClassDetails = () => {
     };
 
     // Handle change event to update marks
-  const handleChange = (event) => {
-    const value = event.target.value;
-    if (/^\d*$/.test(value)) {
-      handleMarksChange(row.id, value);
-    }
-  };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        // Update the state for the selected discipline
+        setSmartnessByStudent((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      };
   
 
    // Manage the focus on component mount or when focusedRowId changes
@@ -465,21 +556,15 @@ const ClassDetails = () => {
     }
   }, [focusedRowId, row.id]);
 
-  // Prevent focus from shifting to other inputs
-  const handleKeyDown = (event) => {
-    if (event.key === 'Tab' || event.key === 'Enter') {
-      event.preventDefault();
-    }
-  };
-
     return (
       <>
         <form onSubmit={(e) => {
         //   setExamsSession("bot");
-        //   botMarksSubmitHandler(e, row.id)
+          smartnessSubmitHandler(e, row.id)
         }
           }>
         <select
+            name={row.id}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             defaultValue=""
             >
