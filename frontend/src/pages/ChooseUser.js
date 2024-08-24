@@ -95,7 +95,7 @@ const ChooseUser = ({ visitor }) => {
                 <StyledTypography>
                   Admin
                 </StyledTypography>
-                Login as an administrator to access the dashboard to manage app data.
+                Login as an administrator to access the dashboard to manage Shining Stars data.
               </StyledPaper>
             </div>
           </Grid>
@@ -106,9 +106,9 @@ const ChooseUser = ({ visitor }) => {
                   <School fontSize="large" />
                 </Box>
                 <StyledTypography>
-                  Student
+                  Parent
                 </StyledTypography>
-                Login as a student to explore course materials and assignments.
+                Login as a parent to explore your child's performance.
               </div>
             </StyledPaper>
           </Grid>
@@ -121,7 +121,7 @@ const ChooseUser = ({ visitor }) => {
                 <StyledTypography>
                   Teacher
                 </StyledTypography>
-                Login as a teacher to create courses, assignments, and track student progress.
+                Login as a teacher to enter pupil's marks, attendance, and track pupil's progress.
               </div>
             </StyledPaper>
           </Grid>

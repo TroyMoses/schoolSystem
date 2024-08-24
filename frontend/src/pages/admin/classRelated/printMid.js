@@ -424,10 +424,10 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           textAlign: 'center',
         }}
       >
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.discipline}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.timeManagement}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.smartness}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.attendanceRemarks}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.discipline}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.timeManagement}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.smartness}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.attendanceRemarks}</Box>
         
         </Box>
     </Box>
