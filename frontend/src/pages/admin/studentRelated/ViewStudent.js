@@ -51,8 +51,8 @@ const ViewStudent = () => {
     const [sclassName, setSclassName] = useState('');
     const [studentSchool, setStudentSchool] = useState('');
     const [subjectMarks, setSubjectMarks] = useState('');
-    // const [subjectMarksMot, setSubjectMarksMot] = useState('');
-    // const [subjectMarksEnd, setSubjectMarksEnd] = useState('');
+    const [subjectMarksMot, setSubjectMarksMot] = useState('');
+    const [subjectMarksEnd, setSubjectMarksEnd] = useState('');
     const [subjectAttendance, setSubjectAttendance] = useState([]);
 
     const [openStates, setOpenStates] = useState({});
@@ -91,8 +91,8 @@ const ViewStudent = () => {
             setSclassName(userDetails.sclassName || '');
             setStudentSchool(userDetails.school || '');
             setSubjectMarks(userDetails.botExamResult || '');
-            // setSubjectMarksMot(userDetails.motExamResult || '');
-            // setSubjectMarksEnd(userDetails.endExamResult || '');
+            setSubjectMarksMot(userDetails.midExamResult || '');
+            setSubjectMarksEnd(userDetails.endExamResult || '');
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails]);
@@ -282,18 +282,26 @@ const ViewStudent = () => {
                         <TableHead>
                             <StyledTableRow>
                                 <StyledTableCell>Subject</StyledTableCell>
-                                <StyledTableCell>Marks</StyledTableCell>
+                                <StyledTableCell>B.O.T Marks</StyledTableCell>
+                                <StyledTableCell>M.O.T Marks</StyledTableCell>
+                                <StyledTableCell>E.O.T Marks</StyledTableCell>
                             </StyledTableRow>
                         </TableHead>
                         <TableBody>
                             {subjectMarks.map((result, index) => {
-                                if (!result.subName || !result.marksObtained) {
+                                const motResult = subjectMarksMot[index] || {};
+                                const eotResult = subjectMarksEnd[index] || {};
+
+                                // Display only if subName exists in B.O.T, and marks are present
+                                if (!result.subName || (!result.marksObtained && !motResult.marksObtained && !eotResult.marksObtained)) {
                                     return null;
                                 }
                                 return (
                                     <StyledTableRow key={index}>
                                         <StyledTableCell>{result.subName.subName}</StyledTableCell>
                                         <StyledTableCell>{result.marksObtained}</StyledTableCell>
+                                        <StyledTableCell>{motResult.marksObtained}</StyledTableCell>
+                                        <StyledTableCell>{eotResult.marksObtained}</StyledTableCell>
                                     </StyledTableRow>
                                 );
                             })}
