@@ -77,14 +77,6 @@ const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksOb
 const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
 
 
-
-  // if (isLoading) return <Typography>Loading...</Typography>;
-  // if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
-
-  // if (!filteredStudents.length) return <Typography>No Pupil found with this ID.</Typography>;
-
-  // const student = filteredStudents[0]; 
-
   return (
     <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
        <Box>
@@ -323,6 +315,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
             <Box display="flex" justifyContent="space-between">
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
                 {/* {matchingMidExamResult.marksObtained} */}
+                {matchingMidExamResult ? matchingMidExamResult.marksObtained : ''}
                     
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
