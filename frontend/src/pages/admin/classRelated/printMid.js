@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Print from '@mui/icons-material/Print';
+import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import log from "../../../assets/log.jpg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -11,6 +12,7 @@ import {
   getClassStudents,
   getSubjectDetails,
 } from "../../../redux/sclassRelated/sclassHandle";
+import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 // import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
@@ -27,8 +29,24 @@ const Prints = () => {
 
   const { subloading, subjectDetails, sclassStudents, error } =
     useSelector((state) => state.sclass);
+  const { subjectsList, loading, response } = useSelector((state) => state.sclass);
+  const { gradingList } = useSelector((state) => state.grading);
+  const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
+  
+  const adminID = currentUser?._id; 
+  useEffect(() => {
+    if (adminID) {
+      dispatch(getAllGrades(adminID, "Grading"));
+    }
+  }, [adminID, dispatch]);
+
+  useEffect(() => {
+    dispatch(getSubjectList(currentUser._id, "AllSubjects"));
+  }, [currentUser._id, dispatch]);
+
+  // console.log(subjectsList);
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -50,6 +68,15 @@ const Prints = () => {
   const handlePrint = () => {
     window.print();
   };
+const results = filteredStudent.botExamResult;
+const resultEnd = filteredStudent.midExamResult;
+  // Calculate total for col2
+const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
+const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
+
+const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
+
+
 
   // if (isLoading) return <Typography>Loading...</Typography>;
   // if (isError) return <Typography>Error loading data Because of The Network...</Typography>;
@@ -141,8 +168,8 @@ const Prints = () => {
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' ,textTransform: 'uppercase', }}>
-                    {/* {filteredStudent.sclassName} */}
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>
+                    {filteredStudent.sclassName}
                         </span>
           </Typography>
         </Box>
@@ -151,6 +178,7 @@ const Prints = () => {
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem' ,textTransform: 'uppercase', }}>
                     {filteredStudent.gender}
+                    
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
@@ -234,40 +262,82 @@ const Prints = () => {
       
 
       {/* Table Body */}
-      {Array(4)
-        .fill(null)
-        .map((_, rowIndex) => (
-          <Box
-            key={rowIndex}
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              width: '100%',
-              borderBottom: '1px solid black', // Thick border between rows
-              textAlign: 'center',
-            }}
-          >
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Subject {rowIndex + 1}</Box>
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>100</Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
-              <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Mark</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>Div</Box>
-              </Box>
-            </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
-              <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Mark</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>Div</Box>
-              </Box>
-            </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>Comment {rowIndex + 1}</Box>
-            <Box sx={{ flex: 1, padding: '2px 0' }}>Initials {rowIndex + 1}</Box>
-          </Box>
-        ))}
+      {filteredStudent ? (
+  <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column', // Change to 'column' for vertical layout
+      justifyContent: 'space-between',
+      width: '100%',
+      textAlign: 'center',
+    }}
+  >
+    {filteredStudent.botExamResult.map((result) => {
+      const subject = subjectsList.find((sub) => sub._id === result.subName);
+      const matchingMidExamResult = filteredStudent.midExamResult.find(
+        (result2) => result2.subName === result.subName
+      );
+      // console.log(subject)
+      console.log(matchingMidExamResult)
+       // Find the grade based on marksObtained for botExamResult
+    const grade = result.marksObtained !== null && result.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          result.marksObtained >= grading.from && result.marksObtained <= grading.to
+      )?.grade
+    : '-'; // Display nothing if marks are null or undefined
 
+    // Find the grade based on marksObtained for matchingMidExamResult
+    const midExamGrade = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
+      )?.grade
+    : '-'; // Display nothing if marks are null or undefined
+
+    const midExamComment = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+  ? gradingList?.find(
+      (grading) =>
+        matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
+    )?.comment
+  : '-'; // Display '-' if marks are null or undefined
+
+
+      return (
+        <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+            {subject.subName}
+          </Box>
+          <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
+          <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
+            <Box display="flex" justifyContent="space-between">
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+                {result.marksObtained}
+
+              </Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
+              <Box sx={{ flex: 1 }}></Box>
+            </Box>
+          </Box>
+          <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
+            <Box display="flex" justifyContent="space-between">
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+                {/* {matchingMidExamResult.marksObtained} */}
+                    
+              </Box>
+              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
+              <Box sx={{ flex: 1 }}></Box>
+            </Box>
+          </Box>
+          <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{midExamComment}</Box>
+          <Box key={result._id + 'col6'} sx={{ flex: 1 }}>Initials</Box>
+        </Box>
+      );
+    })}
+  </Box>
+) : (
+  <Typography>No subjects available for this class.</Typography>
+)}
       {/* Last Row */}
       <Box
         sx={{
@@ -278,9 +348,27 @@ const Prints = () => {
         }}
       >
         <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black', padding: '2px 0' }}>TOTAL</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalCol2}</Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+
+        <Box display="flex" justifyContent="space-between">
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksObtained}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
+          <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+        </Box>
+        </Box>
+        {/* MID TERM  */}
+        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+
+        <Box display="flex" justifyContent="space-between">
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksEnd}
+            
+          </Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
+          <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+        </Box>
+
+        </Box>
         <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
         <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
       </Box>
@@ -336,11 +424,12 @@ const Prints = () => {
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>V.Good</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>Excellent</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}></Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}></Box>
-      </Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.discipline}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.timeManagement}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.smartness}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.attendanceRemarks}</Box>
+        
+        </Box>
     </Box>
 
 
@@ -432,15 +521,14 @@ const Prints = () => {
           // border: '1px solid black',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>90 - 100</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>80 - 89</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>70 - 79</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>60 - 69</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>55 - 59</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>50 - 54</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>45 - 49</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>40 - 44</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}>0 - 39</Box>
+        {gradingList && gradingList.map((grading) => (
+            <Box
+              key={grading._id}
+              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}
+            >
+              {grading.from} - {grading.to}
+            </Box>
+          ))}
       </Box>
       
       {/* Last Row */}
@@ -452,15 +540,14 @@ const Prints = () => {
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>D1</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>D2</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C3</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C4</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C5</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>C6</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>P7</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>P8</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>F9</Box>
+        {gradingList && gradingList.map((grading) => (
+            <Box
+              key={grading._id}
+              sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0', fontWeight: 'bold' }}
+            >
+              {grading.grade}
+            </Box>
+          ))}
       </Box>
     </Box>
 

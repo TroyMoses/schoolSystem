@@ -90,9 +90,13 @@ const ShowClasses = ({situation}) => {
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
         </BlueButton>
+        <BlueButton variant="contained"Class Details
+          onClick={() => navigate("/Admin/classes/print/" )}>
+          Print Mid
+        </BlueButton>
         <BlueButton variant="contained"
           onClick={() => navigate("/Admin/classes/print/" )}>
-          Print
+          Print End
         </BlueButton>
         {/* <PurpleButton variant="contained"
             onClick={() => navigateHandler(row.id)}>
