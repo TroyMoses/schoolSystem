@@ -270,7 +270,6 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
         (result2) => result2.subName === result.subName
       );
       // console.log(subject)
-      console.log(matchingMidExamResult)
        // Find the grade based on marksObtained for botExamResult
     const grade = result.marksObtained !== null && result.marksObtained !== undefined
     ? gradingList?.find(

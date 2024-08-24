@@ -77,8 +77,8 @@ const PrintEnd = () => {
     window.print();
   };
 
-  const results = filteredStudent.botExamResult;
-const resultEnd = filteredStudent.midExamResult;
+  const results = filteredStudent.midExamResult;
+const resultEnd = filteredStudent.endExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
@@ -272,14 +272,13 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
               textAlign: 'center',
             }}
           >
-            {filteredStudent.botExamResult.map((result) => {
+            {filteredStudent.midExamResult.map((result) => {
               const subject = subjectsList.find((sub) => sub._id === result.subName);
-              const matchingMidExamResult = filteredStudent.midExamResult.find(
+              const matchingEndExamResult = filteredStudent.endExamResult.find(
                 (result2) => result2.subName === result.subName
               );
               // console.log(subject)
-              console.log(matchingMidExamResult)
-              // Find the grade based on marksObtained for botExamResult
+              // Find the grade based on marksObtained for endExamResult
             const grade = result.marksObtained !== null && result.marksObtained !== undefined
             ? gradingList?.find(
                 (grading) =>
@@ -287,18 +286,18 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
               )?.grade
             : '-'; // Display nothing if marks are null or undefined
 
-            // Find the grade based on marksObtained for matchingMidExamResult
-            const midExamGrade = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+            // Find the grade based on marksObtained for matchingEndExamResult
+            const endExamGrade = matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined
             ? gradingList?.find(
                 (grading) =>
-                  matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
+                  matchingEndExamResult.marksObtained >= grading.from && matchingEndExamResult.marksObtained <= grading.to
               )?.grade
             : '-'; // Display nothing if marks are null or undefined
 
-            const midExamComment = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+            const endExamComment = matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined
           ? gradingList?.find(
               (grading) =>
-                matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
+                matchingEndExamResult.marksObtained >= grading.from && matchingEndExamResult.marksObtained <= grading.to
             )?.comment
           : '-'; // Display '-' if marks are null or undefined
 
@@ -311,7 +310,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
               <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
                 <Box display="flex" justifyContent="space-between">
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                    {result.marksObtained}
+                  {result.marksObtained}
     
                   </Box>
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
@@ -322,14 +321,16 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
                 <Box display="flex" justifyContent="space-between">
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
                     {/* {matchingMidExamResult.marksObtained} */}
-                    {matchingMidExamResult ? matchingMidExamResult.marksObtained : ''}
+                    {matchingEndExamResult ? matchingEndExamResult.marksObtained : ''}
                         
                   </Box>
-                  <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
+                  <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{endExamGrade}
+                    
+                  </Box>
                   <Box sx={{ flex: 1 }}></Box>
                 </Box>
               </Box>
-              <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{midExamComment}</Box>
+              <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{endExamComment}</Box>
               <Box key={result._id + 'col6'} sx={{ flex: 1 }}>Initials</Box>
             </Box>
           );
