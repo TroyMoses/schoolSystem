@@ -228,9 +228,9 @@ const ViewStudent = () => {
                         Overall Attendance Percentage: {overallAttendancePercentage.toFixed(2)}%
                     </div>
                     <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={() => removeHandler(studentID, "RemoveStudentAtten")}>Delete All</Button>
-                    <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
+                    {/* <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
                         Add Attendance
-                    </Button>
+                    </Button> */}
                 </>
             )
         }
@@ -243,6 +243,7 @@ const ViewStudent = () => {
         }
         return (
             <>
+            <h3>Attendance under development :</h3>
                 {subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0
                     ?
                     <>
@@ -264,10 +265,12 @@ const ViewStudent = () => {
                             </BottomNavigation>
                         </Paper>
                     </>
+                    
                     :
-                    <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
-                        Add Attendance
-                    </Button>
+                    <Button></Button>
+                    // <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/attendance/" + studentID)}>
+                    //     Add Attendance
+                    // </Button>
                 }
             </>
         )
@@ -307,9 +310,9 @@ const ViewStudent = () => {
                             })}
                         </TableBody>
                     </Table>
-                    <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
+                    {/* <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
                         Add Marks
-                    </Button>
+                    </Button> */}
                 </>
             )
         }
@@ -336,7 +339,17 @@ const ViewStudent = () => {
                                     icon={selectedSection === 'table' ? <TableChartIcon /> : <TableChartOutlinedIcon />}
                                 />
                                 <BottomNavigationAction
-                                    label="Chart"
+                                    label="B.O.T Chart"
+                                    value="chart"
+                                    icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                                />
+                                <BottomNavigationAction
+                                    label="M.O.T Chart"
+                                    value="chart"
+                                    icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                                />
+                                <BottomNavigationAction
+                                    label="E.O.T Chart"
                                     value="chart"
                                     icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                 />
@@ -344,9 +357,12 @@ const ViewStudent = () => {
                         </Paper>
                     </>
                     :
-                    <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
-                        Add Marks
+                    <Button>
+
                     </Button>
+                    // <Button variant="contained" sx={styles.styledButton} onClick={() => navigate("/Admin/students/student/marks/" + studentID)}>
+                    //     Add Marks
+                    // </Button>
                 }
             </>
         )
@@ -427,8 +443,8 @@ const ViewStudent = () => {
                             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                                 <TabList onChange={handleChange} sx={{ position: 'fixed', width: '100%', bgcolor: 'background.paper', zIndex: 1 }}>
                                     <Tab label="Details" value="1" />
-                                    <Tab label="Attendance" value="2" />
                                     <Tab label="Marks" value="3" />
+                                    <Tab label="Attendance" value="2" />
                                 </TabList>
                             </Box>
                             <Container sx={{ marginTop: "3rem", marginBottom: "4rem" }}>
