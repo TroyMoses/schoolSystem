@@ -72,6 +72,22 @@ const results = filteredStudent.botExamResult;
 const resultEnd = filteredStudent.midExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
+
+// Function to calculate the total agg for mid
+const totalGrade = results.reduce((total, result) => {
+  const grade = result.marksObtained !== null && result.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          result.marksObtained >= grading.from && result.marksObtained <= grading.to
+      )?.grade
+    : '-';
+
+  // Extract only the numeric part of the grade using regular expressions
+  const numericGrade = grade.match(/\d+/)?.[0] || 0;  // Default to 0 if no digits found
+
+  return total + Number(numericGrade);
+}, 0);
+
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
 
 const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
@@ -345,7 +361,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
 
         <Box display="flex" justifyContent="space-between">
           <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksObtained}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalGrade}</Box>
           <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
         </Box>
         </Box>
