@@ -60,6 +60,7 @@ import AddCt from './ctRelated/AddCt';
 import ShowCt from './ctRelated/ShowCt';
 import CtDetails from './ctRelated/CtDetails';
 import AddHm from './hmRelated/AddHm';
+import UpdateHm from './hmRelated/updateHm';
 import ShowHm from './hmRelated/ShowHm';
 import HmDetails from './hmRelated/HmDetails';
 
@@ -179,6 +180,7 @@ const AdminDashboard = () => {
 
                         {/* HeadTeacher */}
                         <Route path="/Admin/addhm" element={<AddHm />} />
+                        <Route path="/Admin/updatehm/:id" element={<UpdateHm />} />
                         <Route path="/Admin/hms" element={<ShowHm />} />
                         <Route path="/Admin/hms/class/:id" element={<HmDetails />} />
                         <Route path="/Admin/hm/addstudents/:id" element={<AddStudent situation="Hm" />} />
