@@ -88,6 +88,21 @@ const totalGrade = results.reduce((total, result) => {
   return total + Number(numericGrade);
 }, 0);
 
+// Calculate total numeric grades for end-term
+const totalEndGrade = filteredStudent.midExamResult.reduce((total, result) => {
+  const endExamGrade = result?.marksObtained !== null && result?.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          result.marksObtained >= grading.from && result.marksObtained <= grading.to
+      )?.grade
+    : '-';
+
+  // Extract numeric part from the grade
+  const numericGrade = parseInt(endExamGrade.replace(/[^\d]/g, ''), 10);
+  return total + (numericGrade || 0);
+}, 0);
+
+
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
 
 const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
@@ -372,7 +387,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksEnd}
             
           </Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>Agg</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalEndGrade}</Box>
           <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
         </Box>
 

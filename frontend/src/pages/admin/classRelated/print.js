@@ -98,6 +98,30 @@ const totalGrade = results.reduce((total, result) => {
   return total + Number(numericGrade);
 }, 0);
 
+// Calculate total numeric grades for end-term
+const totalEndGrade = filteredStudent.endExamResult.reduce((total, result) => {
+  const endExamGrade = result?.marksObtained !== null && result?.marksObtained !== undefined
+    ? gradingList?.find(
+        (grading) =>
+          result.marksObtained >= grading.from && result.marksObtained <= grading.to
+      )?.grade
+    : '-';
+
+  // Extract numeric part from the grade
+  const numericGrade = parseInt(endExamGrade.replace(/[^\d]/g, ''), 10);
+  return total + (numericGrade || 0);
+}, 0);
+
+
+
+// Calculate the total grade, considering only numeric parts
+  // const totalGradeEnd = results.reduce((total, result) => {
+  //   const numericGrade = (matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined)
+  //     ? (matchingEndExamResult.grade?.match(/\d+/)?.[0] || 0)
+  //     : 0;
+  //   return total + Number(numericGrade);
+  // }, 0);
+
 
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
 
@@ -318,7 +342,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
                 matchingEndExamResult.marksObtained >= grading.from && matchingEndExamResult.marksObtained <= grading.to
             )?.comment
           : '-'; // Display '-' if marks are null or undefined
-
+                  
           return (
             <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
@@ -383,7 +407,10 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
           <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksEnd}
             
           </Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>
+
+          {totalEndGrade} 
+          </Box>
           <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
         </Box>
 
@@ -563,7 +590,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
               key={grading._id}
               sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0', fontWeight: 'bold' }}
             >
-              {grading.grade}
+              { grading.grade }
             </Box>
           ))}
         </Box>
