@@ -15,6 +15,8 @@ const AddTerm = () => {
     const [year] = useState(currentYear); 
     const [termNames, setTermName] = useState('');
     const [status, setStatus] = useState("");
+    const [nextTermStarts, setNextTermStartDate] = useState('');
+    const [nextTermEnds, setNextTermEndDate] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -29,9 +31,6 @@ const AddTerm = () => {
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
 
-    const [nextTermStartDate, setNextTermStartDate] = useState('');
-    const [nextTermEndDate, setNextTermEndDate] = useState('');
-
     const handleSave = () => {
         if (!termNames) {
             alert('Please select a term.');
@@ -42,6 +41,8 @@ const AddTerm = () => {
 
         const fields = {
             termName,
+            nextTermStarts,
+            nextTermEnds,
             status,
             adminID,
         };
@@ -119,7 +120,7 @@ const AddTerm = () => {
                         <TextField
                         label="Next Term Starts On"
                         type="date"
-                        value={nextTermStartDate}
+                        value={nextTermStarts}
                         onChange={(event) => setNextTermStartDate(event.target.value)}
                         required
                         fullWidth
@@ -133,7 +134,7 @@ const AddTerm = () => {
                         <TextField
                         label="Next Term Ends On"
                         type="date"
-                        value={nextTermEndDate}
+                        value={nextTermEnds}
                         onChange={(event) => setNextTermEndDate(event.target.value)}
                         required
                         fullWidth

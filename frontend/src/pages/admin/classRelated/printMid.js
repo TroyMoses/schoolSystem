@@ -14,6 +14,7 @@ import {
 } from "../../../redux/sclassRelated/sclassHandle";
 import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
+import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
 // import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
@@ -33,6 +34,8 @@ const Prints = () => {
   const { subjectsList, loading, response } = useSelector((state) => state.sclass);
   const { gradingList } = useSelector((state) => state.grading);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
+  const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
+  
 
   
   const { currentUser } = useSelector(state => state.user)
@@ -55,7 +58,10 @@ const Prints = () => {
     dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
   }, [adminID, dispatch]);
   // console.log('Class Teacher Comments:', ClassTeacherCommentList);
-
+  
+  useEffect(() => {
+    dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
+  }, [adminID, dispatch]);
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -119,6 +125,14 @@ const getClassTeacherComment = (totalGrade) => {
 };
 
 const classTeacherCommentMid = getClassTeacherComment(totalEndGrade);
+
+const getHeadTeacherComment = (totalGrade) => {
+  // Assuming you have the comments in the format: [{ from: 0, to: 50, comment: '...' }, ...]
+  const comment = HeadTeacherCommentList.find(comment => totalGrade >= comment.from && totalGrade <= comment.to);
+  return comment ? comment.comment : '';
+};
+
+const headTeacherCommentMid = getHeadTeacherComment(totalEndGrade);
 
 
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
@@ -532,8 +546,11 @@ const divisionMid = getDivisionMid(totalEndGrade);
             fontWeight={300}
             style={{ fontSize: "0.9rem" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                    {filteredStudent.name} 
+                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
+                    {filteredStudent.name}
+                    <span className="ml-8"> {/* Adjust margin as needed */}
+                      {headTeacherCommentMid}
+                    </span>
                         </span>
           </Typography>
 

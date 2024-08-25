@@ -3,6 +3,7 @@ import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/mat
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { deleteUser } from '../../../redux/userRelated/userHandle';
 import { deleteTerm } from '../../../redux/userRelated/userHandle';
 import { getAllTerms } from '../../../redux/termRelated/termHandle';
 import { BlueButton, GreenButton } from '../../../components/buttonStyles';
@@ -38,11 +39,7 @@ const ShowTerms = () => {
   const [message ] = useState("");
 
   const deleteHandler = (deleteID, address) => {
-    // console.log(deleteID);
-    // console.log(address);
-    // setMessage("Sorry the delete function has been disabled for now.")
-    // setShowPopup(true);
-    dispatch(deleteTerm(deleteID, address))
+    dispatch(deleteUser(deleteID, address))
       .then(() => {
         dispatch(getAllTerms(adminID, "Term"));
       })
@@ -51,8 +48,8 @@ const ShowTerms = () => {
   const termColumns = [
     { id: 'termName', label: 'Year/T', minWidth: 170 },
     { id: 'status', label: 'Statuses', minWidth: 170 },
-    { id: 'status', label: 'Next Term Starts On', minWidth: 170 },
-    { id: 'status', label: 'Next Term Ends On', minWidth: 170 },
+    { id: 'nextTermStarts', label: 'Next Term Starts On', minWidth: 170 },
+    { id: 'nextTermEnds', label: 'Next Term Ends On', minWidth: 170 },
   ]
 
   const termRows = termsList && termsList.length > 0 && termsList.map((term) => {
@@ -60,6 +57,8 @@ const ShowTerms = () => {
     return {
       termName: term.termName,
       status: term.status,
+      nextTermStarts: term.nextTermStarts,
+      nextTermEnds: term.nextTermEnds,
       id: term._id,
     };
   });
