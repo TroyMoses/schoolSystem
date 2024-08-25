@@ -5,9 +5,16 @@ const termSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    nextTermStarts: {
+        type: String,
+        required: true,
+    },
+    nextTermEnds: {
+        type: String,
+        required: true,
+    },
     status: {
         type: String,
-        enum: ['Active', 'Inactive'],
         default: 'Active',
         required: true,
     },
