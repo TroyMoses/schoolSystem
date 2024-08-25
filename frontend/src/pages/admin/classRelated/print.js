@@ -409,7 +409,7 @@ const divisionMid = getDivisionMid(totalGrade);
                   
           return (
             <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+              <Box sx={{ flex: 1, borderRight: '1px solid black',textAlign: 'left' , textTransform: 'uppercase' }}>
                 {subject.subName}
               </Box>
               <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
