@@ -51,6 +51,8 @@ const ShowTerms = () => {
   const termColumns = [
     { id: 'termName', label: 'Year/T', minWidth: 170 },
     { id: 'status', label: 'Statuses', minWidth: 170 },
+    { id: 'status', label: 'Next Term Starts On', minWidth: 170 },
+    { id: 'status', label: 'Next Term Ends On', minWidth: 170 },
   ]
 
   const termRows = termsList && termsList.length > 0 && termsList.map((term) => {

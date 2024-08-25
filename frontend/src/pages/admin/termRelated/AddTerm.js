@@ -8,6 +8,7 @@ import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import styled from "styled-components";
 import dayjs from 'dayjs';
+import TextField from '@mui/material/TextField';
 
 const AddTerm = () => {
     const currentYear = dayjs().year(); // Get the current year
@@ -27,6 +28,9 @@ const AddTerm = () => {
     const [loader, setLoader] = useState(false);
     const [message, setMessage] = useState("");
     const [showPopup, setShowPopup] = useState(false);
+
+    const [nextTermStartDate, setNextTermStartDate] = useState('');
+    const [nextTermEndDate, setNextTermEndDate] = useState('');
 
     const handleSave = () => {
         if (!termNames) {
@@ -111,6 +115,33 @@ const AddTerm = () => {
                             <MenuItem value="Inactive">Inactive</MenuItem>
                         </Select>
 
+                        <InputLabel id="next-term-starts-on-label">Next Term Starts On</InputLabel>
+                        <TextField
+                        label="Next Term Starts On"
+                        type="date"
+                        value={nextTermStartDate}
+                        onChange={(event) => setNextTermStartDate(event.target.value)}
+                        required
+                        fullWidth
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true, // Ensures the label is always above the input field
+                        }}
+                        />
+
+                        <InputLabel id="next-term-end-on-label">Next Term Ends On</InputLabel>
+                        <TextField
+                        label="Next Term Ends On"
+                        type="date"
+                        value={nextTermEndDate}
+                        onChange={(event) => setNextTermEndDate(event.target.value)}
+                        required
+                        fullWidth
+                        variant="outlined"
+                        InputLabelProps={{
+                            shrink: true, // Ensures the label is always above the input field
+                        }}
+                        />
                         <BlueButton
                             fullWidth
                             size="large"
