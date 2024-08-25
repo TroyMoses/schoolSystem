@@ -15,6 +15,7 @@ import {
 import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
+import { getAllTerms } from '../../../redux/termRelated/termHandle';
 // import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
@@ -35,8 +36,7 @@ const Prints = () => {
   const { gradingList } = useSelector((state) => state.grading);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
-  
-
+  const { termsList } = useSelector((state) => state.term);
   
   const { currentUser } = useSelector(state => state.user)
 
@@ -67,6 +67,14 @@ const Prints = () => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
   }, [dispatch, subjectID, classID]);
+
+  useEffect(() => {
+    dispatch(getAllTerms(adminID, "Term"));
+  }, [adminID, dispatch]);
+
+  // Filter the active term
+  const activeTerm = termsList.find(term => term.status === 'Active');
+
 
   useEffect(() => {
     if (sclassStudents.length > 0) {
@@ -240,7 +248,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
 
         <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem',textTransform: 'uppercase', }}>
+          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '1rem',textTransform: 'uppercase', }}>
           {filteredStudent.name}
             </span>
           </Typography>
@@ -259,8 +267,8 @@ const divisionMid = getDivisionMid(totalEndGrade);
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem',textTransform: 'uppercase',  }}>
-                        {/* {admission.age}  */}
+                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '1rem',textTransform: 'uppercase',  }}>
+                    {  activeTerm ? activeTerm.termName : ' '}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>

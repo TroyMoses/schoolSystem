@@ -14,6 +14,9 @@ import {
   getSubjectDetails,
 } from "../../../redux/sclassRelated/sclassHandle";
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
+import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
+import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
+import { getAllTerms } from '../../../redux/termRelated/termHandle';
 
 const PrintEnd = () => {
   // const [searchParams] = useSearchParams();
@@ -30,6 +33,10 @@ const PrintEnd = () => {
     useSelector((state) => state.sclass);
 
   const { subjectsList, response } = useSelector((state) => state.sclass);
+  const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
+  const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
+  const { termsList } = useSelector((state) => state.term);
+
   const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
@@ -45,11 +52,28 @@ const PrintEnd = () => {
     dispatch(getSubjectList(currentUser._id, "AllSubjects"));
   }, [currentUser._id, dispatch]);
 
+  useEffect(() => {
+    dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
+  }, [adminID, dispatch]);
+  // console.log('Class Teacher Comments:', ClassTeacherCommentList);
+  
+  useEffect(() => {
+    dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
+  }, [adminID, dispatch]);
+
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
   }, [dispatch, subjectID, classID]);
+
+  useEffect(() => {
+    dispatch(getAllTerms(adminID, "Term"));
+  }, [adminID, dispatch]);
+
+  // Filter the active term
+  const activeTerm = termsList.find(term => term.status === 'Active');
+
 
   useEffect(() => {
     if (sclassStudents.length > 0) {
@@ -112,6 +136,21 @@ const totalEndGrade = filteredStudent.endExamResult.reduce((total, result) => {
   return total + (numericGrade || 0);
 }, 0);
 
+const getClassTeacherComment = (totalEndGrade) => {
+  // Assuming you have the comments in the format: [{ from: 0, to: 50, comment: '...' }, ...]
+  const comment = ClassTeacherCommentList.find(comment => totalEndGrade >= comment.from && totalEndGrade <= comment.to);
+  return comment ? comment.comment : '';
+};
+
+const classTeacherCommentEnd = getClassTeacherComment(totalEndGrade);
+
+const getHeadTeacherComment = (totalEndGrade) => {
+  // Assuming you have the comments in the format: [{ from: 0, to: 50, comment: '...' }, ...]
+  const comment = HeadTeacherCommentList.find(comment => totalEndGrade >= comment.from && totalEndGrade <= comment.to);
+  return comment ? comment.comment : '';
+};
+
+const headTeacherCommentEnd = getHeadTeacherComment(totalEndGrade);
 
 
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
@@ -219,7 +258,7 @@ const divisionMid = getDivisionMid(totalGrade);
 
         <Box display="flex" justifyContent="space-between" mt={1}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' ,textTransform: 'uppercase',}}>
+          <span style={{ fontWeight: 900 }}>PUPIL'S NAME: </span> <span style={{ borderBottom: '2px dotted black', paddingRight: '1rem' ,textTransform: 'uppercase',}}>
           {filteredStudent.name}
             </span>
           </Typography>
@@ -232,13 +271,13 @@ const divisionMid = getDivisionMid(totalGrade);
 
         <Box display="flex" justifyContent="space-between" mt={2} mb={3}>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem',textTransform: 'uppercase',  }}>
+                    <span style={{ fontWeight: 900 }}>  SEX:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '1rem',textTransform: 'uppercase',  }}>
                     {filteredStudent.gender}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '6rem',textTransform: 'uppercase',  }}>
-                        {/* {admission.age}  */}
+                    <span style={{ fontWeight: 900 }}>  YEAR:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '1rem',textTransform: 'uppercase',  }}>
+                    {  activeTerm ? activeTerm.termName : ' '}
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
@@ -497,8 +536,12 @@ const divisionMid = getDivisionMid(totalGrade);
             fontWeight={300}
             style={{ fontSize: "0.9rem" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Class teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
+                    <span style={{ fontWeight: 900 }}>  Class teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
                         {/* {admission.parent_telephone} */}
+                        {filteredStudent.name}
+                    <span className="ml-8"> {/* Adjust margin as needed */}
+                      {classTeacherCommentEnd}
+                    </span>
                         </span>
           </Typography>
 
@@ -524,8 +567,12 @@ const divisionMid = getDivisionMid(totalGrade);
             fontWeight={300}
             style={{ fontSize: "0.9rem" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
+                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
                         {/* {admission.parent_telephone} */}
+                        {filteredStudent.name}
+                    <span className="ml-8"> {/* Adjust margin as needed */}
+                      {headTeacherCommentEnd}
+                    </span>
                         </span>
           </Typography>
 
