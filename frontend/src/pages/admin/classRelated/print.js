@@ -17,6 +17,8 @@ import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
 import { getAllTerms } from '../../../redux/termRelated/termHandle';
+import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
+
 
 const PrintEnd = () => {
   // const [searchParams] = useSearchParams();
@@ -35,6 +37,7 @@ const PrintEnd = () => {
   const { subjectsList, response } = useSelector((state) => state.sclass);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
+  const { teachersList } = useSelector((state) => state.teacher);
   const { termsList } = useSelector((state) => state.term);
 
   const { currentUser } = useSelector(state => state.user)
@@ -82,6 +85,10 @@ const PrintEnd = () => {
       setIsLoading(false);
     }
   }, [sclassStudents, id]);
+
+  useEffect(() => {
+    dispatch(getAllTeachers(currentUser._id));
+}, [currentUser._id, dispatch]);
 
   const { gradingList, loading } = useSelector((state) => state.grading);
 
@@ -394,6 +401,11 @@ const divisionMid = getDivisionMid(totalGrade);
                 matchingEndExamResult.marksObtained >= grading.from && matchingEndExamResult.marksObtained <= grading.to
             )?.comment
           : '-'; // Display '-' if marks are null or undefined
+
+          // Find the teacher responsible for this subject
+            const teacher = teachersList.find(
+              (teacher) => teacher.teachSubject?._id === result.subName
+          );
                   
           return (
             <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
@@ -424,7 +436,11 @@ const divisionMid = getDivisionMid(totalGrade);
                 </Box>
               </Box>
               <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{endExamComment}</Box>
-              <Box key={result._id + 'col6'} sx={{ flex: 1 }}>Initials</Box>
+              <Box key={result._id + 'col6'} sx={{ flex: 1 }}>
+                {teacher ? teacher.name.split(' ')
+                  .map((name) => name.charAt(0).toUpperCase())
+                  .join(teacher.name.split(' ').length > 2 ? '.' : '') + '.' : ''}
+              </Box>
             </Box>
           );
         })}
