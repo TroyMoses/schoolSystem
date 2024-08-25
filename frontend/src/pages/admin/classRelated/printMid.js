@@ -13,6 +13,7 @@ import {
   getSubjectDetails,
 } from "../../../redux/sclassRelated/sclassHandle";
 import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
+import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 // import CheckIcon from '@mui/icons-material/Check';
 
 const Prints = () => {
@@ -31,6 +32,9 @@ const Prints = () => {
     useSelector((state) => state.sclass);
   const { subjectsList, loading, response } = useSelector((state) => state.sclass);
   const { gradingList } = useSelector((state) => state.grading);
+  const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
+
+  
   const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
@@ -47,6 +51,11 @@ const Prints = () => {
   }, [currentUser._id, dispatch]);
 
   // console.log(subjectsList);
+  useEffect(() => {
+    dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
+  }, [adminID, dispatch]);
+  // console.log('Class Teacher Comments:', ClassTeacherCommentList);
+
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -72,6 +81,7 @@ const results = filteredStudent.botExamResult;
 const resultEnd = filteredStudent.midExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
+
 
 // Function to calculate the total agg for mid
 const totalGrade = results.reduce((total, result) => {
@@ -101,6 +111,14 @@ const totalEndGrade = filteredStudent.midExamResult.reduce((total, result) => {
   const numericGrade = parseInt(endExamGrade.replace(/[^\d]/g, ''), 10);
   return total + (numericGrade || 0);
 }, 0);
+
+const getClassTeacherComment = (totalGrade) => {
+  // Assuming you have the comments in the format: [{ from: 0, to: 50, comment: '...' }, ...]
+  const comment = ClassTeacherCommentList.find(comment => totalGrade >= comment.from && totalGrade <= comment.to);
+  return comment ? comment.comment : '';
+};
+
+const classTeacherCommentMid = getClassTeacherComment(totalEndGrade);
 
 
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
@@ -484,8 +502,11 @@ const divisionMid = getDivisionMid(totalEndGrade);
             fontWeight={300}
             style={{ fontSize: "0.9rem" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Class teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                        {/* {admission.parent_telephone} */}
+                    <span style={{ fontWeight: 900 }}>  Class teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
+                    {filteredStudent.name}
+                    <span className="ml-8"> {/* Adjust margin as needed */}
+                      {classTeacherCommentMid}
+                    </span>
                         </span>
           </Typography>
 
@@ -512,7 +533,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
             style={{ fontSize: "0.9rem" }}
           >
                     <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                        {/* {admission.parent_telephone} */}
+                    {filteredStudent.name} 
                         </span>
           </Typography>
 
