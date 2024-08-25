@@ -77,7 +77,7 @@ const PrintEnd = () => {
     window.print();
   };
 
-  const results = filteredStudent.midExamResult;
+const results = filteredStudent.midExamResult;
 const resultEnd = filteredStudent.endExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
@@ -114,18 +114,31 @@ const totalEndGrade = filteredStudent.endExamResult.reduce((total, result) => {
 
 
 
-// Calculate the total grade, considering only numeric parts
-  // const totalGradeEnd = results.reduce((total, result) => {
-  //   const numericGrade = (matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined)
-  //     ? (matchingEndExamResult.grade?.match(/\d+/)?.[0] || 0)
-  //     : 0;
-  //   return total + Number(numericGrade);
-  // }, 0);
-
-
 const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksObtained, 0); 
 
 const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
+
+const getDivision = (totalEndGrade) => {
+  if (totalEndGrade >= 4 && totalEndGrade <= 12) return 'I';
+  if (totalEndGrade >= 13 && totalEndGrade <= 24) return 'II';
+  if (totalEndGrade >= 25 && totalEndGrade <= 32) return 'III';
+  if (totalEndGrade >= 33 && totalEndGrade <= 35) return 'IV';
+  if (totalEndGrade === 36) return 'U';
+  return 'X';
+};
+
+const division = getDivision(totalEndGrade);
+
+const getDivisionMid = (totalMidGrade) => {
+  if (totalMidGrade >= 4 && totalMidGrade <= 12) return 'I';
+  if (totalMidGrade >= 13 && totalMidGrade <= 24) return 'II';
+  if (totalMidGrade >= 25 && totalMidGrade <= 32) return 'III';
+  if (totalMidGrade >= 33 && totalMidGrade <= 35) return 'IV';
+  if (totalMidGrade === 36) return 'U';
+  return 'X';
+};
+
+const divisionMid = getDivisionMid(totalGrade);
 
 
   return (
@@ -234,8 +247,8 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' ,textTransform: 'uppercase', }}>  
-                        {/* {admission.gender}  */}
+                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>  
+                           {division}
                         </span>
           </Typography>
         </Box>
@@ -356,20 +369,19 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
     
                   </Box>
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
-                  <Box sx={{ flex: 1 }}></Box>
+                  <Box sx={{ flex: 1 }}>{divisionMid}</Box>
                 </Box>
               </Box>
               <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
                 <Box display="flex" justifyContent="space-between">
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                    {/* {matchingMidExamResult.marksObtained} */}
                     {matchingEndExamResult ? matchingEndExamResult.marksObtained : ''}
                         
                   </Box>
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{endExamGrade}
 
                   </Box>
-                  <Box sx={{ flex: 1 }}></Box>
+                  <Box sx={{ flex: 1 }}>{division}</Box>
                 </Box>
               </Box>
               <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{endExamComment}</Box>

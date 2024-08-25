@@ -107,6 +107,28 @@ const totalMarksEnd = resultEnd.reduce((total, result) => total + result.marksOb
 
 const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming 100 is the static value for all rows
 
+const getDivision = (totalBotGrade) => {
+  if (totalBotGrade >= 4 && totalBotGrade <= 12) return 'I';
+  if (totalBotGrade >= 13 && totalBotGrade <= 24) return 'II';
+  if (totalBotGrade >= 25 && totalBotGrade <= 32) return 'III';
+  if (totalBotGrade >= 33 && totalBotGrade <= 35) return 'IV';
+  if (totalBotGrade === 36) return 'U';
+  return 'X';
+};
+
+const division = getDivision(totalGrade);
+
+const getDivisionMid = (totalMidGrade) => {
+  if (totalMidGrade >= 4 && totalMidGrade <= 12) return 'I';
+  if (totalMidGrade >= 13 && totalMidGrade <= 24) return 'II';
+  if (totalMidGrade >= 25 && totalMidGrade <= 32) return 'III';
+  if (totalMidGrade >= 33 && totalMidGrade <= 35) return 'IV';
+  if (totalMidGrade === 36) return 'U';
+  return 'X';
+};
+
+const divisionMid = getDivisionMid(totalEndGrade);
+
 
   return (
     <Box className="printable-content -mt-10" sx={{  mx: 'auto', border: '10px solid black',padding: '6px',boxSizing: 'border-box',}}>
@@ -215,8 +237,8 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem',textTransform: 'uppercase',  }}>  
-                        {/* {admission.gender}  */}
+                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '4rem',textTransform: 'uppercase',  }}> 
+                    {divisionMid}
                         </span>
           </Typography>
         </Box>
@@ -338,7 +360,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
 
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
-              <Box sx={{ flex: 1 }}></Box>
+              <Box sx={{ flex: 1 }}>{division}</Box>
             </Box>
           </Box>
           <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
@@ -349,7 +371,7 @@ const totalCol2 = results.reduce((total, result) => total + 100, 0); // Assuming
                     
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
-              <Box sx={{ flex: 1 }}></Box>
+              <Box sx={{ flex: 1 }}>{divisionMid}</Box>
             </Box>
           </Box>
           <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{midExamComment}</Box>
