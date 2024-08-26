@@ -90,17 +90,17 @@ const studentSchema = new mongoose.Schema({
     attendance: [{
         date: {
             type: Date,
-            required: true
+            required: false
         },
         status: {
             type: String,
             enum: ['Present', 'Absent'],
-            required: true
+            required: false
         },
         subName: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'subject',
-            required: true
+            required: false
         }
     }]
 });
