@@ -74,10 +74,10 @@ const ShowHm = () => {
         <IconButton onClick={() => deleteHandler(row.id, "HeadTeacherComment")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
-        {/* <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/classes/class/" + row.id)}>
+        <BlueButton variant="contained"
+          onClick={() => navigate("/Admin/updatehm/" + row.id)}>
           Edit
-        </BlueButton> */}
+        </BlueButton>
         <ActionMenu actions={actions} />
       </ButtonContainer>
     );

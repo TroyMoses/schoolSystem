@@ -323,6 +323,32 @@ const ViewStudent = () => {
                 </>
             )
         }
+        const renderChartMidSection = () => {
+            return (
+                <>
+                  <CustomBarChart 
+                    chartData={subjectMarks.map((result, index) => ({
+                        ...result, // spread the existing properties of result
+                        marksObtained: subjectMarksMot[index]?.marksObtained || '' // overwrite marksObtained with M.O.T marks
+                    }))} 
+                    dataKey="marksObtained" 
+                />
+                </>
+            )
+        }
+        const renderChartEndSection = () => {
+            return (
+                <>
+                  <CustomBarChart 
+                    chartData={subjectMarks.map((result, index) => ({
+                        ...result, // spread the existing properties of result
+                        marksObtained: subjectMarksEnd[index]?.marksObtained || ''// overwrite marksObtained with M.O.T marks
+                    }))} 
+                    dataKey="marksObtained" 
+                />
+                </>
+            )
+        }
         return (
             <>
                 {subjectMarks && Array.isArray(subjectMarks) && subjectMarks.length > 0
@@ -330,6 +356,8 @@ const ViewStudent = () => {
                     <>
                         {selectedSection === 'table' && renderTableSection()}
                         {selectedSection === 'chart' && renderChartSection()}
+                        {selectedSection === 'chartMid' && renderChartMidSection()}
+                        {selectedSection === 'chartEnd' && renderChartEndSection()}
 
                         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
                             <BottomNavigation value={selectedSection} onChange={handleSectionChange} showLabels>
@@ -345,13 +373,13 @@ const ViewStudent = () => {
                                 />
                                 <BottomNavigationAction
                                     label="M.O.T Chart"
-                                    value="chart"
-                                    icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                                    value="chartMid"
+                                    icon={selectedSection === 'chartMid' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                 />
                                 <BottomNavigationAction
                                     label="E.O.T Chart"
-                                    value="chart"
-                                    icon={selectedSection === 'chart' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
+                                    value="chartEnd"
+                                    icon={selectedSection === 'chartEnd' ? <InsertChartIcon /> : <InsertChartOutlinedIcon />}
                                 />
                             </BottomNavigation>
                         </Paper>
