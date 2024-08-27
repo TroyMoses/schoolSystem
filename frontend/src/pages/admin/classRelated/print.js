@@ -66,17 +66,10 @@ const PrintEnd = () => {
   useEffect(() => {
     dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
   }, [adminID, dispatch]);
-  // console.log('Class Teacher Comments:', ClassTeacherCommentList);
   
   useEffect(() => {
     dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
   }, [adminID, dispatch]);
-
-
-  // useEffect(() => {
-  //   dispatch(getSubjectDetails(subjectID, "Subject"));
-  //   dispatch(getClassStudents(classID));
-  // }, [dispatch, subjectID, classID]);
 
   useEffect(() => {
     dispatch(getAllSclasses(adminID, "Sclass"));
@@ -92,14 +85,6 @@ useEffect(() => {
   }
 }, [sclasses, classID]);
 
-// useEffect(() => {
-//   if (sclasses.length > 0) {
-//     const student = sclasses.find((sclass) => sclass._id === id);
-//     setFilteredClass(student);
-//     setIsLoading(false);
-//   }
-// }, [sclasses, id]);
-// console.log("Filtered Class: ", filteredClass)
 
   useEffect(() => {
     dispatch(getAllTerms(adminID, "Term"));

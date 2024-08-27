@@ -119,6 +119,7 @@ const AddTerm = () => {
                         <InputLabel id="next-term-starts-on-label">Next Term Starts On</InputLabel>
                         <TextField
                         label="Next Term Starts On"
+                        type="date"
                         value={nextTermStarts}
                         onChange={(event) => setNextTermStartDate(event.target.value)}
                         required
@@ -132,6 +133,7 @@ const AddTerm = () => {
                         <InputLabel id="next-term-end-on-label">Next Term Ends On</InputLabel>
                         <TextField
                         label="Next Term Ends On"
+                        type="date"
                         value={nextTermEnds}
                         onChange={(event) => setNextTermEndDate(event.target.value)}
                         required

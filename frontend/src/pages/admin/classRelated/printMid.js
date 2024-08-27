@@ -33,7 +33,7 @@ const Prints = () => {
 
   const { subloading, subjectDetails, sclassStudents, error } =
     useSelector((state) => state.sclass);
-  const { subjectsList, loading, response } = useSelector((state) => state.sclass);
+  const { subjectsList, loading, response , sclassDetails} = useSelector((state) => state.sclass);
   const { gradingList } = useSelector((state) => state.grading);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
@@ -260,7 +260,8 @@ const divisionMid = getDivisionMid(totalEndGrade);
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
                     <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>
-                    {filteredStudent.sclassName}
+                    {/* {filteredStudent.sclassName} */}
+                    {sclassDetails && sclassDetails.sclassName}
                         </span>
           </Typography>
         </Box>
