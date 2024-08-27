@@ -24,6 +24,7 @@ import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
 const PrintEnd = () => {
   // const [searchParams] = useSearchParams();
   // const id = searchParams.get('id');
+  const navigate = useNavigate();
   const params = useParams();
 
   const dispatch = useDispatch();
@@ -720,6 +721,10 @@ const divisionMid = getDivisionMid(totalGrade);
         textAlign="center"
         className="print:hidden" // Tailwind class for print visibility
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem', // Space between the buttons
           '@media print': {
             display: 'none', // Inline style to ensure the button is hidden in print view
           },
@@ -732,6 +737,10 @@ const divisionMid = getDivisionMid(totalGrade);
           startIcon={<Print />}
         >
           Print
+        </Button>
+
+        <Button variant="outlined" onClick={() => navigate(-1)}>
+            Back
         </Button>
       </Box>
     </Box>

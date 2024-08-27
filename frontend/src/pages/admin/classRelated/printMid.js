@@ -663,12 +663,12 @@ const divisionMid = getDivisionMid(totalEndGrade);
       <Box mb={2} mt={2}>
         <Typography variant="body1" >
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}>Next term begins on </span>
-          <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.child_medical_info} */}
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
+          {  activeTerm ? activeTerm.nextTermStarts : ' '}
           </span>
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}> and ends on </span>
-          <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.child_medical_info} */}
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
+          {  activeTerm ? activeTerm.nextTermEnds : ' '}
           </span>
         </Typography>
 
@@ -685,13 +685,16 @@ const divisionMid = getDivisionMid(totalEndGrade);
     </Typography>
       {/* </Box> */}
 {/* Print Button */}
-<Box
+      <Box
         mt={4}
-        textAlign="center"
-        className="print:hidden" // Tailwind class for print visibility
+        className="print:hidden flex justify-center space-x-4" // Flexbox classes to align buttons in a row
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem', // Space between the buttons
           '@media print': {
-            display: 'none', // Inline style to ensure the button is hidden in print view
+            display: 'none', // Inline style to ensure the buttons are hidden in print view
           },
         }}
       >
@@ -703,7 +706,12 @@ const divisionMid = getDivisionMid(totalEndGrade);
         >
           Print
         </Button>
+        
+        <Button variant="outlined" onClick={() => navigate(-1)}>
+            Back
+        </Button>
       </Box>
+
     </Box>
   );
 };

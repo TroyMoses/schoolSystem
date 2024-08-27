@@ -159,8 +159,8 @@ const AddStudent = ({ situation }) => {
               <label className="min-w-[150px] text-gray-700">LIN Number</label>
               <input
                 className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
-                type="number"
-                placeholder="Enter Pupil's Roll Number..."
+                type="text"
+                placeholder="Enter Pupil's Lin Number..."
                 value={rollNum}
                 onChange={(event) => setRollNum(event.target.value)}
                 required
