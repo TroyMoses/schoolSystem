@@ -1,31 +1,56 @@
 import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, InputLabel, Typography, Select, MenuItem } from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useParams} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addTerm } from '../../../redux/userRelated/userHandle';
+import { updateTerm } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import styled from "styled-components";
 import dayjs from 'dayjs';
+import { getAllTerms } from '../../../redux/termRelated/termHandle';
 import TextField from '@mui/material/TextField';
 
-const AddTerm = () => {
+const UpdateTerm = () => {
     const currentYear = dayjs().year(); // Get the current year
     const [year] = useState(currentYear); 
     const [termNames, setTermName] = useState('');
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState("");
     const [nextTermStarts, setNextTermStartDate] = useState('');
     const [nextTermEnds, setNextTermEndDate] = useState('');
-
+    const { id } = useParams(); 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const term = useSelector(state => state.term); 
+
     const userState = useSelector(state => state.user);
-    const { status: userStatus, currentUser, response, error } = userState;
+    const { status: userStatus, currentUser, response } = userState;
+    
+    const { termsList, loading, error, getresponse } = useSelector((state) => state.term);
+    const [selectedTerm, setSelectedTerm] = useState(null);
 
     const adminID = currentUser._id;
     const address = "Term";
+
+    useEffect(() => {
+        dispatch(getAllTerms(adminID, "Term"));
+      }, [adminID, dispatch]);
+
+    useEffect(() => {
+    if (termsList) {
+        // Filter the list to find the comment with the matching ID
+        const term = termsList.find(term => term._id === id);
+        setSelectedTerm(term);
+        if (term) {
+            // Set the form fields with the fetched data
+            setTermName(term.termName);
+            setStatus(term.status);
+            setNextTermStartDate(term.nextTermStarts);
+            setNextTermEndDate(term.nextTermEnds);
+            }
+    }
+    }, [termsList, id]);
 
     const [loader, setLoader] = useState(false);
     const [message, setMessage] = useState("");
@@ -48,7 +73,7 @@ const AddTerm = () => {
         };
 
         setLoader(true);
-        dispatch(addTerm(fields, address));
+        dispatch(updateTerm(fields, term._id, address));
     };
 
     useEffect(() => {
@@ -68,7 +93,7 @@ const AddTerm = () => {
                 <StyledBox>
                     <Stack sx={{ alignItems: 'center', mb: 3 }}>
                         <Typography variant="h4" color="primary" sx={{ mb: 3 }}>
-                            Register New Term For The Current Year
+                            Update Term For The Current Year
                         </Typography>
                     </Stack>
                     <Stack spacing={3}>
@@ -119,6 +144,7 @@ const AddTerm = () => {
                         <InputLabel id="next-term-starts-on-label">Next Term Starts On</InputLabel>
                         <TextField
                         label="Next Term Starts On"
+                        type="date"
                         value={nextTermStarts}
                         onChange={(event) => setNextTermStartDate(event.target.value)}
                         required
@@ -132,6 +158,7 @@ const AddTerm = () => {
                         <InputLabel id="next-term-end-on-label">Next Term Ends On</InputLabel>
                         <TextField
                         label="Next Term Ends On"
+                        type="date"
                         value={nextTermEnds}
                         onChange={(event) => setNextTermEndDate(event.target.value)}
                         required
@@ -149,7 +176,7 @@ const AddTerm = () => {
                             onClick={handleSave}
                             disabled={loader}
                         >
-                            {loader ? <CircularProgress size={24} color="inherit" /> : "Create"}
+                            {loader ? <CircularProgress size={24} color="inherit" /> : "Update"}
                         </BlueButton>
 
                         <Button variant="outlined" onClick={() => navigate(-1)}>
@@ -163,7 +190,7 @@ const AddTerm = () => {
     );
 };
 
-export default AddTerm;
+export default UpdateTerm;
 
 const StyledContainer = styled(Box)`
   flex: 1 1 auto;

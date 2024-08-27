@@ -13,6 +13,7 @@ import {
   getClassStudents,
   getSubjectDetails,
 } from "../../../redux/sclassRelated/sclassHandle";
+import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
@@ -28,23 +29,30 @@ const PrintEnd = () => {
   const dispatch = useDispatch();
 
   const [filteredStudent, setFilteredStudent] = useState(null);
+  const [filteredClass, setFilteredClass] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const { subloading, subjectDetails, sclassStudents, error } =
+  const { subloading, subjectDetails, error } =
     useSelector((state) => state.sclass);
 
-  const { subjectsList, response } = useSelector((state) => state.sclass);
+  const { subjectsList, sclassStudents, response ,sclassDetails} = useSelector((state) => state.sclass);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
   const { teachersList } = useSelector((state) => state.teacher);
   const { termsList } = useSelector((state) => state.term);
+  const sclasses = useSelector(state => state.sclass);
 
   const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
   
   const adminID = currentUser?._id; 
+
+  // useEffect(() => {
+  //   dispatch(getAllSclasses(adminID, "Sclass"));
+  // }, [adminID, dispatch]);
+
   useEffect(() => {
     if (adminID) {
       dispatch(getAllGrades(adminID, "Grading"));
@@ -65,10 +73,33 @@ const PrintEnd = () => {
   }, [adminID, dispatch]);
 
 
+  // useEffect(() => {
+  //   dispatch(getSubjectDetails(subjectID, "Subject"));
+  //   dispatch(getClassStudents(classID));
+  // }, [dispatch, subjectID, classID]);
+
   useEffect(() => {
+    dispatch(getAllSclasses(adminID, "Sclass"));
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
-  }, [dispatch, subjectID, classID]);
+}, [dispatch, adminID, classID, subjectID]);
+
+// Filter the class by ID
+useEffect(() => {
+  if (sclasses.length > 0) {
+      const foundClass = sclasses.find(sclass => sclass._id === classID);
+      setFilteredClass(foundClass);
+  }
+}, [sclasses, classID]);
+
+// useEffect(() => {
+//   if (sclasses.length > 0) {
+//     const student = sclasses.find((sclass) => sclass._id === id);
+//     setFilteredClass(student);
+//     setIsLoading(false);
+//   }
+// }, [sclasses, id]);
+// console.log("Filtered Class: ", filteredClass)
 
   useEffect(() => {
     dispatch(getAllTerms(adminID, "Term"));
@@ -270,8 +301,9 @@ const divisionMid = getDivisionMid(totalGrade);
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>
-                    {filteredStudent.sclassName}
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '2rem' }}>
+                    {/* {filteredClass.sclassName} */}
+                    {sclassDetails && sclassDetails.sclassName}
                         </span>
           </Typography>
         </Box>
