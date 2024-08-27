@@ -130,6 +130,8 @@ const resultEnd = filteredStudent.endExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
 
+console.log(filteredStudent)
+
 
 // Function to calculate the total agg for mid
 const totalGrade = results.reduce((total, result) => {
@@ -254,7 +256,16 @@ const divisionMid = getDivisionMid(totalGrade);
       </Box>
 
       {/* Placeholder on the right */}
-      <Box mr={2} style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} />
+      <Box mr={2} 
+      style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} 
+      >
+        <img
+          src={filteredStudent.photo}
+          alt={filteredStudent.name}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Ensure the image fits the box
+        />
+        
+      </Box>
 
     </Box>
       <Box justifyContent="center" textAlign="center">
@@ -696,10 +707,12 @@ const divisionMid = getDivisionMid(totalGrade);
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}>Next term begins on </span>
           <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
             {/* {admission.child_medical_info} */}
+            {  activeTerm ? activeTerm.nextTermStarts : ' '}
           </span>
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}> and ends on </span>
           <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
             {/* {admission.child_medical_info} */}
+            {  activeTerm ? activeTerm.nextTermEnds : ' '}
           </span>
         </Typography>
 

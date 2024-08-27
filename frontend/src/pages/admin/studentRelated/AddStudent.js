@@ -74,7 +74,7 @@ const AddStudent = ({ situation }) => {
       formDataToSend.append("sclassName", sclassName);
       formDataToSend.append("adminID", adminID);
       formDataToSend.append("role", role);
-      formDataToSend.append("attendance", JSON.stringify(attendance)); // Convert to string for FormData
+      // formDataToSend.append("attendance", JSON.stringify(attendance)); 
       formDataToSend.append("gender", gender);
       formDataToSend.append("photo", photo);
       
