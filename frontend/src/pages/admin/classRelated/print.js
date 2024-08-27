@@ -13,6 +13,7 @@ import {
   getClassStudents,
   getSubjectDetails,
 } from "../../../redux/sclassRelated/sclassHandle";
+import { getAllSclasses } from '../../../redux/sclassRelated/sclassHandle';
 import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
@@ -23,28 +24,36 @@ import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
 const PrintEnd = () => {
   // const [searchParams] = useSearchParams();
   // const id = searchParams.get('id');
+  const navigate = useNavigate();
   const params = useParams();
 
   const dispatch = useDispatch();
 
   const [filteredStudent, setFilteredStudent] = useState(null);
+  const [filteredClass, setFilteredClass] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const { subloading, subjectDetails, sclassStudents, error } =
+  const { subloading, subjectDetails, error } =
     useSelector((state) => state.sclass);
 
-  const { subjectsList, response } = useSelector((state) => state.sclass);
+  const { subjectsList, sclassStudents, response ,sclassDetails} = useSelector((state) => state.sclass);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
   const { teachersList } = useSelector((state) => state.teacher);
   const { termsList } = useSelector((state) => state.term);
+  const sclasses = useSelector(state => state.sclass);
 
   const { currentUser } = useSelector(state => state.user)
 
   const { classID, subjectID, id } = params;
   
   const adminID = currentUser?._id; 
+
+  // useEffect(() => {
+  //   dispatch(getAllSclasses(adminID, "Sclass"));
+  // }, [adminID, dispatch]);
+
   useEffect(() => {
     if (adminID) {
       dispatch(getAllGrades(adminID, "Grading"));
@@ -58,17 +67,25 @@ const PrintEnd = () => {
   useEffect(() => {
     dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
   }, [adminID, dispatch]);
-  // console.log('Class Teacher Comments:', ClassTeacherCommentList);
   
   useEffect(() => {
     dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
   }, [adminID, dispatch]);
 
-
   useEffect(() => {
+    dispatch(getAllSclasses(adminID, "Sclass"));
     dispatch(getSubjectDetails(subjectID, "Subject"));
     dispatch(getClassStudents(classID));
-  }, [dispatch, subjectID, classID]);
+}, [dispatch, adminID, classID, subjectID]);
+
+// Filter the class by ID
+useEffect(() => {
+  if (sclasses.length > 0) {
+      const foundClass = sclasses.find(sclass => sclass._id === classID);
+      setFilteredClass(foundClass);
+  }
+}, [sclasses, classID]);
+
 
   useEffect(() => {
     dispatch(getAllTerms(adminID, "Term"));
@@ -112,6 +129,8 @@ const results = filteredStudent.midExamResult;
 const resultEnd = filteredStudent.endExamResult;
   // Calculate total for col2
 const totalMarksObtained = results.reduce((total, result) => total + result.marksObtained, 0); 
+
+console.log(filteredStudent)
 
 
 // Function to calculate the total agg for mid
@@ -237,7 +256,16 @@ const divisionMid = getDivisionMid(totalGrade);
       </Box>
 
       {/* Placeholder on the right */}
-      <Box mr={2} style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} />
+      <Box mr={2} 
+      style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} 
+      >
+        <img
+          src={filteredStudent.photo}
+          alt={filteredStudent.name}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Ensure the image fits the box
+        />
+        
+      </Box>
 
     </Box>
       <Box justifyContent="center" textAlign="center">
@@ -269,9 +297,10 @@ const divisionMid = getDivisionMid(totalGrade);
           {filteredStudent.name}
             </span>
           </Typography>
-          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' }}>
-                    {filteredStudent.sclassName}
+          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' ,textTransform: 'uppercase'}}>
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '2rem' }}>
+                    {/* {filteredClass.sclassName} */}
+                    {sclassDetails && sclassDetails.sclassName}
                         </span>
           </Typography>
         </Box>
@@ -678,10 +707,12 @@ const divisionMid = getDivisionMid(totalGrade);
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}>Next term begins on </span>
           <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
             {/* {admission.child_medical_info} */}
+            {  activeTerm ? activeTerm.nextTermStarts : ' '}
           </span>
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}> and ends on </span>
           <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
             {/* {admission.child_medical_info} */}
+            {  activeTerm ? activeTerm.nextTermEnds : ' '}
           </span>
         </Typography>
 
@@ -703,6 +734,10 @@ const divisionMid = getDivisionMid(totalGrade);
         textAlign="center"
         className="print:hidden" // Tailwind class for print visibility
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem', // Space between the buttons
           '@media print': {
             display: 'none', // Inline style to ensure the button is hidden in print view
           },
@@ -715,6 +750,10 @@ const divisionMid = getDivisionMid(totalGrade);
           startIcon={<Print />}
         >
           Print
+        </Button>
+
+        <Button variant="outlined" onClick={() => navigate(-1)}>
+            Back
         </Button>
       </Box>
     </Box>

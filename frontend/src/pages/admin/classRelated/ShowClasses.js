@@ -71,16 +71,8 @@ const ShowClasses = ({situation}) => {
     const actions = [
       { icon: <PostAddIcon />, name: 'Add Subjects', action: () => navigate("/Admin/addsubject/" + row.id) },
       { icon: <PersonAddAlt1Icon />, name: 'Add Student', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-      { icon: <GradeIcon />, name: 'Add BOT', action: () => navigate("/Admin/addsubject/" + row.id) },
-      { icon: <GradeIcon />, name: 'Add MID', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-      // { icon: <GradeIcon />, name: 'Add END', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-      { icon: <GradeIcon />, name: 'Add END', action: () => navigate("/Admin/students/chooseentrysubject/" + row.id)}, 
-    ];
-    // const actions = [
-    //   { icon: <PostAddIcon />, name: 'Add BOT', action: () => navigate("/Admin/addsubject/" + row.id) },
-    //   { icon: <PersonAddAlt1Icon />, name: 'Add MID', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-    //   { icon: <PersonAddAlt1Icon />, name: 'Add END', action: () => navigate("/Admin/class/addstudents/" + row.id) },
-    // ];
+      ];
+    
     return (
       <ButtonContainer>
         <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
@@ -90,7 +82,7 @@ const ShowClasses = ({situation}) => {
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
         </BlueButton>
-        <BlueButton variant="contained"Class Details
+        <BlueButton variant="contained"
           onClick={() => navigate("/Admin/classes/print/" )}>
           Print Mid
         </BlueButton>

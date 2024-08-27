@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate , useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addHeadTeacherComment } from '../../../redux/userRelated/userHandle';
+import { updateHeadTeacherComment } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
@@ -64,8 +64,9 @@ const UpdateHm = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(addHeadTeacherComment(fields, address))
+        dispatch(updateHeadTeacherComment(fields, comment._id, address))
     };
+
 
     useEffect(() => {
         if (status === 'added') {
