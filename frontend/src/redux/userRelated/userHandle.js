@@ -41,9 +41,11 @@ export const registerUser = (formData, role) => async (dispatch) => {
     dispatch(authRequest());
 
     try {
+        console.log("formData",  formData)
         const result = await axios.post(`${REACT_APP_BASE_URL}/${role}Reg`, formData, {
             headers: { 'Content-Type': 'multipart/form-data' },
         });
+        console.log("result", result)
         if (result.data.schoolName) {
             dispatch(authSuccess(result.data));
         }
@@ -169,6 +171,24 @@ export const addHeadTeacherComment = (fields, address) => async (dispatch) => {
         dispatch(authError(error));
     }
 };
+// update teachers comment
+export const updateHeadTeacherComment = (fields, id, address) => async (dispatch) => {
+    dispatch(getRequest());
+
+    try {
+        const result = await axios.put(`${REACT_APP_BASE_URL}/${address}/${id}`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (result.data.schoolName) {
+            dispatch(authSuccess(result.data));
+        }
+        else {
+            dispatch(doneSuccess(result.data));
+        }
+    } catch (error) {
+        dispatch(getError(error));
+    }
+}
 
 // ADD ClassTeacherComment
 export const addClassTeacherComment = (fields, address) => async (dispatch) => {
@@ -207,6 +227,25 @@ export const addTerm = (fields, address) => async (dispatch) => {
         dispatch(authError(error));
     }
 };
+//update term
+// update teachers comment
+export const updateTerm = (fields, id, address) => async (dispatch) => {
+    dispatch(getRequest());
+
+    try {
+        const result = await axios.put(`${REACT_APP_BASE_URL}/${address}/${id}`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (result.data.schoolName) {
+            dispatch(authSuccess(result.data));
+        }
+        else {
+            dispatch(doneSuccess(result.data));
+        }
+    } catch (error) {
+        dispatch(getError(error));
+    }
+} 
 
 export const deleteTerm = (id, address) => async (dispatch) => {
     dispatch(getRequest());

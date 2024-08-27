@@ -74,7 +74,7 @@ const AddStudent = ({ situation }) => {
       formDataToSend.append("sclassName", sclassName);
       formDataToSend.append("adminID", adminID);
       formDataToSend.append("role", role);
-      formDataToSend.append("attendance", JSON.stringify(attendance)); // Convert to string for FormData
+      // formDataToSend.append("attendance", JSON.stringify(attendance)); 
       formDataToSend.append("gender", gender);
       formDataToSend.append("photo", photo);
       
@@ -159,8 +159,8 @@ const AddStudent = ({ situation }) => {
               <label className="min-w-[150px] text-gray-700">LIN Number</label>
               <input
                 className="registerInput flex-1 border rounded px-3 py-2 text-gray-700"
-                type="number"
-                placeholder="Enter Pupil's Roll Number..."
+                type="text"
+                placeholder="Enter Pupil's Lin Number..."
                 value={rollNum}
                 onChange={(event) => setRollNum(event.target.value)}
                 required
@@ -172,6 +172,7 @@ const AddStudent = ({ situation }) => {
               <input
                 className="registerInput border rounded px-3 py-2 w-full text-gray-700"
                 type="file"
+                value={photo}
                 onChange={handlePhotoChange}
                 required
               />

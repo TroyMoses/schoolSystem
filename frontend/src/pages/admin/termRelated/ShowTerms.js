@@ -75,6 +75,11 @@ const ShowTerms = () => {
         <IconButton onClick={() => deleteHandler(row.id, "Term")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
+        <BlueButton variant="contained"
+          onClick={() => navigate("/Admin/updateterm/" + row.id)}>
+          Edit
+        </BlueButton>
+
         {/* <BlueButton variant="contained"
           onClick={() => navigate("/Admin/terms/term/" + row.id)}>
           View

@@ -40,7 +40,10 @@ const AddTeacher = () => {
     event.preventDefault()
     setLoader(true)
     dispatch(registerUser(fields, role))
+
+    console.log("fiels: ", fields)
   }
+  
 
   useEffect(() => {
     if (status === 'added') {

@@ -63,6 +63,7 @@ import AddHm from './hmRelated/AddHm';
 import UpdateHm from './hmRelated/updateHm';
 import ShowHm from './hmRelated/ShowHm';
 import HmDetails from './hmRelated/HmDetails';
+import UpdateTerm from './termRelated/updateTerm';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -145,6 +146,7 @@ const AdminDashboard = () => {
 
                         {/* Term */}
                         <Route path="/Admin/addterm" element={<AddTerm />} />
+                        <Route path="/Admin/updateterm/:id" element={<UpdateTerm />} />
                         <Route path="/Admin/terms" element={<ShowTerms />} />
                         <Route path="/Admin/terms/class/:id" element={<TermDetails />} />
                         <Route path="/Admin/term/addstudents/:id" element={<AddStudent situation="Term" />} />

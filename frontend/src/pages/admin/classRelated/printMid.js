@@ -33,7 +33,7 @@ const Prints = () => {
 
   const { subloading, subjectDetails, sclassStudents, error } =
     useSelector((state) => state.sclass);
-  const { subjectsList, loading, response } = useSelector((state) => state.sclass);
+  const { subjectsList, loading, response , sclassDetails} = useSelector((state) => state.sclass);
   const { gradingList } = useSelector((state) => state.grading);
   const { ClassTeacherCommentList, getresponse } = useSelector((state) => state.ClassTeacherComment);
   const { HeadTeacherCommentList} = useSelector((state) => state.HeadTeacherComment);
@@ -226,7 +226,15 @@ const divisionMid = getDivisionMid(totalEndGrade);
       </Box>
 
       {/* Placeholder on the right */}
-      <Box mr={2} style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} />
+      <Box mr={2} style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} 
+        >
+        <img
+          src={filteredStudent.photo}
+          alt={filteredStudent.name}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Ensure the image fits the box
+        />
+        
+      </Box>
 
     </Box>
       <Box justifyContent="center" textAlign="center">
@@ -258,9 +266,10 @@ const divisionMid = getDivisionMid(totalEndGrade);
           {filteredStudent.name}
             </span>
           </Typography>
-          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
+          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' ,textTransform: 'uppercase'}}>
                     <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>
-                    {filteredStudent.sclassName}
+                    {/* {filteredStudent.sclassName} */}
+                    {sclassDetails && sclassDetails.sclassName}
                         </span>
           </Typography>
         </Box>
@@ -662,12 +671,12 @@ const divisionMid = getDivisionMid(totalEndGrade);
       <Box mb={2} mt={2}>
         <Typography variant="body1" >
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}>Next term begins on </span>
-          <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.child_medical_info} */}
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
+          {  activeTerm ? activeTerm.nextTermStarts : ' '}
           </span>
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}> and ends on </span>
-          <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
-            {/* {admission.child_medical_info} */}
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
+          {  activeTerm ? activeTerm.nextTermEnds : ' '}
           </span>
         </Typography>
 
@@ -684,13 +693,16 @@ const divisionMid = getDivisionMid(totalEndGrade);
     </Typography>
       {/* </Box> */}
 {/* Print Button */}
-<Box
+      <Box
         mt={4}
-        textAlign="center"
-        className="print:hidden" // Tailwind class for print visibility
+        className="print:hidden flex justify-center space-x-4" // Flexbox classes to align buttons in a row
         sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: '1rem', // Space between the buttons
           '@media print': {
-            display: 'none', // Inline style to ensure the button is hidden in print view
+            display: 'none', // Inline style to ensure the buttons are hidden in print view
           },
         }}
       >
@@ -702,7 +714,12 @@ const divisionMid = getDivisionMid(totalEndGrade);
         >
           Print
         </Button>
+        
+        <Button variant="outlined" onClick={() => navigate(-1)}>
+            Back
+        </Button>
       </Box>
+
     </Box>
   );
 };
