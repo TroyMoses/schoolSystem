@@ -5,7 +5,9 @@ const termCreate = async (req, res) => {
         const term = new Term({
             termName: req.body.termName,
             status: req.body.status,
-            school: req.body.adminID
+            school: req.body.adminID,
+            nextTermStarts,
+            nextTermEnds
         });
 
         const existingTermByName = await Term.findOne({
