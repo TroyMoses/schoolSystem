@@ -297,7 +297,7 @@ const divisionMid = getDivisionMid(totalGrade);
           {filteredStudent.name}
             </span>
           </Typography>
-          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
+          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' ,textTransform: 'uppercase'}}>
                     <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '2rem' }}>
                     {/* {filteredClass.sclassName} */}
                     {sclassDetails && sclassDetails.sclassName}

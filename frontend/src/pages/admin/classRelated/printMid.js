@@ -226,7 +226,15 @@ const divisionMid = getDivisionMid(totalEndGrade);
       </Box>
 
       {/* Placeholder on the right */}
-      <Box mr={2} style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} />
+      <Box mr={2} style={{ width: '100px', height: '95px', border: '2px solid red',marginLeft: '10px'}} 
+        >
+        <img
+          src={filteredStudent.photo}
+          alt={filteredStudent.name}
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Ensure the image fits the box
+        />
+        
+      </Box>
 
     </Box>
       <Box justifyContent="center" textAlign="center">
@@ -258,7 +266,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
           {filteredStudent.name}
             </span>
           </Typography>
-          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
+          <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' ,textTransform: 'uppercase'}}>
                     <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>
                     {/* {filteredStudent.sclassName} */}
                     {sclassDetails && sclassDetails.sclassName}

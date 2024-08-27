@@ -172,6 +172,7 @@ const AddStudent = ({ situation }) => {
               <input
                 className="registerInput border rounded px-3 py-2 w-full text-gray-700"
                 type="file"
+                value={photo}
                 onChange={handlePhotoChange}
                 required
               />
