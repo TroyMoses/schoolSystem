@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Grid, Box, Typography, Paper, Checkbox, FormControlLabel, TextField, CssBaseline, IconButton, InputAdornment, CircularProgress, Backdrop } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import bgpic from "../assets/designlogin.jpg"
+import bgpic from "../assets/pip.jpeg"
 import { LightPurpleButton } from '../components/buttonStyles';
 import styled from 'styled-components';
 import { loginUser } from '../redux/userRelated/userHandle';
@@ -149,13 +149,13 @@ const LoginPage = ({ role }) => {
                                         required
                                         fullWidth
                                         id="rollNumber"
-                                        label="Enter your Roll Number"
+                                        label="Enter your Lin Number"
                                         name="rollNumber"
                                         autoComplete="off"
                                         type="number"
                                         autoFocus
                                         error={rollNumberError}
-                                        helperText={rollNumberError && 'Roll Number is required'}
+                                        helperText={rollNumberError && 'Lin Number is required'}
                                         onChange={handleInputChange}
                                     />
                                     <TextField

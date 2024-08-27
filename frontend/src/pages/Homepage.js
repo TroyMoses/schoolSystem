@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Grid, Box, Button } from '@mui/material';
 import styled from 'styled-components';
-import Students from "../assets/students.svg";
+// import Students from "../assets/students.svg";
+import Students from "../assets/buil.jpeg";
 import { LightPurpleButton } from '../components/buttonStyles';
 
 const Homepage = () => {
@@ -17,14 +18,16 @@ const Homepage = () => {
                         <StyledTitle>
                             Welcome to
                             <br />
+                            Shining Stars
+                            <br />
                             School Management
                             <br />
                             System
                         </StyledTitle>
                         <StyledText>
-                            Streamline school management, class organization, and add students and faculty.
+                            Shining Stars school management, class organization, add pupil's and Classes.
                             Seamlessly track attendance, assess performance, and provide feedback.
-                            Access records, view marks for students, and communicate effortlessly.
+                            Access records, view marks for pupil's, and communicate effortlessly.
                         </StyledText>
                         <StyledBox>
                             <StyledLink to="/choose">
