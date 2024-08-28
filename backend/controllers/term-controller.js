@@ -5,13 +5,17 @@ const termCreate = async (req, res) => {
         const term = new Term({
             termName: req.body.termName,
             status: req.body.status,
-            school: req.body.adminID
+            school: req.body.adminID,
+            nextTermStarts: req.body.nextTermStarts,
+            nextTermEnds: req.body.nextTermEnds
         });
 
         const existingTermByName = await Term.findOne({
             termName: req.body.termName,
             status: req.status,
-            school: req.body.adminID
+            school: req.body.adminID,
+            nextTermStarts: req.body.nextTermStarts,
+            nextTermEnds: req.body.nextTermEnds
         });
 
         if (existingTermByName) {

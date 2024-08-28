@@ -3,6 +3,7 @@ const Student = require("../models/studentSchema.js");
 const Subject = require("../models/subjectSchema.js");
 
 const studentRegister = async (req, res) => {
+  console.log(req.body);
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(req.body.password, salt);

@@ -106,7 +106,7 @@ router.post('/StudentReg', upload.single('photo'), async (req, res) => {
         const photoUrl = result.secure_url;
 
         // Create a new student object with the photo URL and other data
-        req.body.photoUrl = photoUrl; // Add photo URL to request body
+        req.body.photo = photoUrl; // Add photo URL to request body
 
         // Call the studentRegister controller function
         studentRegister(req, res);
