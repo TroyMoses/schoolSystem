@@ -287,7 +287,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  LIN NO:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '8rem' ,textTransform: 'uppercase', }}>  
+                    <span style={{ fontWeight: 900 }}>  LIN NO:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '1rem' ,textTransform: 'uppercase', }}>  
                     {filteredStudent.rollNum}
                         </span>
           </Typography>
@@ -340,24 +340,24 @@ const divisionMid = getDivisionMid(totalEndGrade);
               fontSize: '0.8rem', 
             }}
           >
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+            <Box sx={{ flex: 1, borderRight: '1px solid black' }}></Box>
+            <Box sx={{ flex: 1, borderRight: '1px solid black' }}></Box>
+            <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
               <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>MARKS</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>AGG</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>DIV</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>MARKS</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>AGG</Box>
+                <Box sx={{ flex: 1 }}>DIV</Box>
               </Box>
             </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+            <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
               <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>MARKS</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>AGG</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>DIV</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>MARKS</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>AGG</Box>
+                <Box sx={{ flex: 1 }}>DIV</Box>
               </Box>
             </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-            <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+            <Box sx={{ flex: 2, borderRight: '1px solid black' }}></Box>
+            <Box sx={{ flex: 1 }}></Box>
       </Box>
       
 
@@ -556,63 +556,88 @@ const divisionMid = getDivisionMid(totalEndGrade);
 
 
         <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Class teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
-                    {filteredStudent.name}
-                    <span className="ml-8"> {/* Adjust margin as needed */}
-                      {classTeacherCommentMid}
-                    </span>
-                        </span>
-          </Typography>
+  <Typography
+    variant="h6"
+    fontWeight={300}
+    style={{ fontSize: "0.9rem", width: "65%",  textAlign: "left"  }}
+  >
+    <span style={{ fontWeight: 900 }}>Class teacher's Comment:</span> 
+    <span 
+      style={{ 
+        display: 'block', 
+        borderBottom: '2px dotted black', 
+        paddingRight: '1rem', 
+        marginTop: '0.5rem' 
+      }}
+    >
+      {filteredStudent.name}
+      <span > {/* Adjust margin as needed */}
+        {classTeacherCommentMid}
+      </span>
+    </span>
+  </Typography>
 
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                        {/* {admission.parent_address} */}
-                        </span>
-            
-          </Typography>
-        </Box>
+  <Typography
+    variant="h6"
+    fontWeight={300}
+    style={{ fontSize: "0.9rem", width: "15%", textAlign: "left" }}
+  >
+    <span style={{ fontWeight: 900 }}>Signature:</span> 
+    <span 
+      style={{ 
+        display: 'block', 
+        borderBottom: '2px dotted black', 
+        paddingRight: '1rem', 
+        marginTop: '0.5rem' 
+      }}
+    >
+      {/* Signature content here */}
+    </span>
+  </Typography>
+</Box>
 
         {/* Head  */}
         <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
+        <Typography
             variant="h6"
             fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
+            style={{ fontSize: "0.9rem" , width: "65%",  textAlign: "left" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
-                    {filteredStudent.name}
-                    <span className="ml-8"> {/* Adjust margin as needed */}
-                      {headTeacherCommentMid}
-                    </span>
-                        </span>
-          </Typography>
+                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> 
+                    <span 
+                     style={{ 
+                        display: 'block', 
+                        borderBottom: '2px dotted black', 
+                        paddingRight: '1rem', 
+                        marginTop: '0.5rem' 
+                      }}
+                    >
+          
+            {filteredStudent.name}
+            <span> {/* Adjust margin as needed */}
+              {headTeacherCommentMid}
+            </span>
+          </span>
+        </Typography>
 
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
+         <Typography
+          variant="h6"
+          fontWeight={300}
+          style={{ fontSize: "0.9rem", width: "15%", textAlign: "right" }}
+        >
+          <span style={{ fontWeight: 900 }}>Signature:</span> 
+          <span 
+            style={{ 
+              display: 'block', 
+              borderBottom: '2px dotted black', 
+              paddingRight: '1rem', 
+              marginTop: '0.5rem' 
+            }}
           >
-                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                        {/* {admission.parent_address} */}
-                        </span>
-            
-          </Typography>
-        </Box>
+            {/* Signature content here */}
+          </span>
+        </Typography>
+     </Box>
 
       </Box>
 

@@ -370,24 +370,24 @@ const divisionMid = getDivisionMid(totalGrade);
               fontSize: '0.8rem', 
             }}
           >
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-            <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+            <Box sx={{ flex: 1, borderRight: '1px solid black' }}></Box>
+            <Box sx={{ flex: 1, borderRight: '1px solid black' }}></Box>
+            <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
               <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>MARKS</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>AGG</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>DIV</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>MARKS</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>AGG</Box>
+                <Box sx={{ flex: 1 }}>DIV</Box>
               </Box>
             </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+            <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
               <Box display="flex" justifyContent="space-between">
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>MARKS</Box>
-                <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>AGG</Box>
-                <Box sx={{ flex: 1, padding: '2px 0' }}>DIV</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>MARKS</Box>
+                <Box sx={{ flex: 1, borderRight: '1px solid black' }}>AGG</Box>
+                <Box sx={{ flex: 1 }}>DIV</Box>
               </Box>
             </Box>
-            <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-            <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+            <Box sx={{ flex: 2, borderRight: '1px solid black' }}></Box>
+            <Box sx={{ flex: 1 }}></Box>
       </Box>
       
 
@@ -437,10 +437,23 @@ const divisionMid = getDivisionMid(totalGrade);
           );
                   
           return (
-            <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
-              <Box sx={{ flex: 1, borderRight: '1px solid black',textAlign: 'left' , textTransform: 'uppercase' }}>
-                {subject.subName}
-              </Box>
+            <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black' }}>
+              <Box 
+          sx={{ 
+            flex: 1, 
+            borderRight: '1px solid black', 
+            textAlign: 'left', 
+            textTransform: 'uppercase', 
+            overflow: 'hidden', 
+            textOverflow: 'ellipsis', 
+            whiteSpace: 'nowrap'
+          }}
+          >
+          <Typography variant="inherit" sx={{ fontSize: 'calc(0.6rem + 0.5vw)' }} noWrap>
+              {subject?.subName}
+            </Typography>
+          
+          </Box>
               <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
               <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
                 <Box display="flex" justifyContent="space-between">
@@ -486,33 +499,33 @@ const divisionMid = getDivisionMid(totalGrade);
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black', padding: '2px 0' }}>TOTAL</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalCol2}</Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+        <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black' }}>TOTAL</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalCol2}</Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
 
         <Box display="flex" justifyContent="space-between">
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksObtained}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalGrade}</Box>
-          <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalMarksObtained}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalGrade}</Box>
+          <Box sx={{ flex: 1 }}></Box>
         </Box>
         </Box>
         {/* END TERM  */}
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+        <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
 
         <Box display="flex" justifyContent="space-between">
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksEnd}
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalMarksEnd}
             
           </Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
 
           {totalEndGrade} 
           </Box>
-          <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+          <Box sx={{ flex: 1 }}></Box>
         </Box>
 
         </Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-        <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black' }}></Box>
+        <Box sx={{ flex: 1 }}></Box>
       </Box>
          </Box>
       </Box>
@@ -552,10 +565,10 @@ const divisionMid = getDivisionMid(totalGrade);
           fontSize: '0.875rem', 
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
       </Box>
       
       {/* Last Row */}
@@ -567,76 +580,100 @@ const divisionMid = getDivisionMid(totalGrade);
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.discipline}</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.timeManagement}</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.smartness}</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0' }}>{filteredStudent.attendanceRemarks}</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.discipline}</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.timeManagement}</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.smartness}</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.attendanceRemarks}</Box>
       </Box>
     </Box>
 
 
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Class teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
-                        {/* {admission.parent_telephone} */}
-                        {filteredStudent.name}
-                    <span className="ml-8"> {/* Adjust margin as needed */}
-                      {classTeacherCommentEnd}
-                    </span>
-                        </span>
-          </Typography>
+    <Box display="flex" justifyContent="space-between" mt={2}>
+  <Typography
+    variant="h6"
+    fontWeight={300}
+    style={{ fontSize: "0.9rem", width: "85%",  textAlign: "left"  }}
+  >
+    <span style={{ fontWeight: 900 }}>Class teacher's Comment:</span> 
+    <span 
+      style={{ 
+        display: 'block', 
+        borderBottom: '2px dotted black', 
+        paddingRight: '1rem', 
+        marginTop: '0.5rem' 
+      }}
+    >
+      {filteredStudent.name}
+      <span > {/* Adjust margin as needed */}
+        {classTeacherCommentEnd}
+      </span>
+    </span>
+  </Typography>
 
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
-          >
-                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                        {/* {admission.parent_address} */}
-                        </span>
-            
-          </Typography>
-        </Box>
+  <Typography
+    variant="h6"
+    fontWeight={300}
+    style={{ fontSize: "0.9rem", width: "15%", textAlign: "left" }}
+  >
+    <span style={{ fontWeight: 900 }}>Signature:</span> 
+    <span 
+      style={{ 
+        display: 'block', 
+        borderBottom: '2px dotted black', 
+        paddingRight: '1rem', 
+        marginTop: '0.5rem' 
+      }}
+    >
+      {/* Signature content here */}
+    </span>
+  </Typography>
+</Box>
 
         {/* Head  */}
         <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
+        <Typography
             variant="h6"
             fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
+            style={{ fontSize: "0.9rem" , width: "85%",  textAlign: "left" }}
           >
-                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '3rem' }}>
-                        {/* {admission.parent_telephone} */}
-                        {filteredStudent.name}
-                    <span className="ml-8"> {/* Adjust margin as needed */}
-                      {headTeacherCommentEnd}
-                    </span>
-                        </span>
-          </Typography>
+                    <span style={{ fontWeight: 900 }}>  Head teacher's Comment:</span> 
+                    <span 
+                     style={{ 
+                        display: 'block', 
+                        borderBottom: '2px dotted black', 
+                        paddingRight: '1rem', 
+                        marginTop: '0.5rem' 
+                      }}
+                    >
+          
+            {filteredStudent.name}
+            <span> {/* Adjust margin as needed */}
+              {headTeacherCommentEnd}
+            </span>
+          </span>
+        </Typography>
 
-        </Box>
-
-        <Box display="flex" justifyContent="space-between" mt={2}>
-          <Typography
-            variant="h6"
-            fontWeight={300}
-            style={{ fontSize: "0.9rem" }}
+         <Typography
+          variant="h6"
+          fontWeight={300}
+          style={{ fontSize: "0.9rem", width: "15%", textAlign: "right" }}
+        >
+          <span style={{ fontWeight: 900 }}>Signature:</span> 
+          <span 
+            style={{ 
+              display: 'block', 
+              borderBottom: '2px dotted black', 
+              paddingRight: '1rem', 
+              marginTop: '0.5rem' 
+            }}
           >
-                    <span style={{ fontWeight: 900 }}>  Signature:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '30rem' }}>
-                        {/* {admission.parent_address} */}
-                        </span>
-            
-          </Typography>
-        </Box>
+            {/* Signature content here */}
+          </span>
+        </Typography>
+     </Box>
 
       </Box>
+
 
       {/* Next of Kin */}
       <Box mt={2}  textAlign="center">
@@ -673,7 +710,7 @@ const divisionMid = getDivisionMid(totalGrade);
           {gradingList && gradingList.map((grading) => (
             <Box
               key={grading._id}
-              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}
+              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black' }}
             >
               {grading.from} - {grading.to}
             </Box>
@@ -692,7 +729,7 @@ const divisionMid = getDivisionMid(totalGrade);
           {gradingList && gradingList.map((grading) => (
             <Box
               key={grading._id}
-              sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0', fontWeight: 'bold' }}
+              sx={{ flex: 1, borderRight: '1px solid black', fontWeight: 'bold' }}
             >
               { grading.grade }
             </Box>
