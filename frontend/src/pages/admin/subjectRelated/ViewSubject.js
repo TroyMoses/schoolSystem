@@ -238,12 +238,12 @@ const ViewSubject = () => {
     }
   };
   
-  const motMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "mid");
+  const motMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "mot");
 
   // Example of calling the handler for "bot"
   const botMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "bot");
 
-  // Example of calling the handler for "end"
+  // Example of calling the handler for "eot"
   const endMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "eot");
 
   const handleMarksChange = (studentId, value) => {

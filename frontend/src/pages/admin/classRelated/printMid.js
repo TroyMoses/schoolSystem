@@ -629,7 +629,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
          <Typography
           variant="h6"
           fontWeight={300}
-          style={{ fontSize: "0.9rem", width: "15%", textAlign: "right" }}
+          style={{ fontSize: "0.9rem", width: "15%", textAlign: "left" }}
         >
           <span style={{ fontWeight: 900 }}>Signature:</span> 
           <span 
