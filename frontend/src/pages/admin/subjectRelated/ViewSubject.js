@@ -33,6 +33,7 @@ import { updateStudentFields } from "../../../redux/studentRelated/studentHandle
 
 const ViewSubject = () => {
   const navigate = useNavigate();
+  const options = Array.from({ length: 101 }, (_, i) => i);
   const params = useParams();
   const dispatch = useDispatch();
   const { subloading, subjectDetails, sclassStudents, getresponse, error } =
@@ -84,6 +85,7 @@ const ViewSubject = () => {
     const marks = botExam ? botExam.marksObtained : "";
     const mid = midExam ? midExam.marksObtained : "";
     const end = endExam ? endExam.marksObtained : "";
+    
 
     return {
       rollNum: student.rollNum,
@@ -365,22 +367,29 @@ const ViewSubject = () => {
           botMarksSubmitHandler(e, row.id)
         }
           }>
-        <input
-            ref={inputRef}
+        
+          <select
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            type="text"
-            placeholder="Marks"
-            value={marksByStudent[row.id] || ""} // Use specific student's marks
-            // value={marksObtained}
+            value={marksByStudent[row.id] || ""}
+            onChange={handleChange}
+            required
+            autoFocus
             inputMode="numeric"
             pattern="[0-9]*"
+            min="0" // Set the minimum value to 0 or any other appropriate minimum
+            step="1"
+            max="100"
             onFocus={handleFocus}
-            onChange={handleChange}
             onKeyDown={handleKeyDown}
-            required
             tabIndex={0}
-            autoFocus
-          />
+          >
+            <option value="" >Marks</option>
+            {options.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
           <button
             className="registerButton"
             type="submit"
