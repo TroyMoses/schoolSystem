@@ -408,9 +408,22 @@ const divisionMid = getDivisionMid(totalEndGrade);
 
 
       return (
-        <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black', padding: '2px 0' }}>
-          <Box sx={{ flex: 1, borderRight: '1px solid black' , textAlign: 'left' , textTransform: 'uppercase' }}>
-            {subject.subName}
+        <Box key={result._id} sx={{ display: 'flex', borderBottom: '1px solid black'}}>
+          <Box 
+          sx={{ 
+            flex: 1, 
+            borderRight: '1px solid black', 
+            textAlign: 'left', 
+            textTransform: 'uppercase', 
+            overflow: 'hidden', 
+            textOverflow: 'ellipsis', 
+            whiteSpace: 'nowrap'
+          }}
+          >
+          <Typography variant="inherit" sx={{ fontSize: 'calc(0.6rem + 0.5vw)' }} noWrap>
+              {subject?.subName}
+            </Typography>
+          
           </Box>
           <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
           <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
@@ -456,30 +469,30 @@ const divisionMid = getDivisionMid(totalEndGrade);
           textAlign: 'center',
         }}
       >
-        <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black', padding: '2px 0' }}>TOTAL</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalCol2}</Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+        <Box sx={{ flex: 1, fontWeight: 'bold', borderRight: '1px solid black' }}>TOTAL</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalCol2}</Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
 
         <Box display="flex" justifyContent="space-between">
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksObtained}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalGrade}</Box>
-          <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalMarksObtained}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalGrade}</Box>
+          <Box sx={{ flex: 1 }}></Box>
         </Box>
         </Box>
         {/* MID TERM  */}
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}>
+        <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
 
         <Box display="flex" justifyContent="space-between">
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalMarksEnd}
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalMarksEnd}
             
           </Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{totalEndGrade}</Box>
-          <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{totalEndGrade}</Box>
+          <Box sx={{ flex: 1 }}></Box>
         </Box>
 
         </Box>
-        <Box sx={{ flex: 2, borderRight: '1px solid black', padding: '2px 0' }}></Box>
-        <Box sx={{ flex: 1, padding: '2px 0' }}></Box>
+        <Box sx={{ flex: 2, borderRight: '1px solid black' }}></Box>
+        <Box sx={{ flex: 1 }}></Box>
       </Box>
          </Box>
       </Box>
@@ -518,10 +531,10 @@ const divisionMid = getDivisionMid(totalEndGrade);
           fontSize: '0.875rem', 
         }}
       >
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
-        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>DISCIPLINE</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>TIME MANAGEMENT</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>SMARTNESS</Box>
+        <Box sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' , fontWeight: 'bold'}}>ATTENDANCE</Box>
       </Box>
       
       {/* Last Row */}
@@ -533,10 +546,10 @@ const divisionMid = getDivisionMid(totalEndGrade);
           textAlign: 'center',
         }}
       >
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.discipline}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.timeManagement}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.smartness}</Box>
-          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '2px 0' }}>{filteredStudent.attendanceRemarks}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.discipline}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.timeManagement}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.smartness}</Box>
+          <Box sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0' }}>{filteredStudent.attendanceRemarks}</Box>
         
         </Box>
     </Box>
@@ -639,7 +652,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
         {gradingList && gradingList.map((grading) => (
             <Box
               key={grading._id}
-              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '3px 0' }}
+              sx={{ flex: 1, borderRight: '1px solid black', borderBottom: '1px solid black', padding: '1px 0' }}
             >
               {grading.from} - {grading.to}
             </Box>
@@ -658,7 +671,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
         {gradingList && gradingList.map((grading) => (
             <Box
               key={grading._id}
-              sx={{ flex: 1, borderRight: '1px solid black', padding: '3px 0', fontWeight: 'bold' }}
+              sx={{ flex: 1, borderRight: '1px solid black', padding: '1px 0', fontWeight: 'bold' }}
             >
               {grading.grade}
             </Box>

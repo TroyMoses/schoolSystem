@@ -705,12 +705,12 @@ const divisionMid = getDivisionMid(totalGrade);
       <Box mb={2} mt={2}>
         <Typography variant="body1" >
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}>Next term begins on </span>
-          <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
             {/* {admission.child_medical_info} */}
             {  activeTerm ? activeTerm.nextTermStarts : ' '}
           </span>
           <span style={{ fontWeight: 900, fontSize: "0.9rem" }}> and ends on </span>
-          <span style={{ borderBottom: '2px dotted black', paddingRight: '10rem' }}>
+          <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' }}>
             {/* {admission.child_medical_info} */}
             {  activeTerm ? activeTerm.nextTermEnds : ' '}
           </span>
