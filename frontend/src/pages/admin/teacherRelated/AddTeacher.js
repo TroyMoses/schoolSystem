@@ -34,15 +34,38 @@ const AddTeacher = () => {
   const teachSubject = subjectDetails && subjectDetails._id
   const teachSclass = subjectDetails && subjectDetails.sclassName && subjectDetails.sclassName._id
 
-  const fields = { name, email, password, role, school, teachSubject, teachSclass }
+  // const fields = { name, email, password, role, school, teachSubject, teachSclass }
+
+  // const submitHandler = (event) => {
+  //   event.preventDefault()
+  //   setLoader(true)
+  //   dispatch(registerUser(fields, role))
+
+  //   console.log("fiels: ", fields)
+  // }
 
   const submitHandler = (event) => {
-    event.preventDefault()
-    setLoader(true)
-    dispatch(registerUser(fields, role))
+    event.preventDefault();
+    if (name === "") {
+      setMessage("Please Enter the Name");
+      setShowPopup(true);
+    } else {
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", name);
+      formDataToSend.append("email", email);
+      formDataToSend.append("password", password);
+      formDataToSend.append("role", role);
+      formDataToSend.append("school", school);
+      formDataToSend.append("teachSubject", teachSubject);
+      formDataToSend.append("teachSclass", teachSclass);
+      
+      setLoader(true);
+      dispatch(registerUser(formDataToSend, role));
+      
+      console.log("formDataToSend: ", formDataToSend)
+    }
+  };
 
-    console.log("fiels: ", fields)
-  }
   
 
   useEffect(() => {
