@@ -134,7 +134,8 @@ console.log(filteredStudent)
 
 
 // Function to calculate the total agg for mid
-const totalGrade = results.reduce((total, result) => {
+const totalGrade = results.length >= 4
+? results.slice(0, 4).reduce((total, result) => {
   const grade = result.marksObtained !== null && result.marksObtained !== undefined
     ? gradingList?.find(
         (grading) =>
@@ -146,10 +147,12 @@ const totalGrade = results.reduce((total, result) => {
   const numericGrade = grade.match(/\d+/)?.[0] || 0;  // Default to 0 if no digits found
 
   return total + Number(numericGrade);
-}, 0);
+}, 0)
+: '';
 
 // Calculate total numeric grades for end-term
-const totalEndGrade = filteredStudent.endExamResult.reduce((total, result) => {
+const totalEndGrade = filteredStudent.endExamResult.length >= 4
+? filteredStudent.endExamResult.slice(0, 4).reduce((total, result) => {
   const endExamGrade = result?.marksObtained !== null && result?.marksObtained !== undefined
     ? gradingList?.find(
         (grading) =>
@@ -160,7 +163,8 @@ const totalEndGrade = filteredStudent.endExamResult.reduce((total, result) => {
   // Extract numeric part from the grade
   const numericGrade = parseInt(endExamGrade.replace(/[^\d]/g, ''), 10);
   return total + (numericGrade || 0);
-}, 0);
+}, 0)
+: null;
 
 const getClassTeacherComment = (totalEndGrade) => {
   // Assuming you have the comments in the format: [{ from: 0, to: 50, comment: '...' }, ...]
