@@ -485,7 +485,9 @@ const divisionMid = getDivisionMid(totalGrade);
               <Box key={result._id + 'col6'} sx={{ flex: 1 }}>
                 {teacher ? teacher.name.split(' ')
                   .map((name) => name.charAt(0).toUpperCase())
-                  .join(teacher.name.split(' ').length > 2 ? '.' : '') + '.' : ''}
+                  .join('.') // Join the initials with dots
+                   : ''
+          }
               </Box>
             </Box>
           );
