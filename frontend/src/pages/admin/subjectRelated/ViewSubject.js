@@ -459,13 +459,12 @@ const ViewSubject = () => {
           motMarksSubmitHandler(e, row.id)
         }
         }>
-        <input
+        {/* <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             type="text"
             placeholder="Marks"
-            value={marksByStudent[row.id] || ""} // Use specific student's marks
-            // value={marksObtained}
+            value={marksByStudent[row.id] || ""} 
             inputMode="numeric"
             pattern="[0-9]*"
             onFocus={handleFocus}
@@ -474,7 +473,29 @@ const ViewSubject = () => {
             required
             tabIndex={0}
             autoFocus
-          />
+          /> */}
+          <select
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={marksByStudent[row.id] || ""}
+            onChange={handleChange}
+            required
+            autoFocus
+            inputMode="numeric"
+            pattern="[0-9]*"
+            min="0" // Set the minimum value to 0 or any other appropriate minimum
+            step="1"
+            max="100"
+            onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+          >
+            <option value="" >Marks</option>
+            {options.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
           <button
             className="registerButton"
             type="submit"
@@ -545,22 +566,28 @@ const ViewSubject = () => {
         }
 
         }>
-        <input
-            ref={inputRef}
+        <select
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            type="text"
-            placeholder="Marks"
-            value={marksByStudent[row.id] || ""} // Use specific student's marks
-            // value={marksObtained}
+            value={marksByStudent[row.id] || ""}
+            onChange={handleChange}
+            required
+            autoFocus
             inputMode="numeric"
             pattern="[0-9]*"
+            min="0" // Set the minimum value to 0 or any other appropriate minimum
+            step="1"
+            max="100"
             onFocus={handleFocus}
-            onChange={handleChange}
             onKeyDown={handleKeyDown}
-            required
             tabIndex={0}
-            autoFocus
-          />
+          >
+            <option value="" >Marks</option>
+            {options.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
           <button
             className="registerButton"
             type="submit"
