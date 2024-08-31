@@ -7,6 +7,7 @@ import { Paper, Box, Typography, ButtonGroup, Button, Popper, Grow, ClickAwayLis
 import { BlackButton, BlueButton} from "../../components/buttonStyles";
 import TableTemplate from "../../components/TableTemplate";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { updateStudentFields } from "../../redux/studentRelated/studentHandle"
 
 const TeacherClassDetails = () => {
     const navigate = useNavigate()
@@ -87,12 +88,17 @@ const TeacherClassDetails = () => {
     })
 
     const StudentsButtonHaver = ({ row }) => {
+        const [focusedRowId, setFocusedRowId] = useState(null);
         // const options = ['Take Attendance', 'Provide Marks'];
         const options = Array.from({ length: 101 }, (_, i) => i);
 
         const [open, setOpen] = React.useState(false);
         const anchorRef = React.useRef(null);
         const [selectedIndex, setSelectedIndex] = React.useState(0);
+
+        const handleFocus = () => {
+            setFocusedRowId(row.id);
+          };
 
         // const handleClick = () => {
         //     console.info(`You clicked ${options[selectedIndex]}`);
@@ -150,7 +156,8 @@ const TeacherClassDetails = () => {
                         min="0" // Set the minimum value to 0 or any other appropriate minimum
                         step="1"
                         max="100"
-                        // onFocus={handleFocus}
+                        onFocus={handleFocus}
+                        // onKeyDown={handleKeyDown}
                         tabIndex={0}
                     >
                         <option value="" >Marks</option>
