@@ -13,6 +13,7 @@ import { calculateOverallAttendancePercentage, calculateSubjectAttendancePercent
 import CustomBarChart from '../../../components/CustomBarChart'
 import CustomPieChart from '../../../components/CustomPieChart'
 import { StyledTableCell, StyledTableRow } from '../../../components/styles';
+import { TableCell, TableContainer, TableRow } from '@mui/material';
 
 import InsertChartIcon from '@mui/icons-material/InsertChart';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
@@ -96,6 +97,7 @@ const ViewStudent = () => {
             setSubjectAttendance(userDetails.attendance || []);
         }
     }, [userDetails]);
+    console.log("User Details:" , userDetails)
 
     const submitHandler = (event) => {
         event.preventDefault()
@@ -396,20 +398,65 @@ const ViewStudent = () => {
         )
     }
 
+
     const StudentDetailsSection = () => {
         return (
             <div>
-                <span style={{ fontWeight: 'bold' }}>Name:</span> {userDetails.name}
-                <br />
-                <span style={{ fontWeight: 'bold' }}>Lin Number:</span> {userDetails.rollNum}
-                <br />
-                <span style={{ fontWeight: 'bold' }}>Gender:</span> {userDetails.gender}
-                <br />
-                <span style={{ fontWeight: 'bold' }}>Password:</span> {userDetails.password}
-                <br />
-                <span style={{ fontWeight: 'bold' }}>Class:</span> {sclassName.sclassName}
-                <br />
-                <span style={{ fontWeight: 'bold' }}>School:</span> {studentSchool.schoolName}
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                {/* Image on the left covering all columns */}
+                <Box
+                    sx={{
+                    width: '150px', // Adjust the width as needed
+                    height: '150px',
+                    border: '2px solid red',
+                    mr: 2,
+                    }}
+                >
+                    <img
+                    src={userDetails.photo}
+                    alt={userDetails.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} // Ensure the image fits the box
+                    />
+                </Box>
+
+                {/* User details on the right */}
+                <Box sx={{ flex: 1 }}>
+                    <span style={{ fontWeight: 'bold' }}>Name:</span> {userDetails.name}
+                    <br />
+                    <span style={{ fontWeight: 'bold' }}>Lin Number:</span> {userDetails.rollNum}
+                    <br />
+                    <span style={{ fontWeight: 'bold' }}>Gender:</span> {userDetails.gender}
+                    <br />
+                    <span style={{ fontWeight: 'bold' }}>Password:</span> {userDetails.password}
+                    <br />
+                    <span style={{ fontWeight: 'bold' }}>Class:</span> {sclassName.sclassName}
+                    <br />
+                    <span style={{ fontWeight: 'bold' }}>School:</span> {studentSchool.schoolName}
+                </Box>
+                
+                </Box>
+                {/* Table for Conduct */}
+
+                <h3>{userDetails.name}'s General Conducts:</h3>
+                    <Table>
+                        <TableHead>
+                            <StyledTableRow>
+                                <StyledTableCell>Discipline</StyledTableCell>
+                                <StyledTableCell>Time Management</StyledTableCell>
+                                <StyledTableCell>Smartness</StyledTableCell>
+                                <StyledTableCell>Attendance</StyledTableCell>
+                            </StyledTableRow>
+                        </TableHead>
+                        <TableBody>
+                            <StyledTableRow >
+                                <StyledTableCell>{userDetails.discipline}</StyledTableCell>
+                                <StyledTableCell>{userDetails.timeManagement}</StyledTableCell>
+                                <StyledTableCell>{userDetails.smartness}</StyledTableCell>
+                                <StyledTableCell>{userDetails.attendance}</StyledTableCell>
+                            </StyledTableRow>
+                        </TableBody>
+                    </Table>
+
                 {
                     subjectAttendance && Array.isArray(subjectAttendance) && subjectAttendance.length > 0 && (
                         <CustomPieChart data={chartData} />
@@ -417,6 +464,9 @@ const ViewStudent = () => {
                 }
                 <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
                     Delete
+                </Button>
+                <Button variant="outlined" onClick={() => navigate(-1)}>
+                    BACK
                 </Button>
                 <br />
                 {/* <Button variant="contained" sx={styles.styledButton} className="show-tab" onClick={() => { setShowTab(!showTab) }}>
