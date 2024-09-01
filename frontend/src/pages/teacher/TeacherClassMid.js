@@ -51,8 +51,7 @@ const TeacherClassMid = () => {
   };
   
 
-    // Example of calling the handler for "bot"
-    const botMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "bot");
+    const motMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "mot");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -77,20 +76,20 @@ const TeacherClassMid = () => {
     const studentColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "markObtained", label: "Marks For BOT", minWidth: 170 },
+        { id: "midObtained", label: "Marks For MOT", minWidth: 170 },
         // { id: "midObtained", label: "Marks For MID", minWidth: 170 },
         // { id: "endObtained", label: "Marks For EOT", minWidth: 170 },
        
     ]
 
     const studentRows = sclassStudents.map((student) => {
-        const botExam = student.botExamResult.find(exam => exam.subName === subjectID);
+        const midExam = student.midExamResult.find(exam => exam.subName === subjectID);
 
-        const marks = botExam ? botExam.marksObtained : "";
+        const mid = midExam ? midExam.marksObtained : "";
         return {
             rollNum: student.rollNum,
             name: student.name,
-            markObtained: marks,
+            midObtained: mid,
             id: student._id,
         };
     })
@@ -172,7 +171,7 @@ const TeacherClassMid = () => {
             <>
             <form onSubmit={(e) => {
           // setExamsSession("bot");
-                    botMarksSubmitHandler(e, row.id)
+                    motMarksSubmitHandler(e, row.id)
                     }
                     }>
                     
