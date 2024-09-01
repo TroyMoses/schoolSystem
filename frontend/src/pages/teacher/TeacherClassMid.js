@@ -9,7 +9,7 @@ import TableTemplate from "../../components/TableTemplate";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { updateStudentFields } from "../../redux/studentRelated/studentHandle"
 
-const TeacherClassDetails = () => {
+const TeacherClassMid = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { sclassStudents, loading, error, getresponse } = useSelector((state) => state.sclass);
@@ -303,7 +303,7 @@ const TeacherClassDetails = () => {
                     ) : (
                         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                             <Typography variant="h5" gutterBottom>
-                                Students List:  B.O.T
+                                Students List:  M.O.T
                             </Typography>
 
                             {Array.isArray(sclassStudents) && sclassStudents.length > 0 &&
@@ -317,4 +317,4 @@ const TeacherClassDetails = () => {
     );
 };
 
-export default TeacherClassDetails;
+export default TeacherClassMid;

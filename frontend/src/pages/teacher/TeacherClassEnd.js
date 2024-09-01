@@ -9,7 +9,7 @@ import TableTemplate from "../../components/TableTemplate";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import { updateStudentFields } from "../../redux/studentRelated/studentHandle"
 
-const TeacherClassDetails = () => {
+const TeacherClassEnd = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
     const { sclassStudents, loading, error, getresponse } = useSelector((state) => state.sclass);
@@ -51,8 +51,8 @@ const TeacherClassDetails = () => {
   };
   
 
-    // Example of calling the handler for "bot"
-    const botMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "bot");
+    // Example of calling the handler for "eot"
+   const endMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "eot");
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -77,20 +77,20 @@ const TeacherClassDetails = () => {
     const studentColumns = [
         { id: 'rollNum', label: 'Lin Number', minWidth: 100 },
         { id: 'name', label: 'Name', minWidth: 170 },
-        { id: "markObtained", label: "Marks For BOT", minWidth: 170 },
+        { id: "endObtained", label: "Marks For EOT", minWidth: 170 },
         // { id: "midObtained", label: "Marks For MID", minWidth: 170 },
         // { id: "endObtained", label: "Marks For EOT", minWidth: 170 },
        
     ]
 
     const studentRows = sclassStudents.map((student) => {
-        const botExam = student.botExamResult.find(exam => exam.subName === subjectID);
+        const endExam = student.endExamResult.find(exam => exam.subName === subjectID);
 
-        const marks = botExam ? botExam.marksObtained : "";
+        const end = endExam ? endExam.marksObtained : "";
         return {
             rollNum: student.rollNum,
             name: student.name,
-            markObtained: marks,
+            endObtained: end,
             id: student._id,
         };
     })
@@ -172,7 +172,7 @@ const TeacherClassDetails = () => {
             <>
             <form onSubmit={(e) => {
           // setExamsSession("bot");
-                    botMarksSubmitHandler(e, row.id)
+                    endMarksSubmitHandler(e, row.id)
                     }
                     }>
                     
@@ -303,7 +303,7 @@ const TeacherClassDetails = () => {
                     ) : (
                         <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                             <Typography variant="h5" gutterBottom>
-                                Students List:  B.O.T
+                                Students List:  E.O.T
                             </Typography>
 
                             {Array.isArray(sclassStudents) && sclassStudents.length > 0 &&
@@ -317,4 +317,4 @@ const TeacherClassDetails = () => {
     );
 };
 
-export default TeacherClassDetails;
+export default TeacherClassEnd;

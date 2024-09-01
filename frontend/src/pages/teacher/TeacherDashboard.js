@@ -23,6 +23,8 @@ import TeacherHomePage from './TeacherHomePage';
 import TeacherProfile from './TeacherProfile';
 import TeacherViewStudent from './TeacherViewStudent';
 import StudentBotExamMarks from '../admin/studentRelated/StudentBotExamMarks';
+import TeacherClassMid from './TeacherClassMid';
+import TeacherClassEnd from './TeacherClassEnd';
 
 const TeacherDashboard = () => {
     const [open, setOpen] = useState(true);
@@ -81,7 +83,9 @@ const TeacherDashboard = () => {
 
                         <Route path="/Teacher/complain" element={<TeacherComplain />} />
 
-                        <Route path="/Teacher/class" element={<TeacherClassDetails />} />
+                        <Route path="/Teacher/class" element={<TeacherClassDetails situation="Subject"/>} />
+                        <Route path="/Teacher/classMid" element={<TeacherClassMid situation="Subject"/>} />
+                        <Route path="/Teacher/classEnd" element={<TeacherClassEnd situation="Subject"/>} />
                         <Route path="/Teacher/class/student/:id" element={<TeacherViewStudent />} />
 
                         <Route path="/Teacher/class/student/attendance/:studentID/:subjectID" element={<StudentAttendance situation="Subject" />} />
