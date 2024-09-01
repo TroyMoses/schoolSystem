@@ -58,6 +58,14 @@ const TeacherClassDetails = () => {
         setValue(newValue);
     };
 
+    const handleMarksChange = (studentId, value) => {
+        setMarksByStudent(prevMarks => ({
+          ...prevMarks,
+          [studentId]: value,
+        }));
+      };
+    
+
     useEffect(() => {
         dispatch(getClassStudents(classID));
     }, [dispatch, classID])
@@ -88,6 +96,7 @@ const TeacherClassDetails = () => {
     })
 
     const StudentsButtonHaver = ({ row }) => {
+        const inputRef = useRef(null);
         const [focusedRowId, setFocusedRowId] = useState(null);
         // const options = ['Take Attendance', 'Provide Marks'];
         const options = Array.from({ length: 101 }, (_, i) => i);
@@ -99,6 +108,28 @@ const TeacherClassDetails = () => {
         const handleFocus = () => {
             setFocusedRowId(row.id);
           };
+
+         // Handle change event to update marks
+        const handleChange = (event) => {
+            const value = event.target.value;
+            if (/^\d*$/.test(value)) {
+            handleMarksChange(row.id, value);
+            }
+        };
+
+         // Manage the focus on component mount or when focusedRowId changes
+        useEffect(() => {
+            if (focusedRowId === row.id) {
+            inputRef.current?.focus();
+            }
+        }, [focusedRowId, row.id]);
+
+        // Prevent focus from shifting to other inputs
+        const handleKeyDown = (event) => {
+            if (event.key === 'Tab' || event.key === 'Enter') {
+            event.preventDefault();
+            }
+        };
 
         // const handleClick = () => {
         //     console.info(`You clicked ${options[selectedIndex]}`);
@@ -157,7 +188,7 @@ const TeacherClassDetails = () => {
                         step="1"
                         max="100"
                         onFocus={handleFocus}
-                        // onKeyDown={handleKeyDown}
+                        onKeyDown={handleKeyDown}
                         tabIndex={0}
                     >
                         <option value="" >Marks</option>
