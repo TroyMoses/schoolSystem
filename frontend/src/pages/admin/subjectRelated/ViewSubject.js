@@ -29,7 +29,8 @@ import InsertChartIcon from "@mui/icons-material/InsertChart";
 import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
-import { updateStudentFields } from "../../../redux/studentRelated/studentHandle";
+
+import { updateStudentFields } from "../../../redux/studentRelated/studentHandle"
 
 const ViewSubject = () => {
   const navigate = useNavigate();
