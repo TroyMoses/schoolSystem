@@ -627,7 +627,7 @@ const divisionMid = getDivisionMid(totalGrade);
         display: 'block', 
         borderBottom: '2px dotted black', 
         paddingRight: '1rem', 
-        marginTop: '0.5rem' 
+        marginTop: '2rem' 
       }}
     >
       {/* Signature content here */}
@@ -670,7 +670,7 @@ const divisionMid = getDivisionMid(totalGrade);
               display: 'block', 
               borderBottom: '2px dotted black', 
               paddingRight: '1rem', 
-              marginTop: '0.5rem' 
+              marginTop: '2rem' 
             }}
           >
             {/* Signature content here */}
