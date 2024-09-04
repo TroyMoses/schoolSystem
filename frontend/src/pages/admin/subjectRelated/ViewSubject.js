@@ -29,10 +29,12 @@ import InsertChartIcon from "@mui/icons-material/InsertChart";
 import InsertChartOutlinedIcon from "@mui/icons-material/InsertChartOutlined";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import TableChartOutlinedIcon from "@mui/icons-material/TableChartOutlined";
-import { updateStudentFields } from "../../../redux/studentRelated/studentHandle";
+
+import { updateStudentFields } from "../../../redux/studentRelated/studentHandle"
 
 const ViewSubject = () => {
   const navigate = useNavigate();
+  const options = Array.from({ length: 101 }, (_, i) => i);
   const params = useParams();
   const dispatch = useDispatch();
   const { subloading, subjectDetails, sclassStudents, getresponse, error } =
@@ -40,7 +42,7 @@ const ViewSubject = () => {
 
   const { classID, subjectID } = params;
   const [successMessage, setSuccessMessage] = useState("");
-  let [examsSession, setExamsSession] = useState("mot");
+  // let [examsSession, setExamsSession] = useState("mot");
 
   useEffect(() => {
     dispatch(getSubjectDetails(subjectID, "Subject"));
@@ -84,6 +86,7 @@ const ViewSubject = () => {
     const marks = botExam ? botExam.marksObtained : "";
     const mid = midExam ? midExam.marksObtained : "";
     const end = endExam ? endExam.marksObtained : "";
+    
 
     return {
       rollNum: student.rollNum,
@@ -208,25 +211,23 @@ const ViewSubject = () => {
   //   dispatch(updateStudentFields(studentId, botFields, "UpdateExamResult"));
   //   navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
   // };
-
- 
-
-  const botMarksSubmitHandler = async (event, studentId) => {
-    console.log(examsSession);
+  // Example of calling the handler for "mot"
+  const marksSubmitHandler = async (event, studentId, session) => {
+    console.log(session);
     event.preventDefault();
     setLoader(true);
     setSuccessMessage(""); // Reset the success message before submission
   
     const marksObtained = marksByStudent[studentId] || ""; // Get marks for the specific student
-    const botFields = { subName: subjectID, marksObtained, examsSession };
+    const fields = { subName: subjectID, marksObtained, examsSession: session };
   
     try {
       // Perform API call or dispatch action
-      await dispatch(updateStudentFields(studentId, botFields, "UpdateExamResult"));
-      
+      await dispatch(updateStudentFields(studentId, fields, "UpdateExamResult"));
+  
       // If successful, set the success message
       setSuccessMessage("Added/Updated Successfully");
-      
+  
       // Navigate after successful update
       navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
     } catch (error) {
@@ -237,61 +238,14 @@ const ViewSubject = () => {
       setLoader(false); // Always stop the loader
     }
   };
+  
+  const motMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "mot");
 
-  const motMarksSubmitHandler = async (event, studentId) => {
-    console.log(examsSession);
-    event.preventDefault();
-    setLoader(true);
-    setSuccessMessage(""); // Reset the success message before submission
-  
-    const marksObtained = marksByStudent[studentId] || ""; // Get marks for the specific student
-    const motFields = { subName: subjectID, marksObtained, examsSession };
-  
-    try {
-      // Perform API call or dispatch action
-      await dispatch(updateStudentFields(studentId, motFields, "UpdateExamResult"));
-      
-      // If successful, set the success message
-      setSuccessMessage("Added/Updated Successfully");
-      
-      // Navigate after successful update
-      navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
-    } catch (error) {
-      // Handle errors if needed
-      console.error("Submission failed", error);
-      // Optionally set an error message or handle error state here
-    } finally {
-      setLoader(false); // Always stop the loader
-    }
-  };
+  // Example of calling the handler for "bot"
+  const botMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "bot");
 
-  const endMarksSubmitHandler = async (event, studentId) => {
-    console.log(examsSession);
-    event.preventDefault();
-    setLoader(true);
-    setSuccessMessage(""); // Reset the success message before submission
-  
-    const marksObtained = marksByStudent[studentId] || ""; // Get marks for the specific student
-    const endFields = { subName: subjectID, marksObtained, examsSession };
-  
-    try {
-      // Perform API call or dispatch action
-      await dispatch(updateStudentFields(studentId, endFields, "UpdateExamResult"));
-      
-      // If successful, set the success message
-      setSuccessMessage("Added/Updated Successfully");
-      
-      // Navigate after successful update
-      navigate(`/Admin/subjects/subject/${classID}/${subjectID}`);
-    } catch (error) {
-      // Handle errors if needed
-      console.error("Submission failed", error);
-      // Optionally set an error message or handle error state here
-    } finally {
-      setLoader(false); // Always stop the loader
-    }
-  };
-
+  // Example of calling the handler for "eot"
+  const endMarksSubmitHandler = (event, studentId) => marksSubmitHandler(event, studentId, "eot");
 
   const handleMarksChange = (studentId, value) => {
     setMarksByStudent(prevMarks => ({
@@ -361,26 +315,33 @@ const ViewSubject = () => {
           Provide Marks
         </PurpleButton> */}
         <form onSubmit={(e) => {
-          setExamsSession("bot");
+          // setExamsSession("bot");
           botMarksSubmitHandler(e, row.id)
         }
           }>
-        <input
-            ref={inputRef}
+        
+          <select
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            type="text"
-            placeholder="Marks"
-            value={marksByStudent[row.id] || ""} // Use specific student's marks
-            // value={marksObtained}
+            value={marksByStudent[row.id] || ""}
+            onChange={handleChange}
+            required
+            autoFocus
             inputMode="numeric"
             pattern="[0-9]*"
+            min="0" // Set the minimum value to 0 or any other appropriate minimum
+            step="1"
+            max="100"
             onFocus={handleFocus}
-            onChange={handleChange}
             onKeyDown={handleKeyDown}
-            required
             tabIndex={0}
-            autoFocus
-          />
+          >
+            <option value="" >Marks</option>
+            {options.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
           <button
             className="registerButton"
             type="submit"
@@ -446,17 +407,16 @@ const ViewSubject = () => {
           Provide Marks
         </PurpleButton> */}
         <form onSubmit={(e) => {
-          setExamsSession("mot");
+          // setExamsSession("mot");
           motMarksSubmitHandler(e, row.id)
         }
         }>
-        <input
+        {/* <input
             ref={inputRef}
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             type="text"
             placeholder="Marks"
-            value={marksByStudent[row.id] || ""} // Use specific student's marks
-            // value={marksObtained}
+            value={marksByStudent[row.id] || ""} 
             inputMode="numeric"
             pattern="[0-9]*"
             onFocus={handleFocus}
@@ -465,7 +425,29 @@ const ViewSubject = () => {
             required
             tabIndex={0}
             autoFocus
-          />
+          /> */}
+          <select
+            className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            value={marksByStudent[row.id] || ""}
+            onChange={handleChange}
+            required
+            autoFocus
+            inputMode="numeric"
+            pattern="[0-9]*"
+            min="0" // Set the minimum value to 0 or any other appropriate minimum
+            step="1"
+            max="100"
+            onFocus={handleFocus}
+            onKeyDown={handleKeyDown}
+            tabIndex={0}
+          >
+            <option value="" >Marks</option>
+            {options.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
           <button
             className="registerButton"
             type="submit"
@@ -531,27 +513,33 @@ const ViewSubject = () => {
           Provide Marks
         </PurpleButton> */}
         <form onSubmit={(e) => {
-          setExamsSession("eot");
+          // setExamsSession("eot");
           endMarksSubmitHandler(e, row.id)
         }
 
         }>
-        <input
-            ref={inputRef}
+        <select
             className="marksInput border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-            type="text"
-            placeholder="Marks"
-            value={marksByStudent[row.id] || ""} // Use specific student's marks
-            // value={marksObtained}
+            value={marksByStudent[row.id] || ""}
+            onChange={handleChange}
+            required
+            autoFocus
             inputMode="numeric"
             pattern="[0-9]*"
+            min="0" // Set the minimum value to 0 or any other appropriate minimum
+            step="1"
+            max="100"
             onFocus={handleFocus}
-            onChange={handleChange}
             onKeyDown={handleKeyDown}
-            required
             tabIndex={0}
-            autoFocus
-          />
+          >
+            <option value="" >Marks</option>
+            {options.map((num) => (
+              <option key={num} value={num}>
+                {num}
+              </option>
+            ))}
+          </select>
           <button
             className="registerButton"
             type="submit"
