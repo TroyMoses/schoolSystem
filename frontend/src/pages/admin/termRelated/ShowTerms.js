@@ -102,7 +102,7 @@ const ShowTerms = () => {
     };
     return (
       <>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title="Add Students & Subjects">
             <IconButton
               onClick={handleClick}
@@ -116,7 +116,7 @@ const ShowTerms = () => {
               <SpeedDialIcon />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
