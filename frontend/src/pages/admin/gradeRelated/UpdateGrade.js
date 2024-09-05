@@ -7,6 +7,7 @@ import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import styled from "styled-components";
+import { updateGrade } from '../../../redux/userRelated/userHandle';
 import { getAllGrades } from '../../../redux/gradeRelated/gradeHandle';
 
 const UpdateGrade = () => {
@@ -26,7 +27,7 @@ const UpdateGrade = () => {
   const [to, setToName] = useState("");
   const [grade, setGradeName] = useState("");
   const [comment, setCommentName] = useState("");
-  const [commentID, setCommentID] = useState("");
+  const [gradeID, setGradeID] = useState("");
 
   // const adminID = currentUser._id
   const adminID = currentUser?._id; 
@@ -57,7 +58,7 @@ const UpdateGrade = () => {
             setToName(grading.to);
             setGradeName(grading.grade);
             setCommentName(grading.comment);
-            setCommentID(grading._id);
+            setGradeID(grading._id);
           }
     }
     }, [gradingList, id]);
@@ -80,7 +81,7 @@ const UpdateGrade = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(addGrade(fields, address))
+        dispatch(updateGrade(fields, gradeID, address))
     };
 
     useEffect(() => {
