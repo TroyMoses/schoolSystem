@@ -26,6 +26,7 @@ const UpdateHm = () => {
     const [from, setFromName] = useState("");
     const [to, setToName] = useState("");
     const [comment, setCommentName] = useState("");
+    const [commentID, setCommentID] = useState("");
     const adminID = currentUser._id
 
     const address = "HeadTeacherComment"
@@ -44,6 +45,7 @@ const UpdateHm = () => {
             setFromName(comment.from);
             setToName(comment.to);
             setCommentName(comment.comment);
+            setCommentID(comment._id);
           }
     }
     }, [HeadTeacherCommentList, id]);
@@ -58,15 +60,14 @@ const UpdateHm = () => {
         from,
         to,
         comment,
-        adminID,
+        school: adminID,
     };
 
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(updateHeadTeacherComment(fields, comment._id, address))
+        dispatch(updateHeadTeacherComment(fields, commentID, address))
     };
-
 
     useEffect(() => {
         if (status === 'added') {
