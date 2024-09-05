@@ -171,7 +171,7 @@ export const addHeadTeacherComment = (fields, address) => async (dispatch) => {
         dispatch(authError(error));
     }
 };
-// update teachers comment
+// update Head teachers comment
 export const updateHeadTeacherComment = (fields, id, address) => async (dispatch) => {
     dispatch(getRequest());
 
@@ -190,7 +190,26 @@ export const updateHeadTeacherComment = (fields, id, address) => async (dispatch
     }
 }
 
-// update teachers comment
+// update Class teachers comment
+export const updateClassTeacherComment = (fields, id, address) => async (dispatch) => {
+    dispatch(getRequest());
+
+    try {
+        const result = await axios.put(`${REACT_APP_BASE_URL}/${address}/${id}`, fields, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+        if (result.data.schoolName) {
+            dispatch(authSuccess(result.data));
+        }
+        else {
+            dispatch(doneSuccess(result.data));
+        }
+    } catch (error) {
+        dispatch(getError(error));
+    }
+}
+
+// update Grading
 export const updateGrade = (fields, id, address) => async (dispatch) => {
     dispatch(getRequest());
 

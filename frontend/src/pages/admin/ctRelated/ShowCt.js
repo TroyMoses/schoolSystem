@@ -74,10 +74,10 @@ const ShowCt = () => {
         <IconButton onClick={() => deleteHandler(row.id, "ClassTeacherComment")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
-        {/* <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/classes/class/" + row.id)}>
+        <BlueButton variant="contained"
+          onClick={() => navigate("/Admin/updatect/" + row.id)}>
           Edit
-        </BlueButton> */}
+        </BlueButton>
         <ActionMenu actions={actions} />
       </ButtonContainer>
     );

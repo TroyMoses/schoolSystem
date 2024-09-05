@@ -65,6 +65,7 @@ import ShowHm from './hmRelated/ShowHm';
 import HmDetails from './hmRelated/HmDetails';
 import UpdateTerm from './termRelated/updateTerm';
 import UpdateGrade from './gradeRelated/UpdateGrade';
+import UpdateCt from './ctRelated/updateCt';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -192,6 +193,7 @@ const AdminDashboard = () => {
                         {/* ClassTeacher */}
                         <Route path="/Admin/addct" element={<AddCt />} />
                         <Route path="/Admin/cts" element={<ShowCt />} />
+                        <Route path="/Admin/updatect/:id" element={<UpdateCt />} />
                         <Route path="/Admin/cts/class/:id" element={<CtDetails />} />
                         <Route path="/Admin/ct/addstudents/:id" element={<AddStudent situation="Ct" />} />
 
