@@ -43,6 +43,17 @@ const termList = async (req, res) => {
     }
 };
 
+const updateTerm = async (req, res) => {
+    try {
+        const result = await Term.findByIdAndUpdate(req.params.id,
+            { $set: req.body },
+            { new: true })
+        res.send(result)
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};
+
 const deleteTerm = async (req, res) => {
     try {
         const deletedTerm = await Term.findByIdAndDelete(req.params.id);

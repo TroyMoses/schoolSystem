@@ -40,7 +40,6 @@ const UpdateHm = () => {
         // Filter the list to find the comment with the matching ID
         const comment = HeadTeacherCommentList.find(comment => comment._id === id);
         setSelectedComment(comment);
-        console.log(comment);
         if (comment) {
             // Set the form fields with the fetched data
             setFromName(comment.from);

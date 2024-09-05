@@ -29,6 +29,7 @@ const UpdateTerm = () => {
     
     const { termsList, loading, error, getresponse } = useSelector((state) => state.term);
     const [selectedTerm, setSelectedTerm] = useState(null);
+    const [termID, setTermID] = useState(null);
 
     const adminID = currentUser._id;
     const address = "Term";
@@ -48,6 +49,7 @@ const UpdateTerm = () => {
             setStatus(term.status);
             setNextTermStartDate(term.nextTermStarts);
             setNextTermEndDate(term.nextTermEnds);
+            setTermID(term._id);
             }
     }
     }, [termsList, id]);
@@ -69,11 +71,11 @@ const UpdateTerm = () => {
             nextTermStarts,
             nextTermEnds,
             status,
-            adminID,
+            school: adminID,
         };
 
         setLoader(true);
-        dispatch(updateTerm(fields, term._id, address));
+        dispatch(updateTerm(fields, termID, address));
     };
 
     useEffect(() => {
