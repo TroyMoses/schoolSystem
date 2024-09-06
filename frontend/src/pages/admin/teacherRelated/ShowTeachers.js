@@ -141,6 +141,10 @@ const ShowTeachers = () => {
                                                 onClick={() => navigate("/Admin/teachers/teacher/" + row.id)}>
                                                 View
                                             </BlueButton>
+                                            <BlueButton variant="contained"
+                                                onClick={() => navigate("/Admin/updateteacher/" + row.id)}>
+                                                Edit
+                                            </BlueButton>
                                         </StyledTableCell>
                                     </StyledTableRow>
                                 );

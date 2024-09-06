@@ -67,6 +67,7 @@ import UpdateTerm from './termRelated/updateTerm';
 import UpdateGrade from './gradeRelated/UpdateGrade';
 import UpdateCt from './ctRelated/updateCt';
 import UpdateClass from './classRelated/UpdateClass';
+import UpdateTeacher from './teacherRelated/UpdateTeacher';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -201,6 +202,7 @@ const AdminDashboard = () => {
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
+                        <Route path="/Admin/updateteacher/:id" element={<UpdateTeacher />} />
                         <Route path="/Admin/teachers/teacher/:id" element={<TeacherDetails />} />
                         <Route path="/Admin/teachers/chooseclass" element={<ChooseClass situation="Teacher" />} />
                         <Route path="/Admin/teachers/choosesubject/:id" element={<ChooseSubject situation="Norm" />} />
