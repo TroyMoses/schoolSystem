@@ -5,14 +5,33 @@ import { getSubjectDetails } from "../../../redux/sclassRelated/sclassHandle";
 import Popup from "../../../components/Popup";
 import { registerUser } from "../../../redux/userRelated/userHandle";
 import { underControl } from "../../../redux/userRelated/userSlice";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
+import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
+import { updateTeacher } from '../../../redux/userRelated/userHandle';
+
 
 const UpdateTeacher = () => {
-  const params = useParams();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { id } = useParams(); 
 
-  const subjectID = params.id;
+  // const params = useParams();
+  const dispatch = useDispatch();
+
+  const userState = useSelector(state => state.user);
+  
+  const navigate = useNavigate();
+  
+  const { teachersList, loading } = useSelector((state) => state.teacher);
+  const [selectedTeacher, setSelectedTeacher] = useState(null);
+  const { currentUser } = useSelector((state) => state.user);
+
+  useEffect(() => {
+      dispatch(getAllTeachers(currentUser._id));
+  }, [currentUser._id, dispatch]);
+
+  const subjectID = id;
+
+  const adminID = currentUser?._id; 
+  const address = "Teacher"
 
   const { status, response, error } = useSelector((state) => state.user);
   const { subjectDetails } = useSelector((state) => state.sclass);
@@ -24,10 +43,26 @@ const UpdateTeacher = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [teacherID, setTeacherID] = useState("");
 
   const [showPopup, setShowPopup] = useState(false);
   const [message, setMessage] = useState("");
   const [loader, setLoader] = useState(false);
+  
+  useEffect(() => {
+    if (teachersList) {
+        // Filter the list to find the comment with the matching ID
+        const teacher = teachersList.find(teacher => teacher._id === id);
+        setSelectedTeacher(teacher);
+        if (teacher) {
+            // Set the form fields with the fetched data
+            setName(teacher.name);
+            setEmail(teacher.email);
+            setPassword(teacher.password);
+            setTeacherID(teacher._id);
+          }
+    }
+    }, [teachersList, id]);
 
   const role = "Teacher";
   const school = subjectDetails && subjectDetails.school;
@@ -46,28 +81,41 @@ const UpdateTeacher = () => {
 
   //   console.log("fiels: ", fields)
   // }
+  const fields = {
+    name,
+    email,
+    password,
+    // comment,
+    // school: adminID,
+   };
 
   const submitHandler = (event) => {
-    event.preventDefault();
-    if (name === "") {
-      setMessage("Please Enter the Name");
-      setShowPopup(true);
-    } else {
-      const formDataToSend = new FormData();
-      formDataToSend.append("name", name);
-      formDataToSend.append("email", email);
-      formDataToSend.append("password", password);
-      formDataToSend.append("role", role);
-      formDataToSend.append("school", school);
-      formDataToSend.append("teachSubject", teachSubject);
-      formDataToSend.append("teachSclass", teachSclass);
+    event.preventDefault()
+    setLoader(true)
+    dispatch(updateTeacher(fields, teacherID, address))
+};
+
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+  //   if (name === "") {
+  //     setMessage("Please Enter the Name");
+  //     setShowPopup(true);
+  //   } else {
+  //     const formDataToSend = new FormData();
+  //     formDataToSend.append("name", name);
+  //     formDataToSend.append("email", email);
+  //     formDataToSend.append("password", password);
+  //     formDataToSend.append("role", role);
+  //     formDataToSend.append("school", school);
+  //     formDataToSend.append("teachSubject", teachSubject);
+  //     formDataToSend.append("teachSclass", teachSclass);
       
-      setLoader(true);
-      dispatch(registerUser(formDataToSend, role));
+  //     setLoader(true);
+  //     dispatch(registerUser(formDataToSend, role));
       
-      console.log("formDataToSend: ", formDataToSend)
-    }
-  };
+  //     console.log("formDataToSend: ", formDataToSend)
+  //   }
+  // };
 
   useEffect(() => {
     if (status === "added") {
@@ -134,9 +182,12 @@ const UpdateTeacher = () => {
             {loader ? (
               <CircularProgress size={24} color="inherit" />
             ) : (
-              "Register"
+              "Update"
             )}
           </button>
+          <Button variant="outlined" onClick={() => navigate(-1)}>
+            Back
+          </Button>
         </form>
       </div>
       <Popup
