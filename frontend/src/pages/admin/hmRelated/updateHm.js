@@ -31,7 +31,7 @@ const UpdateHm = () => {
 
     const address = "HeadTeacherComment"
 
-    useEffect(() => {
+    useEffect(() => { 
         dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
       }, [adminID, dispatch]);
 

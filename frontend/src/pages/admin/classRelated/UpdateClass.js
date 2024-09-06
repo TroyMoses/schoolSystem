@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField } from "@mui/material";
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addStuff } from '../../../redux/userRelated/userHandle';
+import { updateClass } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
@@ -57,13 +57,13 @@ const UpdateClass = () => {
 
     const fields = {
         sclassName,
-        adminID,
+        school: adminID,
     };
 
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(addStuff(fields, address))
+        dispatch(updateClass(fields, classID, address))
     };
 
     useEffect(() => {
@@ -82,7 +82,7 @@ const UpdateClass = () => {
             setShowPopup(true)
             setLoader(false)
         }
-    }, [status, navigate, error, response, dispatch, tempDetails]);
+    }, [status, navigate, error, response, dispatch ]);
     return (
         <>
             <StyledContainer>
