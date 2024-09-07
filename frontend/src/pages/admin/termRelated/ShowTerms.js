@@ -95,9 +95,9 @@ const ShowTerms = () => {
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => handleDeleteClick(row.id, "Term")} color="secondary">
+        {/* <IconButton onClick={() => handleDeleteClick(row.id, "Term")} color="secondary">
           <DeleteIcon color="error" />
-        </IconButton>
+        </IconButton> */}
 
         {/* Confirmation Dialog */}
         <Dialog
