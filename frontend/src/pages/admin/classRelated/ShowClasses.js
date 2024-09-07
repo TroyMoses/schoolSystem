@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip , Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,11 @@ const ShowClasses = ({situation}) => {
 
   const { sclassesList, loading, error, getresponse } = useSelector((state) => state.sclass);
   const { currentUser } = useSelector(state => state.user)
+
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deleteID, setDeleteID] = useState(null);
+  const [deleteAddress, setDeleteAddress] = useState("");
+
 
   const adminID = currentUser._id
 
@@ -54,6 +59,24 @@ const ShowClasses = ({situation}) => {
       })
   }
 
+  const handleDeleteClick = (id, address) => {
+    setDeleteID(id);
+    setDeleteAddress(address);
+    setShowConfirmation(true);
+  }
+
+  const handleConfirmDelete = () => {
+    if (deleteID && deleteAddress) {
+      deleteHandler(deleteID, deleteAddress);
+      setShowConfirmation(false);  // Close the confirmation dialog
+    }
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);  // Close the confirmation dialog without deleting
+  }
+
+
   const sclassColumns = [
     { id: 'name', label: 'Class Name', minWidth: 170 },
   ]
@@ -75,9 +98,31 @@ const ShowClasses = ({situation}) => {
     
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Sclass")} color="secondary">
+        <IconButton onClick={() => handleDeleteClick(row.id, "Sclass")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
+
+        {/* Confirmation Dialog */}
+        <Dialog
+          open={showConfirmation}
+          onClose={handleCancelDelete}
+        >
+          <DialogTitle>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this Class?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmDelete} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        
         <BlueButton variant="contained"
           onClick={() => navigate("/Admin/classes/class/" + row.id)}>
           View
