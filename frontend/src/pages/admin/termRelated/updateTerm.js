@@ -15,6 +15,7 @@ const UpdateTerm = () => {
     const currentYear = dayjs().year(); // Get the current year
     const [year] = useState(currentYear); 
     const [termNames, setTermName] = useState('');
+    // const [termName, setTerm] = useState('');
     const [status, setStatus] = useState("");
     const [nextTermStarts, setNextTermStartDate] = useState('');
     const [nextTermEnds, setNextTermEndDate] = useState('');
@@ -117,7 +118,7 @@ const UpdateTerm = () => {
                             id="term-select"
                             value={termNames}
                             onChange={(event) => setTermName(event.target.value)}
-                            displayEmpty
+                            // displayEmpty
                             label="Select Term"
                             fullWidth
                         >
