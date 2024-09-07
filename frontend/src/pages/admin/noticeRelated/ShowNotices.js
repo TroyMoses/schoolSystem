@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import {
     Paper, Box, IconButton
 } from '@mui/material';
@@ -19,6 +20,10 @@ const ShowNotices = () => {
     const { noticesList, loading, error, response } = useSelector((state) => state.notice);
     const { currentUser } = useSelector(state => state.user)
 
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [deleteID, setDeleteID] = useState(null);
+    const [deleteAddress, setDeleteAddress] = useState("");
+
     useEffect(() => {
         dispatch(getAllNotices(currentUser._id, "Notice"));
     }, [currentUser._id, dispatch]);
@@ -33,6 +38,24 @@ const ShowNotices = () => {
                 dispatch(getAllNotices(currentUser._id, "Notice"));
             })
     }
+
+    const handleDeleteClick = (id, address) => {
+        setDeleteID(id);
+        setDeleteAddress(address);
+        setShowConfirmation(true);
+      }
+    
+      const handleConfirmDelete = () => {
+        if (deleteID && deleteAddress) {
+          deleteHandler(deleteID, deleteAddress);
+          setShowConfirmation(false);  // Close the confirmation dialog
+        }
+      }
+    
+      const handleCancelDelete = () => {
+        setShowConfirmation(false);  // Close the confirmation dialog without deleting
+      }
+    
 
     const noticeColumns = [
         { id: 'title', label: 'Title', minWidth: 170 },
@@ -54,9 +77,30 @@ const ShowNotices = () => {
     const NoticeButtonHaver = ({ row }) => {
         return (
             <>
-                <IconButton onClick={() => deleteHandler(row.id, "Notice")}>
+                <IconButton onClick={() => handleDeleteClick(row.id, "Notice")}>
                     <DeleteIcon color="error" />
                 </IconButton>
+                {/* Confirmation Dialog */}
+        <Dialog
+          open={showConfirmation}
+          onClose={handleCancelDelete}
+        >
+          <DialogTitle>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this Notice?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmDelete} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        
             </>
         );
     };
