@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { getAllTeachers } from '../../../redux/teacherRelated/teacherHandle';
 import {
     Paper, Table, TableBody, TableContainer,
-    TableHead, TablePagination, Button, Box, IconButton,
+    TableHead, TablePagination, Button, Box, IconButton,Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle
 } from '@mui/material';
 import TableTemplate from '../../../components/TableTemplate';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
@@ -31,6 +31,11 @@ const ShowTeachers = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
 
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [deleteID, setDeleteID] = useState(null);
+    const [deleteAddress, setDeleteAddress] = useState("");
+
+
     if (loading) {
         return <div>Loading...</div>;
     } else if (response) {
@@ -55,6 +60,24 @@ const ShowTeachers = () => {
             dispatch(getAllTeachers(currentUser._id));
         });
     };
+
+    const handleDeleteClick = (id, address) => {
+        setDeleteID(id);
+        setDeleteAddress(address);
+        setShowConfirmation(true);
+      }
+    
+      const handleConfirmDelete = () => {
+        if (deleteID && deleteAddress) {
+          deleteHandler(deleteID, deleteAddress);
+          setShowConfirmation(false);  // Close the confirmation dialog
+        }
+      }
+    
+      const handleCancelDelete = () => {
+        setShowConfirmation(false);  // Close the confirmation dialog without deleting
+      }
+    
 
     const columns = [
         { id: 'name', label: 'Teacher Name', minWidth: 170 },
@@ -134,9 +157,31 @@ const ShowTeachers = () => {
                                             );
                                         })}
                                         <StyledTableCell align="center">
-                                            <IconButton onClick={() => deleteHandler(row.id, "Teacher")}>
+                                            <IconButton onClick={() => handleDeleteClick(row.id, "Teacher")}>
                                                 <PersonRemoveIcon color="error" />
                                             </IconButton>
+
+                                            {/* Confirmation Dialog */}
+                                            <Dialog
+                                            open={showConfirmation}
+                                            onClose={handleCancelDelete}
+                                            >
+                                            <DialogTitle>Confirm Delete</DialogTitle>
+                                            <DialogContent>
+                                                <DialogContentText>
+                                                Are you sure you want to delete this Teacher?
+                                                </DialogContentText>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleCancelDelete} color="primary">
+                                                Cancel
+                                                </Button>
+                                                <Button onClick={handleConfirmDelete} color="error">
+                                                Delete
+                                                </Button>
+                                            </DialogActions>
+                                            </Dialog>
+        
                                             <BlueButton variant="contained"
                                                 onClick={() => navigate("/Admin/teachers/teacher/" + row.id)}>
                                                 View
