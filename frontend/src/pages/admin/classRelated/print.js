@@ -413,7 +413,8 @@ const divisionMid = getDivisionMid(totalGrade);
               );
               // console.log(subject)
               // Find the grade based on marksObtained for endExamResult
-            const grade = result.marksObtained !== null && result.marksObtained !== undefined
+            const grade = result.marksObtained !== null && result.marksObtained !== undefined &&
+            result.marksObtained !== 0
             ? gradingList?.find(
                 (grading) =>
                   result.marksObtained >= grading.from && result.marksObtained <= grading.to
@@ -421,14 +422,16 @@ const divisionMid = getDivisionMid(totalGrade);
             : '-'; // Display nothing if marks are null or undefined
 
             // Find the grade based on marksObtained for matchingEndExamResult
-            const endExamGrade = matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined
+            const endExamGrade = matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined &&
+            matchingEndExamResult.marksObtained !== 0
             ? gradingList?.find(
                 (grading) =>
                   matchingEndExamResult.marksObtained >= grading.from && matchingEndExamResult.marksObtained <= grading.to
               )?.grade
             : '-'; // Display nothing if marks are null or undefined
 
-            const endExamComment = matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined
+            const endExamComment = matchingEndExamResult?.marksObtained !== null && matchingEndExamResult?.marksObtained !== undefined &&
+            matchingEndExamResult.marksObtained !== 0
           ? gradingList?.find(
               (grading) =>
                 matchingEndExamResult.marksObtained >= grading.from && matchingEndExamResult.marksObtained <= grading.to
@@ -469,7 +472,8 @@ const divisionMid = getDivisionMid(totalGrade);
     
                   </Box>
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
-                  <Box sx={{ flex: 1 }}>{divisionMid}</Box>
+                  <Box sx={{ flex: 1 }}></Box>
+                  {/* <Box sx={{ flex: 1 }}>{divisionMid}</Box> */}
                 </Box>
               </Box>
               <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
@@ -483,7 +487,8 @@ const divisionMid = getDivisionMid(totalGrade);
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{endExamGrade}
 
                   </Box>
-                  <Box sx={{ flex: 1 }}>{division}</Box>
+                  <Box sx={{ flex: 1 }}></Box>
+                  {/* <Box sx={{ flex: 1 }}>{division}</Box> */}
                 </Box>
               </Box>
               <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{endExamComment}</Box>
