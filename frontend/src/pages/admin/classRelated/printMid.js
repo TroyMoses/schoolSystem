@@ -383,7 +383,8 @@ const divisionMid = getDivisionMid(totalEndGrade);
       );
       // console.log(subject)
        // Find the grade based on marksObtained for botExamResult
-    const grade = result.marksObtained !== null && result.marksObtained !== undefined
+    const grade = result.marksObtained !== null && result.marksObtained !== undefined &&
+    result.marksObtained !== 0 // Check if marksObtained is 0
     ? gradingList?.find(
         (grading) =>
           result.marksObtained >= grading.from && result.marksObtained <= grading.to
@@ -391,14 +392,16 @@ const divisionMid = getDivisionMid(totalEndGrade);
     : '-'; // Display nothing if marks are null or undefined
 
     // Find the grade based on marksObtained for matchingMidExamResult
-    const midExamGrade = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+    const midExamGrade = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined &&
+    matchingMidExamResult.marksObtained !== 0 // Check if marksObtained is 0
     ? gradingList?.find(
         (grading) =>
           matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
       )?.grade
     : '-'; // Display nothing if marks are null or undefined
 
-    const midExamComment = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined
+    const midExamComment = matchingMidExamResult?.marksObtained !== null && matchingMidExamResult?.marksObtained !== undefined &&
+    matchingMidExamResult.marksObtained !== 0 // Check if marksObtained is 0
   ? gradingList?.find(
       (grading) =>
         matchingMidExamResult.marksObtained >= grading.from && matchingMidExamResult.marksObtained <= grading.to
