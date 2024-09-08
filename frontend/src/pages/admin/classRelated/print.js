@@ -462,7 +462,10 @@ const divisionMid = getDivisionMid(totalGrade);
               <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
                 <Box display="flex" justifyContent="space-between">
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                  {result.marksObtained}
+                  {/* {result.marksObtained} */}
+                  {result.marksObtained !== null && result.marksObtained !== undefined && result.marksObtained !== 0 
+                  ? result.marksObtained 
+                  : '-'}
     
                   </Box>
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
@@ -472,8 +475,10 @@ const divisionMid = getDivisionMid(totalGrade);
               <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
                 <Box display="flex" justifyContent="space-between">
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                    {matchingEndExamResult ? matchingEndExamResult.marksObtained : ''}
-                        
+                    {/* {matchingEndExamResult ? matchingEndExamResult.marksObtained : ''} */}
+                    {matchingEndExamResult && matchingEndExamResult.marksObtained !== null && matchingEndExamResult.marksObtained !== undefined && matchingEndExamResult.marksObtained !== 0 
+                    ? matchingEndExamResult.marksObtained 
+                    : '-'}
                   </Box>
                   <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{endExamGrade}
 

@@ -432,10 +432,11 @@ const divisionMid = getDivisionMid(totalEndGrade);
           <Box key={result._id + 'col2'} sx={{ flex: 1, borderRight: '1px solid black' }}>100</Box>
           <Box key={result._id + 'col3'} sx={{ flex: 2, borderRight: '1px solid black' }}>
             <Box display="flex" justifyContent="space-between">
-              <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
-                {result.marksObtained}
-
-              </Box>
+            <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
+              {result.marksObtained !== null && result.marksObtained !== undefined && result.marksObtained !== 0 
+                ? result.marksObtained 
+                : '-'}
+            </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
               <Box sx={{ flex: 1 }}></Box>
               {/* <Box sx={{ flex: 1 }}>{division}</Box> */}
@@ -446,8 +447,9 @@ const divisionMid = getDivisionMid(totalEndGrade);
             <Box display="flex" justifyContent="space-between">
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>
                 {/* {matchingMidExamResult.marksObtained} */}
-                {matchingMidExamResult ? matchingMidExamResult.marksObtained : ''}
-                    
+                {matchingMidExamResult && matchingMidExamResult.marksObtained !== null && matchingMidExamResult.marksObtained !== undefined && matchingMidExamResult.marksObtained !== 0 
+                ? matchingMidExamResult.marksObtained 
+                : '-'} 
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
               <Box sx={{ flex: 1 }}></Box>
