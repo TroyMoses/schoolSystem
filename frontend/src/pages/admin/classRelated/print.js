@@ -326,7 +326,7 @@ const divisionMid = getDivisionMid(totalGrade);
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>  
+                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', color: 'red',}}>  
                            {division}
                         </span>
           </Typography>

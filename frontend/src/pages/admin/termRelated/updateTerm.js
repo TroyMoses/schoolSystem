@@ -118,7 +118,7 @@ const UpdateTerm = () => {
                             id="term-select"
                             value={termNames}
                             onChange={(event) => setTermName(event.target.value)}
-                            // displayEmpty
+                            displayEmpty
                             label="Select Term"
                             fullWidth
                         >

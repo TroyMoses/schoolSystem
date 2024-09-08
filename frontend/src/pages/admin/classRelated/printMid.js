@@ -296,7 +296,7 @@ const divisionMid = getDivisionMid(totalEndGrade);
                         </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' }}>
-                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '4rem',textTransform: 'uppercase',  }}> 
+                    <span style={{ fontWeight: 900 }}>  DIV:  </span><span style={{ borderBottom: '2px dotted black', paddingRight: '4rem',textTransform: 'uppercase', color: 'red', }}> 
                     {divisionMid}
                         </span>
           </Typography>
@@ -437,7 +437,9 @@ const divisionMid = getDivisionMid(totalEndGrade);
 
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{grade}</Box>
-              <Box sx={{ flex: 1 }}>{division}</Box>
+              <Box sx={{ flex: 1 }}></Box>
+              {/* <Box sx={{ flex: 1 }}>{division}</Box> */}
+              
             </Box>
           </Box>
           <Box sx={{ flex: 2, borderRight: '1px solid black' }}>
@@ -448,7 +450,8 @@ const divisionMid = getDivisionMid(totalEndGrade);
                     
               </Box>
               <Box sx={{ flex: 1, borderRight: '1px solid black' }}>{midExamGrade}</Box>
-              <Box sx={{ flex: 1 }}>{divisionMid}</Box>
+              <Box sx={{ flex: 1 }}></Box>
+              {/* <Box sx={{ flex: 1 }}>{divisionMid}</Box> */}
             </Box>
           </Box>
           <Box key={result._id + 'col5'} sx={{ flex: 2 ,borderRight: '1px solid black'}}>{midExamComment}</Box>
