@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip , Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button} from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -36,6 +36,10 @@ const ShowCt = () => {
   // const [message, setMessage] = useState("");
   const [message ] = useState("");
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deleteID, setDeleteID] = useState(null);
+  const [deleteAddress, setDeleteAddress] = useState("");
+
   const deleteHandler = (deleteID, address) => {
     // console.log(deleteID);
     // console.log(address);
@@ -46,6 +50,24 @@ const ShowCt = () => {
         dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
       })
   }
+
+  const handleDeleteClick = (id, address) => {
+    setDeleteID(id);
+    setDeleteAddress(address);
+    setShowConfirmation(true);
+  }
+
+  const handleConfirmDelete = () => {
+    if (deleteID && deleteAddress) {
+      deleteHandler(deleteID, deleteAddress);
+      setShowConfirmation(false);  // Close the confirmation dialog
+    }
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);  // Close the confirmation dialog without deleting
+  }
+
 
   const ClassTeacherCommentColumns = [
     { id: 'from', label: 'From', minWidth: 170 },
@@ -71,13 +93,36 @@ const ShowCt = () => {
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "ClassTeacherComment")} color="secondary">
+        <IconButton onClick={() => handleDeleteClick(row.id, "ClassTeacherComment")} color="secondary">
           <DeleteIcon color="error" />
         </IconButton>
-        {/* <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/classes/class/" + row.id)}>
+
+        {/* Confirmation Dialog */}
+        <Dialog
+          open={showConfirmation}
+          onClose={handleCancelDelete}
+        >
+          <DialogTitle>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this Class Teacher's Comment?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmDelete} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        
+
+        <BlueButton variant="contained"
+          onClick={() => navigate("/Admin/updatect/" + row.id)}>
           Edit
-        </BlueButton> */}
+        </BlueButton>
         <ActionMenu actions={actions} />
       </ButtonContainer>
     );

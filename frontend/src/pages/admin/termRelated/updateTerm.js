@@ -15,6 +15,7 @@ const UpdateTerm = () => {
     const currentYear = dayjs().year(); // Get the current year
     const [year] = useState(currentYear); 
     const [termNames, setTermName] = useState('');
+    // const [termName, setTerm] = useState('');
     const [status, setStatus] = useState("");
     const [nextTermStarts, setNextTermStartDate] = useState('');
     const [nextTermEnds, setNextTermEndDate] = useState('');

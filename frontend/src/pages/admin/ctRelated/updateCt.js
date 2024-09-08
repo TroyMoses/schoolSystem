@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, CircularProgress, Stack, TextField, Typography } from "@mui/material";
 import { useNavigate , useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateHeadTeacherComment } from '../../../redux/userRelated/userHandle';
+import { updateClassTeacherComment } from '../../../redux/userRelated/userHandle';
 import { underControl } from '../../../redux/userRelated/userSlice';
 import { BlueButton } from "../../../components/buttonStyles";
 import Popup from "../../../components/Popup";
 import styled from "styled-components";
-import { getAllHeadTeacherComment } from '../../../redux/hmRelated/hmHandle';
+import { getAllClassTeacherComment } from '../../../redux/ctRelated/ctHandle';
 
-const UpdateHm = () => {
+const UpdateCt = () => {
     // const [sclassName, setSclassName] = useState("");
     // const [sclassName ] = useState("");
     const { id } = useParams(); 
@@ -20,8 +20,9 @@ const UpdateHm = () => {
     const userState = useSelector(state => state.user);
     const { status, currentUser, response, error} = userState;
 
-    const { HeadTeacherCommentList, loading, getresponse } = useSelector((state) => state.HeadTeacherComment);
+    const { ClassTeacherCommentList, loading, getresponse } = useSelector((state) => state.ClassTeacherComment);
     const [selectedComment, setSelectedComment] = useState(null);
+
 
     const [from, setFromName] = useState("");
     const [to, setToName] = useState("");
@@ -29,16 +30,16 @@ const UpdateHm = () => {
     const [commentID, setCommentID] = useState("");
     const adminID = currentUser._id
 
-    const address = "HeadTeacherComment"
+    const address = "ClassTeacherComment"
 
-    useEffect(() => { 
-        dispatch(getAllHeadTeacherComment(adminID, "HeadTeacherComment"));
+    useEffect(() => {
+        dispatch(getAllClassTeacherComment(adminID, "ClassTeacherComment"));
       }, [adminID, dispatch]);
 
     useEffect(() => {
-    if (HeadTeacherCommentList) {
+    if (ClassTeacherCommentList) {
         // Filter the list to find the comment with the matching ID
-        const comment = HeadTeacherCommentList.find(comment => comment._id === id);
+        const comment = ClassTeacherCommentList.find(comment => comment._id === id);
         setSelectedComment(comment);
         if (comment) {
             // Set the form fields with the fetched data
@@ -46,11 +47,12 @@ const UpdateHm = () => {
             setToName(comment.to);
             setCommentName(comment.comment);
             setCommentID(comment._id);
+            
           }
     }
-    }, [HeadTeacherCommentList, id]);
+    }, [ClassTeacherCommentList, id]);
 
-    // console.log(selectedComment)
+
 
     const [loader, setLoader] = useState(false)
     const [message, setMessage] = useState("");
@@ -66,7 +68,7 @@ const UpdateHm = () => {
     const submitHandler = (event) => {
         event.preventDefault()
         setLoader(true)
-        dispatch(updateHeadTeacherComment(fields, commentID, address))
+        dispatch(updateClassTeacherComment(fields, commentID, address))
     };
 
     useEffect(() => {
@@ -146,7 +148,7 @@ const UpdateHm = () => {
     )
 }
 
-export default UpdateHm
+export default UpdateCt
 
 const StyledContainer = styled(Box)`
   flex: 1 1 auto;

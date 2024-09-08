@@ -60,6 +60,7 @@ const ViewStudent = () => {
 
     const [showPopup, setShowPopup] = useState(false);
     const [message, setMessage] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleOpen = (subId) => {
         setOpenStates((prevState) => ({
@@ -77,6 +78,10 @@ const ViewStudent = () => {
     const [selectedSection, setSelectedSection] = useState('table');
     const handleSectionChange = (event, newSection) => {
         setSelectedSection(newSection);
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     const fields = password === ""
@@ -462,9 +467,9 @@ const ViewStudent = () => {
                         <CustomPieChart data={chartData} />
                     )
                 }
-                <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
+                {/* <Button variant="contained" sx={styles.styledButton} onClick={deleteHandler}>
                     Delete
-                </Button>
+                </Button> */}
                 <Button variant="outlined" onClick={() => navigate(-1)}>
                     BACK
                 </Button>

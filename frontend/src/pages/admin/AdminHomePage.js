@@ -11,12 +11,14 @@ import { useEffect } from 'react';
 import { getAllSclasses } from '../../redux/sclassRelated/sclassHandle';
 import { getAllStudents } from '../../redux/studentRelated/studentHandle';
 import { getAllTeachers } from '../../redux/teacherRelated/teacherHandle';
+import { getAllTerms } from '../../redux/termRelated/termHandle';
 
 const AdminHomePage = () => {
     const dispatch = useDispatch();
     const { studentsList } = useSelector((state) => state.student);
     const { sclassesList } = useSelector((state) => state.sclass);
     const { teachersList } = useSelector((state) => state.teacher);
+    const { termsList } = useSelector((state) => state.term);
 
     const { currentUser } = useSelector(state => state.user)
 
@@ -31,6 +33,7 @@ const AdminHomePage = () => {
     const numberOfStudents = studentsList && studentsList.length;
     const numberOfClasses = sclassesList && sclassesList.length;
     const numberOfTeachers = teachersList && teachersList.length;
+    const numberOfTerms = termsList && termsList.length;
 
     return (
         <>
@@ -94,9 +97,9 @@ const AdminHomePage = () => {
                             >
                             <img src={Fees} alt="Fees" />
                             <Title>
-                                Fees Collection
+                                Total Terms
                             </Title>
-                            <Data start={0} end={23000} duration={2.5} prefix="$" />  
+                            <Data start={0} end={numberOfTerms} duration={2.5} prefix="" />  
                             </StyledPaper>                      </StyledPaper>
                     </Grid>
                     <Grid item xs={12} md={12} lg={12}>

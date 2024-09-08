@@ -126,7 +126,7 @@ const ShowGrades = () => {
         </Dialog>
         
         <BlueButton variant="contained"
-          onClick={() => navigate("/Admin/classes/class/" + row.id)}>
+          onClick={() => navigate("/Admin/UpdateGrade/" + row.id)}>
           Edit
         </BlueButton>
         <ActionMenu actions={actions} />

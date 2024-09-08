@@ -64,6 +64,10 @@ import UpdateHm from './hmRelated/updateHm';
 import ShowHm from './hmRelated/ShowHm';
 import HmDetails from './hmRelated/HmDetails';
 import UpdateTerm from './termRelated/updateTerm';
+import UpdateGrade from './gradeRelated/UpdateGrade';
+import UpdateCt from './ctRelated/updateCt';
+import UpdateClass from './classRelated/UpdateClass';
+import UpdateTeacher from './teacherRelated/UpdateTeacher';
 
 const AdminDashboard = () => {
     const [open, setOpen] = useState(false);
@@ -153,6 +157,7 @@ const AdminDashboard = () => {
 
                         {/* Class */}
                         <Route path="/Admin/addclass" element={<AddClass />} />
+                        <Route path="/Admin/updateclass/:id" element={<UpdateClass />} />
                         <Route path="/Admin/classes" element={<ShowClasses situation="Teacher"/>} />
                         <Route path="/Admin/classes/class/:id" element={<ClassDetails />} />
                         <Route path="/Admin/classes/print/:classID/:subjectID/:id" element={<Prints />} />
@@ -177,6 +182,7 @@ const AdminDashboard = () => {
                         {/* Grade */}
                         <Route path="/Admin/addgrade" element={<AddGrade />} />
                         <Route path="/Admin/grades" element={<ShowGrades />} />
+                        <Route path="/Admin/UpdateGrade/:id" element={<UpdateGrade />} />
                         <Route path="/Admin/grades/class/:id" element={<GradeDetails />} />
                         <Route path="/Admin/grade/addstudents/:id" element={<AddStudent situation="Grade" />} />
 
@@ -190,11 +196,13 @@ const AdminDashboard = () => {
                         {/* ClassTeacher */}
                         <Route path="/Admin/addct" element={<AddCt />} />
                         <Route path="/Admin/cts" element={<ShowCt />} />
+                        <Route path="/Admin/updatect/:id" element={<UpdateCt />} />
                         <Route path="/Admin/cts/class/:id" element={<CtDetails />} />
                         <Route path="/Admin/ct/addstudents/:id" element={<AddStudent situation="Ct" />} />
 
                         {/* Teacher */}
                         <Route path="/Admin/teachers" element={<ShowTeachers />} />
+                        <Route path="/Admin/updateteacher/:id" element={<UpdateTeacher />} />
                         <Route path="/Admin/teachers/teacher/:id" element={<TeacherDetails />} />
                         <Route path="/Admin/teachers/chooseclass" element={<ChooseClass situation="Teacher" />} />
                         <Route path="/Admin/teachers/choosesubject/:id" element={<ChooseSubject situation="Norm" />} />

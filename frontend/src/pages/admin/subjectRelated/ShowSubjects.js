@@ -5,7 +5,7 @@ import { getSubjectList } from '../../../redux/sclassRelated/sclassHandle';
 import { deleteUser } from '../../../redux/userRelated/userHandle';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import {
-    Paper, Box, IconButton,
+    Paper, Box, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button
 } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import TableTemplate from '../../../components/TableTemplate';
@@ -18,6 +18,11 @@ const ShowSubjects = () => {
     const dispatch = useDispatch();
     const { subjectsList, loading, error, response } = useSelector((state) => state.sclass);
     const { currentUser } = useSelector(state => state.user)
+
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [deleteID, setDeleteID] = useState(null);
+    const [deleteAddress, setDeleteAddress] = useState("");
+
 
     useEffect(() => {
         dispatch(getSubjectList(currentUser._id, "AllSubjects"));
@@ -42,6 +47,24 @@ const ShowSubjects = () => {
             })
     }
 
+    const handleDeleteClick = (id, address) => {
+        setDeleteID(id);
+        setDeleteAddress(address);
+        setShowConfirmation(true);
+      }
+    
+      const handleConfirmDelete = () => {
+        if (deleteID && deleteAddress) {
+          deleteHandler(deleteID, deleteAddress);
+          setShowConfirmation(false);  // Close the confirmation dialog
+        }
+      }
+    
+      const handleCancelDelete = () => {
+        setShowConfirmation(false);  // Close the confirmation dialog without deleting
+      }
+    
+
     const subjectColumns = [
         { id: 'subName', label: 'Sub Name', minWidth: 170 },
         { id: 'sessions', label: 'Sessions', minWidth: 170 },
@@ -61,9 +84,31 @@ const ShowSubjects = () => {
     const SubjectsButtonHaver = ({ row }) => {
         return (
             <>
-                <IconButton onClick={() => deleteHandler(row.id, "Subject")}>
+                <IconButton onClick={() => handleDeleteClick(row.id, "Subject")}>
                     <DeleteIcon color="error" />
                 </IconButton>
+
+                {/* Confirmation Dialog */}
+                <Dialog
+                open={showConfirmation}
+                onClose={handleCancelDelete}
+                >
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                    Are you sure you want to delete this Subject?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleCancelDelete} color="primary">
+                    Cancel
+                    </Button>
+                    <Button onClick={handleConfirmDelete} color="error">
+                    Delete
+                    </Button>
+                </DialogActions>
+                </Dialog>
+        
                 <BlueButton variant="contained"
                     onClick={() => navigate(`/Admin/subjects/subject/${row.sclassID}/${row.id}`)}>
                     View

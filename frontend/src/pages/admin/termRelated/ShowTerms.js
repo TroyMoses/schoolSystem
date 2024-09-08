@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip } from '@mui/material';
+import { IconButton, Box, Menu, MenuItem, ListItemIcon, Tooltip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +26,11 @@ const ShowTerms = () => {
 
   const adminID = currentUser._id
 
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deleteID, setDeleteID] = useState(null);
+  const [deleteAddress, setDeleteAddress] = useState("");
+
+
   useEffect(() => {
     dispatch(getAllTerms(adminID, "Term"));
   }, [adminID, dispatch]);
@@ -44,6 +49,24 @@ const ShowTerms = () => {
         dispatch(getAllTerms(adminID, "Term"));
       })
   }
+
+  const handleDeleteClick = (id, address) => {
+    setDeleteID(id);
+    setDeleteAddress(address);
+    setShowConfirmation(true);
+  }
+
+  const handleConfirmDelete = () => {
+    if (deleteID && deleteAddress) {
+      deleteHandler(deleteID, deleteAddress);
+      setShowConfirmation(false);  // Close the confirmation dialog
+    }
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false);  // Close the confirmation dialog without deleting
+  }
+
 
   const termColumns = [
     { id: 'termName', label: 'Year/T', minWidth: 170 },
@@ -72,9 +95,31 @@ const ShowTerms = () => {
 
     return (
       <ButtonContainer>
-        <IconButton onClick={() => deleteHandler(row.id, "Term")} color="secondary">
+        {/* <IconButton onClick={() => handleDeleteClick(row.id, "Term")} color="secondary">
           <DeleteIcon color="error" />
-        </IconButton>
+        </IconButton> */}
+
+        {/* Confirmation Dialog */}
+        <Dialog
+          open={showConfirmation}
+          onClose={handleCancelDelete}
+        >
+          <DialogTitle>Confirm Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to delete this Term Details?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCancelDelete} color="primary">
+              Cancel
+            </Button>
+            <Button onClick={handleConfirmDelete} color="error">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+        
         <BlueButton variant="contained"
           onClick={() => navigate("/Admin/updateterm/" + row.id)}>
           Edit
@@ -102,7 +147,7 @@ const ShowTerms = () => {
     };
     return (
       <>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title="Add Students & Subjects">
             <IconButton
               onClick={handleClick}
@@ -116,7 +161,7 @@ const ShowTerms = () => {
               <SpeedDialIcon />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Box> */}
         <Menu
           anchorEl={anchorEl}
           id="account-menu"
