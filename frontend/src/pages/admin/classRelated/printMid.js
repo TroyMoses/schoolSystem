@@ -271,9 +271,9 @@ const divisionMid = getDivisionMid(totalEndGrade);
             </span>
           </Typography>
           <Typography variant="h6" fontWeight={300} style={{ fontSize: '0.9rem' ,textTransform: 'uppercase'}}>
-                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '4rem' ,textTransform: 'uppercase', }}>
-                    {/* {filteredStudent.sclassName} */}
-                    {sclassDetails && sclassDetails.sclassName}
+                    <span style={{ fontWeight: 900 }}>  CLASS:</span> <span style={{ borderBottom: '2px dotted black', paddingRight: '2rem' ,textTransform: 'uppercase', }}>
+                    {filteredStudent.sclassName}
+                    {/* {sclassDetails && sclassDetails.sclassName} */}
                         </span>
           </Typography>
         </Box>
